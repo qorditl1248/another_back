@@ -1,16 +1,17 @@
-package com.starbucksorder.another_back.dto.request;
+package com.starbucksorder.another_back.dto.request.menu;
 
 import com.starbucksorder.another_back.entity.Test;
 import lombok.Data;
 
 @Data
-public class ReqTestDto {
+public class ReqMenuDto {
 
     private Long categoryId;
     private String categoryName;
     private Long status;
     private String createDate;
     private String updateDate;
+
 
     public Test toEntity() {
         return Test.builder()
@@ -21,5 +22,4 @@ public class ReqTestDto {
                 .updateDate(updateDate)
                 .build();
     }
-
 }

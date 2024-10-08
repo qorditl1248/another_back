@@ -1,4 +1,4 @@
-package com.starbucksorder.another_back.dto.response;
+package com.starbucksorder.another_back.dto.response.test;
 
 import lombok.Builder;
 import lombok.Data;

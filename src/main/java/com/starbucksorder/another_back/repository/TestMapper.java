@@ -13,6 +13,5 @@ public interface TestMapper {
     Test findById(Long categoryId);
     int deleteById(Long categoryId);
     int update(Test test);
-//    List<Test> findAll();
-    Set<TestMenuList> findByCategoryId();
+    List<Test> findAll();
 }

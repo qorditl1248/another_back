@@ -1,6 +1,6 @@
 package com.starbucksorder.another_back.controller;
 
-import com.starbucksorder.another_back.dto.request.ReqTestDto;
+import com.starbucksorder.another_back.dto.request.test.TestDto;
 import com.starbucksorder.another_back.service.TestService;
 import lombok.extern.slf4j.Slf4j;
 import org.springframework.beans.factory.annotation.Autowired;
@@ -16,7 +16,7 @@ public class TestController {
 
     // 등록
     @PostMapping("/test")
-    public ResponseEntity<?> testPost(@RequestBody ReqTestDto dto) {
+    public ResponseEntity<?> testPost(@RequestBody TestDto.ReqDto dto) {
         log.info("요청 받음 : {}", dto);
 
         testService.save(dto);
@@ -30,11 +30,11 @@ public class TestController {
         return ResponseEntity.ok().body(testService.get(categoryId));
     }
 
-//    // 다건 조회
-//    @GetMapping("/test/list")
-//    public ResponseEntity<?> getTests() {
-//        return ResponseEntity.ok().body(testService.getAll());
-//    }
+    // 다건 조회
+    @GetMapping("/test/list")
+    public ResponseEntity<?> getTests() {
+        return ResponseEntity.ok().body(testService.getAll());
+    }
 
 
     // 삭제
@@ -48,20 +48,11 @@ public class TestController {
 
     // 수정
     @PutMapping("/test/{categoryId}")
-    public ResponseEntity<?> update(@RequestBody ReqTestDto dto) {
+    public ResponseEntity<?> update(@RequestBody TestDto.ReqDto dto) {
 
         testService.update(dto);
         return ResponseEntity.ok().body(true);
     }
-
-
-    // 카테고리별 메뉴리스트
-    @GetMapping("/menus")
-    public ResponseEntity<?> getMenusByCategory() {
-        System.out.println("menus");
-        return ResponseEntity.ok().body(testService.getMenus());
-    }
-
 
 
 }

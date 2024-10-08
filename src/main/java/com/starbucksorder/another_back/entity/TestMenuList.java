@@ -14,7 +14,6 @@ import java.util.Set;
 public class TestMenuList {
     private Long menuId;
     private Long categoryId;
-//    private String categoryName;
     private String menuName;
     private String menuPrice;
     private String comment;
@@ -22,9 +21,6 @@ public class TestMenuList {
     private String createDate;
     private String updateDate;
     private String url;
-
-    private Set<TestCategory> testCategory;
-
 
 /*
 TestMenuList:{

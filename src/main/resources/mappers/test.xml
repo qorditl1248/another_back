@@ -14,11 +14,11 @@
     <update id="update">
         update category_tb
         set
-            category_name = #{categoryName},
-            category_status = #{status},
-            update_date = now()
+        category_name = #{categoryName},
+        category_status = #{status},
+        update_date = now()
         where
-            category_id = #{categoryId}
+        category_id = #{categoryId}
     </update>
 
     <delete id="deleteById">
@@ -32,55 +32,9 @@
         where category_id=#{categoryId}
     </select>
 
-<!--    <select id="findAll" resultType="com.starbucksorder.another_back.entity.Test">-->
-<!--        select category_id as categoryId, category_name as categoryName, category_status as status, create_date as createDate, update_date as updateDate-->
-<!--        from category_tb-->
-<!--    </select>-->
-    <resultMap id="menuResultMap" type="com.starbucksorder.another_back.entity.TestMenuList">
-        <id property="menuName" column="menuName" />
-        <result property="menuId" column="menuId" />
-        <result property="categoryId" column="categoryId" />
-        <result property="categoryName" column="categoryName" />
-        <result property="menuPrice" column="menuPrice" />
-        <result property="comment" column="comment" />
-        <result property="status" column="status" />
-        <result property="createDate" column="createDate" />
-        <result property="updateDate" column="updateDate" />
-        <result property="url" column="url" />
+        <select id="findAll" resultType="com.starbucksorder.another_back.entity.Test">
+            select category_id as categoryId, category_name as categoryName, category_status as status, create_date as createDate, update_date as updateDate
+            from category_tb
+        </select>
 
-        <association property="testCategory" resultMap="categoryResultMap" />
-    </resultMap>
-
-    <resultMap id="categoryResultMap" type="com.starbucksorder.another_back.entity.TestCategory">
-        <id property="categoryId" column="categoryId" />
-        <result property="categoryId" column="categoryId" />
-        <result property="categoryName" column="categoryName" />
-        <result property="status" column="status" />
-        <result property="createDate" column="createDate" />
-    </resultMap>
-
-    <select id="findByCategoryId" resultMap="menuResultMap">
-        SELECT
-            ct.category_id as categoryId,
-            ct.category_name as categoryName,
-<!--            ct.category_status as status,-->
-<!--            ct.create_date as createDate,-->
-<!--            ct.update_date as updateDate,-->
-
-            mt.menu_name as menuName,
-            mt.menu_id as menuId,
-<!--            mt.category_id as categoryId,-->
-<!--            mt.menu_price as menuPrice,-->
-<!--            mt.comment as comment,-->
-<!--            mt.menu_status as status,-->
-<!--            mt.create_date as createDate,-->
-<!--            mt.update_date as updateDate,-->
-            mt.img_url as url
-        FROM
-            menu_tb mt
-        LEFT OUTER JOIN category_tb ct on (mt.category_id = ct.category_id)
-        WHERE
-            ct.category_status = 1
-        and mt.menu_status = 1;
-    </select>
 </mapper>
