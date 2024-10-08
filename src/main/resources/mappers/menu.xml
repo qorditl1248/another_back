@@ -1,6 +1,132 @@
-<!--<?xml version="1.0" encoding="UTF-8" ?>-->
-<!--<!DOCTYPE mapper-->
-<!--        PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN"-->
-<!--        "https://mybatis.org/dtd/mybatis-3-mapper.dtd">-->
-<!--<mapper namespace="">-->
-<!--</mapper>-->
+<?xml version="1.0" encoding="UTF-8" ?>
+<!DOCTYPE mapper
+        PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN"
+        "https://mybatis.org/dtd/mybatis-3-mapper.dtd">
+
+<mapper namespace="com.starbucksorder.another_back.repository.MenuMapper">
+
+
+    <resultMap id="categoryResultMap" type="com.starbucksorder.another_back.entity.TestCategory">
+        <id property="categoryId" column="categoryId" />
+        <result property="categoryName" column="categoryName" />
+        <result property="status" column="status" />
+        <result property="createDate" column="createDate" />
+        <result property="updateDate" column="updateDate" />
+        <collection property="testMenuList" javaType="java.util.List" resultMap="testMenuListResultMap" />
+    </resultMap>
+
+    <resultMap id="testMenuListResultMap" type="com.starbucksorder.another_back.entity.TestMenuList">
+        <id property="menuId" column="menuId"/>
+        <result property="categoryId" column="categoryId"/>
+        <result property="menuName" column="menuName"/>
+        <result property="menuPrice" column="menuPrice"/>
+        <result property="comment" column="comment"/>
+        <result property="status" column="status"/>
+        <result property="createDate" column="createDate"/>
+        <result property="updateDate" column="updateDate"/>
+        <result property="url" column="url"/>
+    </resultMap>
+
+
+
+    <select id="findByCategoryId" resultMap="categoryResultMap">
+        SELECT
+            ct.category_id as categoryId,
+            ct.category_name as categoryName,
+            ct.category_status as status,
+            ct.create_date as createDate,
+            ct.update_date as updateDate,
+
+            mt.menu_id as menuId,
+            mt.category_id as categoryId,
+            mt.menu_name as menuName,
+            mt.menu_price as menuPrice,
+            mt.comment as comment,
+            mt.menu_status as status,
+            mt.create_date as createDate,
+            mt.update_date as updateDate,
+            mt.img_url as url
+        FROM
+            category_tb as ct
+        LEFT OUTER JOIN menu_tb mt on (ct.category_id = mt.category_id )
+        WHERE
+            ct.category_status = 1
+            and mt.menu_status = 1;
+    </select>
+
+
+<!---->
+    <resultMap id="menuResultMap" type="com.starbucksorder.another_back.entity.Menu">
+        <id property="menuId" column="menuId"/>
+        <result property="categoryId" column="categoryId"/>
+        <result property="menuName" column="menuName"/>
+        <result property="menuPrice" column="menuPrice"/>
+        <result property="comment" column="comment"/>
+        <result property="status" column="status"/>
+        <result property="createDate" column="createDate"/>
+        <result property="updateDate" column="updateDate"/>
+        <result property="imgUrl" column="imgUrl"/>
+        <collection property="menuDetails" javaType="java.util.Set" resultMap="menuDetailResultMap" />
+    </resultMap>
+
+
+    <resultMap id="menuDetailResultMap" type="com.starbucksorder.another_back.entity.MenuDetail">
+        <id property="menuDetailId" column="menuDetailId" />
+        <result property="menuId" column="menuId" />
+        <result property="optionId" column="optionId" />
+        <collection property="options" javaType="java.util.Set" resultMap="OptionResultMap" />
+    </resultMap>
+
+
+    <resultMap id="OptionResultMap" type="com.starbucksorder.another_back.entity.Option">
+        <id property="optionId" column="optionId" />
+        <result property="optionName" column="optionName" />
+        <result property="createDate" column="createDate" />
+        <result property="updateDate" column="updateDate" />
+        <collection property="optionDetail" javaType="java.util.Set" resultMap="OptionDetailResultMap" />
+    </resultMap>
+
+
+    <resultMap id="OptionDetailResultMap" type="com.starbucksorder.another_back.entity.OptionDetail">
+        <id property="optionDetailId" column="optionDetailId" />
+        <result property="optionId" column="optionId" />
+        <result property="optionDetailValue" column="optionDetailValue" />
+        <result property="optionDetailPrice" column="optionDetailPrice" />
+    </resultMap>
+
+
+
+    <select id="findByMenuId" resultMap="menuResultMap">
+        SELECT
+            mt.menu_id as menuId,
+            mt.category_id as categoryId,
+            mt.menu_name as menuName,
+            mt.menu_price as menuPrice,
+            mt.comment as comment,
+            mt.menu_status as status,
+            mt.create_date as createDate,
+            mt.update_date as updateDate,
+            mt.img_url as imgUrl,
+
+            mdt.menu_detail_id as menuDetailId,
+            mdt.menu_id as menuId,
+            mdt.option_id as optionId,
+
+            ot.option_id as optionId,
+            ot.option_name as optionName,
+            ot.create_date as createDate,
+            ot.update_date as updateDate,
+
+            odt.option_detail_id as optionDetailId,
+            odt.option_id as optionId,
+            odt.option_detail_value as optionDetailValue,
+            odt.option_detail_price as optionDetailPrice
+        FROM
+            menu_tb mt
+        LEFT OUTER JOIN menu_detail_tb mdt on (mdt.menu_id = mt.menu_id)
+        LEFT OUTER JOIN option_tb ot on (ot.option_id = mdt.option_id)
+        LEFT OUTER JOIN option_detail_tb odt on (odt.option_id = ot.option_id)
+        WHERE
+            mt.menu_id = #{menuId}
+    </select>
+</mapper>
