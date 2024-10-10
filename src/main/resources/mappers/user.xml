@@ -1,0 +1,28 @@
+<?xml version="1.0" encoding="UTF-8" ?>
+<!DOCTYPE mapper
+        PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN"
+        "https://mybatis.org/dtd/mybatis-3-mapper.dtd">
+
+<mapper namespace="com.starbucksorder.another_back.repository.UserMapper">
+    <insert id="saveUser">
+        insert into
+            user_tb
+        values(default, #{phoneNumber}, #{memo}, now(), now())
+
+
+    </insert>
+
+
+    <select id="findUserByPhoneNumber" resultType="com.starbucksorder.another_back.entity.User">
+        select
+            user_id as userId,
+            phone_number as phoneNumber,
+            memo as memo,
+            register_date as RegisterDate,
+            update_date as updateDate
+        from
+            user_tb
+        where
+            phone_number = #{phoneNumber}
+    </select>
+</mapper>
