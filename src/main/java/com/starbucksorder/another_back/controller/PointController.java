@@ -4,9 +4,7 @@ import com.starbucksorder.another_back.dto.request.Point.ReqPointDto;
 import com.starbucksorder.another_back.service.PointService;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.http.ResponseEntity;
-import org.springframework.web.bind.annotation.PostMapping;
-import org.springframework.web.bind.annotation.RequestBody;
-import org.springframework.web.bind.annotation.RestController;
+import org.springframework.web.bind.annotation.*;
 
 @RestController
 public class PointController {
@@ -19,5 +17,11 @@ public class PointController {
     public ResponseEntity<?> addPoints(@RequestBody ReqPointDto dto) {
         pointService.addPoints(dto);
         return ResponseEntity.ok().body(true);
+    }
+
+    // 포인트 조회
+    @GetMapping("/points/{userId}")
+    public ResponseEntity<?> getPoints(@PathVariable Long userId) {
+        return ResponseEntity.ok().body(pointService.getPoints(userId));
     }
 }

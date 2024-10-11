@@ -1,8 +1,9 @@
 package com.starbucksorder.another_back.dto.request.menu;
 
-import com.starbucksorder.another_back.entity.Test;
+import com.starbucksorder.another_back.entity.Menu;
 import lombok.Data;
 
+// 쓰고있는곳이 있나......???????????
 @Data
 public class ReqMenuDto {
 
@@ -13,13 +14,13 @@ public class ReqMenuDto {
     private String updateDate;
 
 
-    public Test toEntity() {
-        return Test.builder()
+    public Menu toEntity() {
+        return Menu.builder()
                 .categoryId(categoryId)
-                .categoryName(categoryName)
+//                .categoryName(categoryName)
                 .status(status)
-                .createDate(createDate)
-                .updateDate(updateDate)
+//                .createDate(createDate)
+//                .updateDate(updateDate)
                 .build();
     }
 }

@@ -7,9 +7,7 @@
     <insert id="saveUser">
         insert into
             user_tb
-        values(default, #{phoneNumber}, #{memo}, now(), now())
-
-
+        values(default, #{phoneNumber}, null, now(), now())
     </insert>
 
 

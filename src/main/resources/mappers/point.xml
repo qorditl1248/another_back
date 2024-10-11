@@ -9,6 +9,17 @@
         insert into
             point_tb
         values(default, #{userId}, #{point})
-
     </insert>
+
+
+    <select id="getPoints" resultType="com.starbucksorder.another_back.entity.Point">
+        select
+            point_id as pointId,
+            user_id as userId,
+            sum(point) as point
+        from
+            point_tb
+        where
+            user_id = #{userId}
+    </select>
 </mapper>

@@ -9,5 +9,11 @@ import java.util.ArrayList;
 @Builder
 @Data
 public class RespMenuListDto {
-    ArrayList<Menu> menuList;
+    private Long menuId;
+    private Long categoryId;
+    private String menuName;
+    private Double menuPrice;
+
+
+    ArrayList<RespMenuListDto> menuList;
 }

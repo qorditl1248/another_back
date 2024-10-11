@@ -6,10 +6,7 @@ import java.util.Date;
 
 @Data
 public class ReqPointDto {
-
     private String phoneNumber;
     private Long cartId;
-    private int point;
-    private String memo;
-
+    private int total; // 포트원에서 주는 총금액
 }

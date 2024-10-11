@@ -7,5 +7,5 @@ import org.apache.ibatis.annotations.Mapper;
 @Mapper
 public interface UserMapper {
     User findUserByPhoneNumber(String phoneNumber);
-    int saveUser(ReqPointDto dto);
+    int saveUser(String phoneNumber);
 }
