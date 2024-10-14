@@ -18,4 +18,6 @@ public class User {
     private String memo;
     private Date RegisterDate;
     private Date UpdateDate;
+
+
 }

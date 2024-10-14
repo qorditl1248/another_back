@@ -58,7 +58,6 @@
 <!---->
     <resultMap id="menuResultMap" type="com.starbucksorder.another_back.entity.Menu">
         <id property="menuId" column="menuId"/>
-        <result property="categoryId" column="categoryId"/>
         <result property="menuName" column="menuName"/>
         <result property="menuPrice" column="menuPrice"/>
         <result property="comment" column="comment"/>
@@ -99,7 +98,6 @@
     <select id="findByMenuId" resultMap="menuResultMap">
         SELECT
             mt.menu_id as menuId,
-            mt.category_id as categoryId,
             mt.menu_name as menuName,
             mt.menu_price as menuPrice,
             mt.comment as comment,
@@ -143,7 +141,6 @@
 
     <resultMap id="menuListResultMap" type="com.starbucksorder.another_back.entity.Menu">
         <id property="menuId" column="menuId"/>
-        <result property="categoryId" column="categoryId"/>
         <result property="menuName" column="menuName"/>
         <result property="menuPrice" column="menuPrice"/>
         <result property="comment" column="comment"/>
@@ -164,7 +161,6 @@
             ct.update_date as updateDate,
 
             mt.menu_id as menuId,
-            mt.category_id as categoryId,
             mt.menu_name as menuName,
             mt.menu_price as menuPrice,
             mt.comment as comment,
@@ -184,7 +180,6 @@
     <select id="findAllByStartIndexAndLimit" resultType="com.starbucksorder.another_back.entity.Menu">
         select
             menu_id as menuId,
-            category_id as categoryId,
             menu_name as menuName,
             menu_price as menuPrice,
             menu_status as Status,

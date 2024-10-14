@@ -8,7 +8,14 @@
     <insert id="save">
         insert into
             point_tb
-        values(default, #{userId}, #{point})
+        values(default, #{userId}, #{point}, 1)
+    </insert>
+
+
+    <insert id="usePoints">
+        insert into
+            point_tb
+        values(default, #{userId}, -1*#{point}, 2)
     </insert>
 
 

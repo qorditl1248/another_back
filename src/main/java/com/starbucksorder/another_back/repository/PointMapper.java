@@ -9,4 +9,5 @@ public interface PointMapper {
 //    int save(ReqPointDto dto);
     int save(Long userId, int point);
     Point getPoints(Long userId);
+    int usePoints(Long userId, int point);
 }
