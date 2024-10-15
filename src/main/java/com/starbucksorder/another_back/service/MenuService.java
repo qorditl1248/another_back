@@ -10,9 +10,7 @@ import com.starbucksorder.another_back.repository.MenuMapper;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
 
-import java.util.ArrayList;
 import java.util.List;
-import java.util.stream.Collectors;
 
 @Service
 public class MenuService {
@@ -47,17 +45,14 @@ public class MenuService {
 
     //  카테고리별 메뉴리스트 종류 -> 24개씩
     public RespMenuListByCategoryIdDto getMenuList(ReqMenuListDto dto) {
-        Long startIndex = ( dto.getPage() - 1 ) * dto.getLimit();
-        List<Menu> menuLists =  menuMapper.findAllByStartIndexAndLimit(dto.getCategoryId(), startIndex, dto.getLimit());
+        Long startIndex = (dto.getPage() - 1) * dto.getLimit();
+        List<Menu> menuLists = menuMapper.findAllByStartIndexAndLimit(dto.getCategoryId(), startIndex, dto.getLimit());
 
         return RespMenuListByCategoryIdDto.builder()
                 .menus(menuLists)
                 .build();
 
     }
-
-
-
 
 
     // 메뉴id 별 메뉴상세정보
@@ -76,8 +71,5 @@ public class MenuService {
                 .menuDetailList(details)
                 .build();
     }
-
-
-
 
 }

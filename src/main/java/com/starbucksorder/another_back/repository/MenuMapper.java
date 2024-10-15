@@ -20,6 +20,6 @@ public interface MenuMapper {
             @Param("limit") Long limit
     );
 
-
     Menu findByMenuId(Long menuId);
+
 }

@@ -93,8 +93,6 @@
         <result property="optionDetailPrice" column="optionDetailPrice" />
     </resultMap>
 
-
-
     <select id="findByMenuId" resultMap="menuResultMap">
         SELECT
             mt.menu_id as menuId,

@@ -4,10 +4,7 @@ import com.starbucksorder.another_back.dto.request.menu.ReqMenuListDto;
 import com.starbucksorder.another_back.service.MenuService;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.http.ResponseEntity;
-import org.springframework.web.bind.annotation.GetMapping;
-import org.springframework.web.bind.annotation.PathVariable;
-import org.springframework.web.bind.annotation.RequestBody;
-import org.springframework.web.bind.annotation.RestController;
+import org.springframework.web.bind.annotation.*;
 
 @RestController
 public class MenuController {
@@ -32,7 +29,7 @@ public class MenuController {
 
     // 카테고리별 메뉴리스트 종류 -> 12개씩
     @GetMapping("/menu/category/menus")
-    public ResponseEntity<?> getMenuList(@RequestBody ReqMenuListDto dto) {
+    public ResponseEntity<?> getMenuList(ReqMenuListDto dto) {
         return ResponseEntity.ok().body(menuService.getMenuList(dto));
     }
 
