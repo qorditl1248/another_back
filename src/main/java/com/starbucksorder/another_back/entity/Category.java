@@ -1,25 +1,26 @@
 package com.starbucksorder.another_back.entity;
 
-
+import com.fasterxml.jackson.annotation.JsonIgnore;
 import lombok.AllArgsConstructor;
 import lombok.Builder;
 import lombok.Data;
 import lombok.NoArgsConstructor;
 
+import java.util.Date;
 import java.util.List;
-import java.util.Set;
-
 
 @Builder
 @NoArgsConstructor
 @AllArgsConstructor
 @Data
-public class TestCategory {
+public class Category {
     private Long categoryId;
     private String categoryName;
-    private Long status;
-    private String createDate;
-    private String updateDate;
+    private Long categoryStatus;
+    @JsonIgnore
+    private Date createDate;
+    @JsonIgnore
+    private Date updateDate;
 
-    private List<TestMenuList> testMenuList;
+    private List<Menu> menuList;
 }

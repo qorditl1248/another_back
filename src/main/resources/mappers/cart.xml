@@ -1,0 +1,23 @@
+<?xml version="1.0" encoding="UTF-8" ?>
+<!DOCTYPE mapper
+        PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN"
+        "https://mybatis.org/dtd/mybatis-3-mapper.dtd">
+
+<mapper namespace="com.starbucksorder.another_back.repository.CartMapper">
+    <insert id="saveCartType" keyProperty="cartId" useGeneratedKeys="true">
+        insert into
+            order_tb
+        values(default, default, #{orderType}, now())
+    </insert>
+
+    <select id="getCartId" resultType="java.lang.Long">
+        select
+            cart_id
+        from
+            order_tb
+        where
+            cart_id = #{cartId}
+    </select>
+
+
+</mapper>

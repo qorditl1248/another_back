@@ -1,0 +1,32 @@
+<?xml version="1.0" encoding="UTF-8" ?>
+<!DOCTYPE mapper
+        PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN"
+        "https://mybatis.org/dtd/mybatis-3-mapper.dtd">
+
+<mapper namespace="com.starbucksorder.another_back.repository.PointMapper">
+
+    <insert id="save">
+        insert into
+            point_tb
+        values(default, #{userId}, #{point}, 1)
+    </insert>
+
+
+    <insert id="usePoints">
+        insert into
+            point_tb
+        values(default, #{userId}, -1*#{point}, 2)
+    </insert>
+
+
+    <select id="getPoints" resultType="com.starbucksorder.another_back.entity.Point">
+        select
+            point_id as pointId,
+            user_id as userId,
+            sum(point) as point
+        from
+            point_tb
+        where
+            user_id = #{userId}
+    </select>
+</mapper>

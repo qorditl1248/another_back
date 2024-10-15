@@ -5,14 +5,16 @@ import lombok.Builder;
 import lombok.Data;
 import lombok.NoArgsConstructor;
 
+import java.util.Date;
+
+
 @Builder
 @NoArgsConstructor
 @AllArgsConstructor
 @Data
-public class Test {
-    private Long categoryId;
-    private String categoryName;
-    private Long status;
-    private String createDate;
-    private String updateDate;
+public class Cart {
+    private Long cartId;
+    private Long userId;
+    private Long orderType;
+    private Date createDate;
 }
