@@ -6,6 +6,7 @@ import com.starbucksorder.another_back.dto.response.menu.RespMenuDto;
 import com.starbucksorder.another_back.dto.response.menu.RespMenuListByCategoryIdDto;
 import com.starbucksorder.another_back.entity.Menu;
 import com.starbucksorder.another_back.entity.MenuDetail;
+import com.starbucksorder.another_back.entity.OptionDetail;
 import com.starbucksorder.another_back.repository.MenuMapper;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
@@ -47,9 +48,11 @@ public class MenuService {
     public RespMenuListByCategoryIdDto getMenuList(ReqMenuListDto dto) {
         Long startIndex = (dto.getPage() - 1) * dto.getLimit();
         List<Menu> menuLists = menuMapper.findAllByStartIndexAndLimit(dto.getCategoryId(), startIndex, dto.getLimit());
+        Integer menuTotalCount = menuMapper.getCountAllBySearch(dto.getCategoryId());
 
         return RespMenuListByCategoryIdDto.builder()
                 .menus(menuLists)
+                .totalCount(menuTotalCount)
                 .build();
 
     }
@@ -60,6 +63,7 @@ public class MenuService {
         Menu selectedMenu = menuMapper.findByMenuId(menuId);
 
         List<MenuDetail> details = selectedMenu.getMenuDetails();
+//        List<OptionDetail> options = selectedMenu.getMenuDetails().getOptions().getOptions();
 
 
         return RespMenuDto.builder()

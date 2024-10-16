@@ -7,4 +7,5 @@ public class ReqMenuListDto {
     private Long categoryId;
     private Long page;
     private Long limit;
+
 }

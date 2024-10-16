@@ -12,7 +12,8 @@
             category_name as categoryName,
             category_status as categoryStatus,
             create_date as createDate,
-            update_date as updateDate
+            update_date as updateDate,
+            category_seq as categorySeq
         from
             category_tb
         order by
