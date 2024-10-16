@@ -61,10 +61,8 @@ public class MenuService {
     // 메뉴id 별 메뉴상세정보
     public RespMenuDto getMenu(Long menuId) {
         Menu selectedMenu = menuMapper.findByMenuId(menuId);
-        System.out.println(selectedMenu);
 
         List<MenuDetail> details = selectedMenu.getMenuDetails();
-        System.out.println(details);
 //        List<OptionDetail> options = selectedMenu.getMenuDetails().getOptions().getOptions();
 
 

@@ -21,6 +21,7 @@ public class Category {
     private Date createDate;
     @JsonIgnore
     private Date updateDate;
+    private int categorySeq;
 
     private List<Menu> menuList;
 }
