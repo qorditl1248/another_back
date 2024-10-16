@@ -1,6 +1,6 @@
 package com.starbucksorder.another_back.controller;
 
-import com.starbucksorder.another_back.dto.request.menu.ReqMenuListDto;
+import com.starbucksorder.another_back.dto.user.request.menu.ReqMenuListDto;
 import com.starbucksorder.another_back.service.MenuService;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.http.ResponseEntity;

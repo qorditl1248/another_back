@@ -1,4 +1,4 @@
-package com.starbucksorder.another_back.dto.request.menu;
+package com.starbucksorder.another_back.dto.user.request.menu;
 
 import lombok.Data;
 

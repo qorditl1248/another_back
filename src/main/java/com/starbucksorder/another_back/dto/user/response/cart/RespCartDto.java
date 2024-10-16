@@ -1,4 +1,4 @@
-package com.starbucksorder.another_back.dto.response.cart;
+package com.starbucksorder.another_back.dto.user.response.cart;
 
 
 import lombok.AllArgsConstructor;

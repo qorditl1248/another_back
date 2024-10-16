@@ -1,4 +1,4 @@
-package com.starbucksorder.another_back.dto.response.point;
+package com.starbucksorder.another_back.dto.user.response.point;
 
 import lombok.Builder;
 import lombok.Data;

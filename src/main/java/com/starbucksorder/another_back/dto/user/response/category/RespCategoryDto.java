@@ -1,4 +1,4 @@
-package com.starbucksorder.another_back.dto.response.category;
+package com.starbucksorder.another_back.dto.user.response.category;
 
 
 import com.starbucksorder.another_back.entity.Category;
