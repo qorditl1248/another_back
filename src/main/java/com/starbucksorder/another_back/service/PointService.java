@@ -5,6 +5,7 @@ import com.starbucksorder.another_back.dto.user.request.Point.ReqUsePointDto;
 import com.starbucksorder.another_back.dto.user.response.point.RespPointDto;
 import com.starbucksorder.another_back.entity.Point;
 import com.starbucksorder.another_back.entity.User;
+//import com.starbucksorder.another_back.exception.UserNotFoundException;
 import com.starbucksorder.another_back.exception.UserNotFoundException;
 import com.starbucksorder.another_back.repository.PointMapper;
 import com.starbucksorder.another_back.repository.UserMapper;
