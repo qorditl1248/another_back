@@ -21,5 +21,6 @@ public class RespMenuListByCategoryIdDto {
 //    private String imgUrl;
 
     List<Menu> menus;
+    private Integer totalCount;
 
 }
