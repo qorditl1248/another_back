@@ -15,5 +15,7 @@
             update_date as updateDate
         from
             category_tb
+        order by
+            category_seq
     </select>
 </mapper>

@@ -177,15 +177,20 @@
 
     <select id="findAllByStartIndexAndLimit" resultType="com.starbucksorder.another_back.entity.Menu">
         select
-            menu_id as menuId,
-            menu_name as menuName,
-            menu_price as menuPrice,
-            menu_status as Status,
-            img_url as imgurl
+            mt.menu_id as menuId,
+            mt.menu_name as menuName,
+            mt.menu_price as menuPrice,
+            mt.comment as comment,
+            mt.menu_status as status,
+            mt.create_date as createDate,
+            mt.update_date as updateDate,
+            mt.img_url as imgurl
         from
-            menu_tb
+            menu_tb as mt
+            left outer join menu_category_tb mct on (mt.menu_id = mct.menu_id)
+            left outer join category_tb ct on (mct.category_id = ct.category_id)
         where
-            category_id = #{categoryId}
+            mct.category_id = #{categoryId}
         limit #{startIndex}, #{limit}
     </select>
 
