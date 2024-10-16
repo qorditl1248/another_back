@@ -202,8 +202,8 @@
             count(mt.menu_id) as menuId
         from
             menu_tb as mt
-        left outer join menu_category_tb mct on (mt.menu_id = mct.menu_id)
-        left outer join category_tb ct on (mct.category_id = ct.category_id)
+            left outer join menu_category_tb mct on (mt.menu_id = mct.menu_id)
+            left outer join category_tb ct on (mct.category_id = ct.category_id)
         where
             mct.category_id = #{categoryId}
     </select>

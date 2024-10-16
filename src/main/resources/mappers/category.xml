@@ -16,6 +16,7 @@
             category_seq as categorySeq
         from
             category_tb
-        order by categorySeq
+        order by
+            category_seq
     </select>
 </mapper>
