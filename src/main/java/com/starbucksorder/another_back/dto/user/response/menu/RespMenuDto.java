@@ -1,4 +1,4 @@
-package com.starbucksorder.another_back.dto.response.menu;
+package com.starbucksorder.another_back.dto.user.response.menu;
 
 import com.fasterxml.jackson.annotation.JsonIgnore;
 import com.starbucksorder.another_back.entity.Menu;

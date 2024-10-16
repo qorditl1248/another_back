@@ -18,6 +18,4 @@
         where
             cart_id = #{cartId}
     </select>
-
-
 </mapper>

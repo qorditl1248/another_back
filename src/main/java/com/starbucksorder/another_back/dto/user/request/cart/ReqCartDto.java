@@ -1,4 +1,4 @@
-package com.starbucksorder.another_back.dto.request.cart;
+package com.starbucksorder.another_back.dto.user.request.cart;
 
 import com.starbucksorder.another_back.entity.Cart;
 import lombok.Data;

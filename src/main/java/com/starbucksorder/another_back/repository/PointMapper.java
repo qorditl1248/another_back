@@ -1,6 +1,5 @@
 package com.starbucksorder.another_back.repository;
 
-import com.starbucksorder.another_back.dto.request.Point.ReqPointDto;
 import com.starbucksorder.another_back.entity.Point;
 import org.apache.ibatis.annotations.Mapper;
 

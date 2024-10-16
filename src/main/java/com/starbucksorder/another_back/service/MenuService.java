@@ -1,12 +1,11 @@
 package com.starbucksorder.another_back.service;
 
 
-import com.starbucksorder.another_back.dto.request.menu.ReqMenuListDto;
-import com.starbucksorder.another_back.dto.response.menu.RespMenuDto;
-import com.starbucksorder.another_back.dto.response.menu.RespMenuListByCategoryIdDto;
+import com.starbucksorder.another_back.dto.user.request.menu.ReqMenuListDto;
+import com.starbucksorder.another_back.dto.user.response.menu.RespMenuDto;
+import com.starbucksorder.another_back.dto.user.response.menu.RespMenuListByCategoryIdDto;
 import com.starbucksorder.another_back.entity.Menu;
 import com.starbucksorder.another_back.entity.MenuDetail;
-import com.starbucksorder.another_back.entity.OptionDetail;
 import com.starbucksorder.another_back.repository.MenuMapper;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
