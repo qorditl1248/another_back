@@ -41,7 +41,6 @@ public class JwtFilter extends GenericFilter {
         if (admin == null) {
             throw new JwtException("user Not Found");
         }
-
         PrincipalUser principalUser = admin.toPrincipal();
         Authentication authentication = new UsernamePasswordAuthenticationToken(principalUser,null,principalUser.getAuthorities());
         SecurityContextHolder.getContext().setAuthentication(authentication);
