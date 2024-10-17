@@ -73,7 +73,7 @@
         <id property="menuDetailId" column="menuDetailId" />
         <result property="menuId" column="menuId" />
         <result property="optionId" column="optionId" />
-        <collection property="options" javaType="java.util.List" resultMap="OptionResultMap" />
+        <association property="option" resultMap="OptionResultMap" />
     </resultMap>
 
 
