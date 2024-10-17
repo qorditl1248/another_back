@@ -9,9 +9,11 @@ import lombok.NoArgsConstructor;
 @NoArgsConstructor
 @AllArgsConstructor
 @Data
-public class Point {
-    private Long pointId;
-    private Long userId;
-    private int point;
+public class OrderDetail {
 
+    private Long cartItemId;
+    private Long orderId;
+    private Long menuId;
+    private int quantity;
+    private String orderComment;
 }
