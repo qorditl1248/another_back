@@ -3,6 +3,7 @@ package com.starbucksorder.another_back.config;
 import com.starbucksorder.another_back.security.filter.JwtFilter;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.context.annotation.Configuration;
+import org.springframework.http.HttpMethod;
 import org.springframework.security.config.annotation.web.builders.HttpSecurity;
 import org.springframework.security.config.annotation.web.configuration.EnableWebSecurity;
 import org.springframework.security.config.annotation.web.configuration.WebSecurityConfigurerAdapter;
@@ -20,9 +21,10 @@ public class SecurityConfig extends WebSecurityConfigurerAdapter {
         http.cors();
         http.sessionManagement().sessionCreationPolicy(SessionCreationPolicy.STATELESS);
         http.authorizeRequests()
-                .antMatchers("/auth/signin", "/auth/signup", "/auth/login").permitAll()
-                .antMatchers("/auth/**", "/admin/**").authenticated()
-                .anyRequest().permitAll();
+                .antMatchers("/auth/signin").permitAll()
+                .antMatchers(HttpMethod.GET, "/menu/**").permitAll()
+                .anyRequest().permitAll()
+                .antMatchers("/admin/**").authenticated();
         // exceptionHandling
         // jwtFilter
         http.addFilterBefore(jwtFilter, UsernamePasswordAuthenticationFilter.class);
