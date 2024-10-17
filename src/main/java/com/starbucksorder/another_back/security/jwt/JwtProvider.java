@@ -8,12 +8,12 @@ import io.jsonwebtoken.SignatureAlgorithm;
 import io.jsonwebtoken.io.Decoders;
 import io.jsonwebtoken.security.Keys;
 import org.springframework.beans.factory.annotation.Value;
-import org.springframework.context.annotation.Configuration;
+import org.springframework.stereotype.Component;
 
 import java.security.Key;
 import java.util.Date;
 
-@Configuration
+@Component
 public class JwtProvider {
     private final Key key;
 
@@ -26,6 +26,7 @@ public class JwtProvider {
     }
 
     public String generateToken(Admin admin) {
+        System.out.println(admin.getAdminId());
         return Jwts.builder()
                 .claim("adminId", admin.getAdminId())
                 .signWith(key, SignatureAlgorithm.HS256)
