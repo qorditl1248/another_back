@@ -24,7 +24,6 @@ public class Admin {
     private Set<UserRoles> userRoles;
 
     // xml 구현
-
     public PrincipalUser toPrincipal() {
         return PrincipalUser.builder()
                 .id(getAdminId())

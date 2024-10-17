@@ -27,24 +27,26 @@ public class JwtFilter extends GenericFilter {
     public void doFilter(ServletRequest request, ServletResponse response, FilterChain chain) throws IOException, ServletException {
         HttpServletRequest httpServletRequest = (HttpServletRequest) request;
         String bearerToken = httpServletRequest.getHeader("Authorization");
+        System.out.println("bearerToken: " + bearerToken);
         if (bearerToken == null) {
             chain.doFilter(request, response);
+            return;
         }
         String token = jwtProvider.removeBearerToken(bearerToken);
-
         Claims payLoad = jwtProvider.parseToken(token);
+
         Long adminId = ((Integer) payLoad.get("adminId")).longValue();
-        System.out.println(adminId);
+
         Admin admin = adminMapper.findById(adminId);
         if (admin == null) {
             throw new JwtException("user Not Found");
         }
+
         PrincipalUser principalUser = admin.toPrincipal();
         Authentication authentication = new UsernamePasswordAuthenticationToken(principalUser,null,principalUser.getAuthorities());
         SecurityContextHolder.getContext().setAuthentication(authentication);
-        
-        // 예외처리 구현
 
+        // 예외처리 구현
         chain.doFilter(request, response);
     }
 }

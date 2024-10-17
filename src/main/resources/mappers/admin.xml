@@ -4,15 +4,15 @@
         "https://mybatis.org/dtd/mybatis-3-mapper.dtd">
 
 <mapper namespace="com.starbucksorder.another_back.repository.AdminMapper">
-    <select id="findByUserName" resultType="com.starbucksorder.another_back.entity.Admin">
+    <select id="findById" resultType="com.starbucksorder.another_back.entity.Admin">
         SELECT
             *
         FROM
             admin_tb
         WHERE
-            username = #{username}
+            admin_id = #{adminId}
     </select>
-    <select id="findById" resultMap="adminResultMap">
+    <select id="findByUserName" resultMap="adminResultMap">
         SELECT
             amt.admin_id,
             amt.username,
@@ -31,8 +31,7 @@
             LEFT OUTER JOIN user_role_tb urt on (urt.user_id = amt.admin_id)
             LEFT OUTER JOIN role_tb rt on (rt.role_id = urt.role_id)
         WHERE
-<!--            amt.admin_id = #{adminId}-->
-                amt.username = #{username}
+            amt.username = #{username}
     </select>
 
     <resultMap id="adminResultMap" type="com.starbucksorder.another_back.entity.Admin">

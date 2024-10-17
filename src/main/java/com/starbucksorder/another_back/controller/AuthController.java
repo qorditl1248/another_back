@@ -18,7 +18,6 @@ public class AuthController {
     // 로그인
     @PostMapping("/signin")
     public ResponseEntity<?> signIn(@RequestBody ReqSigninDto dto){
-        authService.signin(dto);
-        return ResponseEntity.ok().body("success");
+        return ResponseEntity.ok().body(authService.signin(dto));
     }
 }

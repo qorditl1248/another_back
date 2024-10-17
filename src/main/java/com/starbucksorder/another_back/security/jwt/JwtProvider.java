@@ -26,7 +26,7 @@ public class JwtProvider {
     }
 
     public String generateToken(Admin admin) {
-        System.out.println(admin.getAdminId());
+        System.out.println("amdinId :" + admin.getAdminId());
         return Jwts.builder()
                 .claim("adminId", admin.getAdminId())
                 .signWith(key, SignatureAlgorithm.HS256)
