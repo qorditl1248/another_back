@@ -1,10 +1,11 @@
 package com.starbucksorder.another_back.service;
 
-import com.starbucksorder.another_back.dto.request.Point.ReqPointDto;
-import com.starbucksorder.another_back.dto.request.Point.ReqUsePointDto;
-import com.starbucksorder.another_back.dto.response.point.RespPointDto;
+import com.starbucksorder.another_back.dto.user.request.Point.ReqPointDto;
+import com.starbucksorder.another_back.dto.user.request.Point.ReqUsePointDto;
+import com.starbucksorder.another_back.dto.user.response.point.RespPointDto;
 import com.starbucksorder.another_back.entity.Point;
 import com.starbucksorder.another_back.entity.User;
+//import com.starbucksorder.another_back.exception.UserNotFoundException;
 import com.starbucksorder.another_back.exception.UserNotFoundException;
 import com.starbucksorder.another_back.repository.PointMapper;
 import com.starbucksorder.another_back.repository.UserMapper;

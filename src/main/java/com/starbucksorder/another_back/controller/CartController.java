@@ -1,6 +1,6 @@
 package com.starbucksorder.another_back.controller;
 
-import com.starbucksorder.another_back.dto.request.cart.ReqCartDto;
+import com.starbucksorder.another_back.dto.user.request.cart.ReqCartDto;
 import com.starbucksorder.another_back.service.CartService;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.http.ResponseEntity;

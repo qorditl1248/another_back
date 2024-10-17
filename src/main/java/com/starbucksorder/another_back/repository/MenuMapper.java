@@ -15,10 +15,13 @@ public interface MenuMapper {
 
     // 카테고리별 메뉴리스트 -> 12개씩
     List<Menu> findAllByStartIndexAndLimit(
-            Long categoryId,
+            @Param("categoryId") Long categoryId,
             @Param("startIndex") Long startIndex,
             @Param("limit") Long limit
     );
+
+    int getCountAllBySearch(Long categoryId);
+
 
     Menu findByMenuId(Long menuId);
 

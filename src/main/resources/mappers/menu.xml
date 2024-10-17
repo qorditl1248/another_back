@@ -128,36 +128,57 @@
 
 
 <!---->
-    <resultMap id="categoryIdResultMap" type="com.starbucksorder.another_back.entity.Category">
-        <id property="categoryId" column="categoryId" />
-        <result property="categoryName" column="categoryName" />
-        <result property="categoryStatus" column="categoryStatus" />
-        <result property="createDate" column="createDate" />
-        <result property="updateDate" column="updateDate" />
-        <collection property="menuList" javaType="java.util.List" resultMap="menuListResultMap" />
-    </resultMap>
+<!--    <resultMap id="categoryIdResultMap" type="com.starbucksorder.another_back.entity.Category">-->
+<!--        <id property="categoryId" column="categoryId" />-->
+<!--        <result property="categoryName" column="categoryName" />-->
+<!--        <result property="categoryStatus" column="categoryStatus" />-->
+<!--        <result property="createDate" column="createDate" />-->
+<!--        <result property="updateDate" column="updateDate" />-->
+<!--        <collection property="menuList" javaType="java.util.List" resultMap="menuListResultMap" />-->
+<!--    </resultMap>-->
 
-    <resultMap id="menuListResultMap" type="com.starbucksorder.another_back.entity.Menu">
-        <id property="menuId" column="menuId"/>
-        <result property="menuName" column="menuName"/>
-        <result property="menuPrice" column="menuPrice"/>
-        <result property="comment" column="comment"/>
-        <result property="status" column="status"/>
-        <result property="createDate" column="createDate"/>
-        <result property="updateDate" column="updateDate"/>
-        <result property="imgUrl" column="imgUrl"/>
-    </resultMap>
+<!--    <resultMap id="menuListResultMap" type="com.starbucksorder.another_back.entity.Menu">-->
+<!--        <id property="menuId" column="menuId"/>-->
+<!--        <result property="menuName" column="menuName"/>-->
+<!--        <result property="menuPrice" column="menuPrice"/>-->
+<!--        <result property="comment" column="comment"/>-->
+<!--        <result property="status" column="status"/>-->
+<!--        <result property="createDate" column="createDate"/>-->
+<!--        <result property="updateDate" column="updateDate"/>-->
+<!--        <result property="imgUrl" column="imgUrl"/>-->
+<!--    </resultMap>-->
 
 
 
-    <select id="findByCategoryId" resultType="com.starbucksorder.another_back.entity.Menu">
-        SELECT
-            ct.category_id as categoryId,
-            ct.category_name as categoryName,
-            ct.category_status as status,
-            ct.create_date as createDate,
-            ct.update_date as updateDate,
+<!--    <select id="findByCategoryId" resultType="com.starbucksorder.another_back.entity.Menu">-->
+<!--        SELECT-->
+<!--            ct.category_id as categoryId,-->
+<!--            ct.category_name as categoryName,-->
+<!--            ct.category_status as status,-->
+<!--            ct.create_date as createDate,-->
+<!--            ct.update_date as updateDate,-->
 
+<!--            mt.menu_id as menuId,-->
+<!--            mt.menu_name as menuName,-->
+<!--            mt.menu_price as menuPrice,-->
+<!--            mt.comment as comment,-->
+<!--            mt.menu_status as status,-->
+<!--            mt.create_date as createDate,-->
+<!--            mt.update_date as updateDate,-->
+<!--            mt.img_url as url-->
+<!--        FROM-->
+<!--            category_tb as ct-->
+<!--        LEFT OUTER JOIN menu_tb mt on (ct.category_id = mt.category_id )-->
+<!--        WHERE-->
+<!--            ct.category_id = #{categoryId}-->
+<!--            and ct.category_status = 1-->
+<!--            and mt.menu_status = 1;-->
+<!--    </select>-->
+<!--    -->
+
+<!--    -->
+    <select id="findAllByStartIndexAndLimit" resultType="com.starbucksorder.another_back.entity.Menu">
+        select
             mt.menu_id as menuId,
             mt.menu_name as menuName,
             mt.menu_price as menuPrice,
@@ -165,28 +186,26 @@
             mt.menu_status as status,
             mt.create_date as createDate,
             mt.update_date as updateDate,
-            mt.img_url as url
-        FROM
-            category_tb as ct
-        LEFT OUTER JOIN menu_tb mt on (ct.category_id = mt.category_id )
-        WHERE
-            ct.category_id = #{categoryId}
-            and ct.category_status = 1
-            and mt.menu_status = 1;
+            mt.img_url as imgurl
+        from
+            menu_tb as mt
+        left outer join menu_category_tb mct on (mt.menu_id = mct.menu_id)
+        left outer join category_tb ct on (mct.category_id = ct.category_id)
+        where
+        mct.category_id = #{categoryId}
+        limit #{startIndex}, #{limit}
     </select>
 
-    <select id="findAllByStartIndexAndLimit" resultType="com.starbucksorder.another_back.entity.Menu">
+<!--    -->
+    <select id="getCountAllBySearch" resultType="java.lang.Integer">
         select
-            menu_id as menuId,
-            menu_name as menuName,
-            menu_price as menuPrice,
-            menu_status as Status,
-            img_url as imgurl
+            count(mt.menu_id) as menuId
         from
-            menu_tb
+            menu_tb as mt
+            left outer join menu_category_tb mct on (mt.menu_id = mct.menu_id)
+            left outer join category_tb ct on (mct.category_id = ct.category_id)
         where
-            category_id = #{categoryId}
-        limit #{startIndex}, #{limit}
+            mct.category_id = #{categoryId}
     </select>
 
 </mapper>
