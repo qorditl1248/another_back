@@ -4,11 +4,13 @@ import com.starbucksorder.another_back.entity.UserRoles;
 import lombok.Builder;
 import lombok.Data;
 import org.springframework.security.core.GrantedAuthority;
+import org.springframework.security.core.authority.SimpleGrantedAuthority;
 import org.springframework.security.core.userdetails.UserDetails;
 
 import java.util.Collection;
 import java.util.List;
 import java.util.Set;
+import java.util.stream.Collectors;
 
 @Data
 @Builder
@@ -20,7 +22,7 @@ public class PrincipalUser implements UserDetails {
     @Override
     public Collection<? extends GrantedAuthority> getAuthorities() {
         // 권한 로직구현
-        return List.of();
+        return userRoles.stream().map(ur -> new SimpleGrantedAuthority(ur.getRole().getName())).collect(Collectors.toSet());
     }
 
     @Override
