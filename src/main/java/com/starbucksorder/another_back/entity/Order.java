@@ -12,9 +12,12 @@ import java.util.Date;
 @NoArgsConstructor
 @AllArgsConstructor
 @Data
-public class Cart {
-    private Long cartId;
+public class Order {
+    private Long orderId;
     private Long userId;
+    private Long paymentId;
     private Long orderType;
+    private int orderAmount; // 전체 주문 금액
+    private Long orderState; // 결제 완료 or 취소
     private Date createDate;
 }

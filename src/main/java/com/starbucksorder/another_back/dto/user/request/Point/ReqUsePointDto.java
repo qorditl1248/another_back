@@ -5,7 +5,6 @@ import lombok.Data;
 @Data
 public class ReqUsePointDto {
 
-    private String phoneNumber;
+    private Long userId;
     private int point;
-    private Long pointType;
 }

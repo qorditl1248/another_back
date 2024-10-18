@@ -1,6 +1,6 @@
 package com.starbucksorder.another_back.controller;
 
-import com.starbucksorder.another_back.dto.user.request.cart.ReqCartDto;
+import com.starbucksorder.another_back.dto.user.request.Order.ReqOrderDto;
 import com.starbucksorder.another_back.service.CartService;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.http.ResponseEntity;
@@ -9,14 +9,15 @@ import org.springframework.web.bind.annotation.RequestBody;
 import org.springframework.web.bind.annotation.RestController;
 
 @RestController
-public class CartController {
+public class OrderController {
 
     @Autowired
     private CartService cartService;
 
-    // 먹고갈게요 포장할게요
+    // 주문목록 저장 ( 적립 안하는 사람은 userId = null )
     @PostMapping("/cart")
-    public ResponseEntity<?> saveOrderType(@RequestBody ReqCartDto dto) {
-        return ResponseEntity.ok().body(cartService.saveOrderType(dto));
+    public ResponseEntity<?> saveOrder(@RequestBody ReqOrderDto dto) {
+        cartService.saveOrder(dto);
+        return ResponseEntity.ok().body(true);
     }
 }

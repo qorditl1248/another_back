@@ -1,0 +1,33 @@
+<?xml version="1.0" encoding="UTF-8" ?>
+<!DOCTYPE mapper
+        PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN"
+        "https://mybatis.org/dtd/mybatis-3-mapper.dtd">
+
+<mapper namespace="com.starbucksorder.another_back.repository.OrderMapper">
+
+    <insert id="save" useGeneratedKeys="true" keyProperty="orderId">
+        insert into
+            order_tb
+        values(default, #{userId}, #{paymentId}, #{orderType}, #{orderAmount}, 1, now())
+    </insert>
+
+    <update id="update">
+        update
+            order_tb
+        set
+            order_state = 1
+        where
+            order_id = #{orderId}
+    </update>
+
+    <select id="findOrderIdByUserId" resultType="java.lang.Long">
+        select
+            order_id
+        from
+            order_tb
+        where
+            user_id = #{userId}
+
+    </select>
+
+</mapper>
