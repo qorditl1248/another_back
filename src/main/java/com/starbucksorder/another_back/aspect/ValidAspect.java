@@ -11,7 +11,7 @@ import org.springframework.validation.BeanPropertyBindingResult;
 
 @Aspect
 @Component
-public class Valid {
+public class ValidAspect {
 
     @Pointcut("@annotation(com.starbucksorder.another_back.aspect.annotation.ValidAop)")
     public void pointCut() {}
