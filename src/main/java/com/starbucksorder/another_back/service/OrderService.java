@@ -23,8 +23,8 @@ public class OrderService {
     public void saveOrder(ReqOrderDto dto){
         Order order = dto.toOrderEntity();
         orderMapper.save(order);
-        Long orderId = order.getOrderId();
-        orderDetailMapper.save(dto.toOrderDetailEntity(orderId));
+
+        orderDetailMapper.save(dto.toOrderDetailEntity(order.getOrderId()));
         // 포트원 ? 결제성공 ?
     }
 }
