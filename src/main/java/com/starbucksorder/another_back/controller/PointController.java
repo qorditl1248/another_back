@@ -9,6 +9,7 @@ import org.springframework.http.ResponseEntity;
 import org.springframework.web.bind.annotation.*;
 
 @RestController
+@RequestMapping("/points")
 public class PointController {
 
     @Autowired
@@ -16,7 +17,7 @@ public class PointController {
 
     // 포인트 적립 할래요 : 포인트 적립 전 userId 확인
     // 포인트 사용 : 포인트 사용 전 userId 확인
-    @GetMapping("/points/user")
+    @GetMapping("/user")
     public ResponseEntity<?> getUser(@RequestBody ReqUserDto dto) {
         return ResponseEntity.ok().body(pointService.getUserId(dto));
     }
@@ -24,24 +25,26 @@ public class PointController {
 
     // 포인트 적립 할래요 : 결제 성공 후 -> 포인트 적립
     // 포인트 적립 안할래요 : 결제 성공 -> 끝
-    @PostMapping("/points")
+    @PostMapping()
     public ResponseEntity<?> addPoint(@RequestBody ReqPointDto dto) {
         pointService.addPoint(dto);
 
         return ResponseEntity.ok().body(true);
     }
 
-
-    // 포인트 조회
-    @GetMapping("/points/{userId}")
-    public ResponseEntity<?> getPoints(@PathVariable Long userId) {
-        return ResponseEntity.ok().body(pointService.getPoints(userId));
-    }
-
     // 포인트 사용
-    @PostMapping("/points/{userId}")
+    @PostMapping("/use")
     public ResponseEntity<?> usePoints(@RequestBody ReqUsePointDto dto) {
         pointService.usePoints(dto);
         return ResponseEntity.ok().body(true);
     }
+
+
+
+    // 포인트 조회
+    @GetMapping("/{userId}")
+    public ResponseEntity<?> getPoints(@PathVariable Long userId) {
+        return ResponseEntity.ok().body(pointService.getPoints(userId));
+    }
+
 }

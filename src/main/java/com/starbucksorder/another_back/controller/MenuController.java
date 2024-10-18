@@ -37,7 +37,7 @@ public class MenuController {
         return ResponseEntity.ok().body(menuService.getMenuList(dto));
     }
 
-    // 메뉴id별 메뉴정보]
+    // 메뉴id별 메뉴정보
     @GetMapping("/menu/{menuId}")
     public ResponseEntity<?> getMenuById(@PathVariable Long menuId) {
         return ResponseEntity.ok().body(menuService.getMenu(menuId));

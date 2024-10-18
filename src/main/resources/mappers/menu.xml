@@ -100,8 +100,8 @@
             mt.menu_price as menuPrice,
             mt.comment as comment,
             mt.menu_status as status,
-            mt.create_date as createDate,
-            mt.update_date as updateDate,
+<!--            mt.create_date as createDate,-->
+<!--            mt.update_date as updateDate,-->
             mt.img_url as imgUrl,
 
             mdt.menu_detail_id as menuDetailId,
@@ -110,11 +110,10 @@
 
             ot.option_id as optionId,
             ot.option_name as optionName,
-            ot.create_date as createDate,
-            ot.update_date as updateDate,
+<!--            ot.create_date as createDate,-->
+<!--            ot.update_date as updateDate,-->
 
             odt.option_detail_id as optionDetailId,
-            odt.option_id as optionId,
             odt.option_detail_value as optionDetailValue,
             odt.option_detail_price as optionDetailPrice
         FROM
@@ -193,6 +192,7 @@
         left outer join category_tb ct on (mct.category_id = ct.category_id)
         where
         mct.category_id = #{categoryId}
+        and mt.menu_status =1
         limit #{startIndex}, #{limit}
     </select>
 

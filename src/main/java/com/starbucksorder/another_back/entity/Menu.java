@@ -1,5 +1,6 @@
 package com.starbucksorder.another_back.entity;
 
+import com.fasterxml.jackson.annotation.JsonIgnore;
 import lombok.AllArgsConstructor;
 import lombok.Builder;
 import lombok.Data;
@@ -18,7 +19,9 @@ public class Menu {
     private int menuPrice;
     private String comment;
     private Long status;
+    @JsonIgnore
     private Date createDate;
+    @JsonIgnore
     private Date updateDate;
     private String imgUrl;
 

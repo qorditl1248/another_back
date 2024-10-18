@@ -16,9 +16,10 @@ import java.util.List;
 public class Option {
     private Long optionId;
     private String optionName;
+    @JsonIgnore
     private Date createDate;
+    @JsonIgnore
     private Date updateDate;
-    private String price;
 
 
     private List<OptionDetail> optionDetail; // optionDetail : option = many : 1
