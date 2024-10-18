@@ -9,7 +9,7 @@ import org.springframework.stereotype.Service;
 import org.springframework.transaction.annotation.Transactional;
 
 @Service
-public class CartService {
+public class OrderService {
 
     @Autowired
     private OrderMapper orderMapper;
