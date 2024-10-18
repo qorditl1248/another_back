@@ -16,7 +16,7 @@ public class OrderController {
 
     // 주문목록 저장 ( 적립 안하는 사람은 userId = null )
     @PostMapping("/cart")
-    public ResponseEntity<?> saveOrderType(@RequestBody ReqOrderDto dto) {
+    public ResponseEntity<?> saveOrder(@RequestBody ReqOrderDto dto) {
         orderService.saveOrder(dto);
         return ResponseEntity.ok().body(true);
     }

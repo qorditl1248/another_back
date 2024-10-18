@@ -8,7 +8,7 @@
     <insert id="save" useGeneratedKeys="true" keyProperty="orderId">
         insert into
             order_tb
-        values(default, #{userId}, #{paymentId}, #{orderType}, #{orderAmount}, default, now())
+        values(default, #{userId}, #{paymentId}, #{orderType}, #{orderAmount}, 1, now())
     </insert>
 
     <update id="update">

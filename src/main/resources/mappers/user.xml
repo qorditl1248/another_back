@@ -23,4 +23,18 @@
         where
             phone_number = #{phoneNumber}
     </select>
+
+    <select id="findUserByUserId" resultType="com.starbucksorder.another_back.entity.User">
+        select
+            user_id as userId,
+            phone_number as phoneNumber,
+            memo as memo,
+            register_date as RegisterDate,
+            update_date as updateDate
+        from
+            user_tb
+        where
+            user_id = #{userId}
+
+    </select>
 </mapper>
