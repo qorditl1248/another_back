@@ -1,5 +1,6 @@
 package com.starbucksorder.another_back.controller;
 
+import com.starbucksorder.another_back.aspect.annotation.Log;
 import com.starbucksorder.another_back.dto.user.request.menu.ReqMenuListDto;
 import com.starbucksorder.another_back.service.MenuService;
 import org.springframework.beans.factory.annotation.Autowired;
@@ -28,7 +29,9 @@ public class MenuController {
 //    }
 
 
+
     // 카테고리별 메뉴리스트 종류 -> 12개씩
+    @Log
     @GetMapping("/home/category/menus")
     public ResponseEntity<?> getMenuList(ReqMenuListDto dto) {
         return ResponseEntity.ok().body(menuService.getMenuList(dto));

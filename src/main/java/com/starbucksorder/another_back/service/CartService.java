@@ -16,11 +16,7 @@ public class CartService {
     public Long saveOrderType(ReqCartDto dto){
         Cart cart = dto.toEntity();
         cartMapper.saveCartType(cart);
-
         Long cartId = cartMapper.getCartId(cart.getCartId());
-
         return cartId;
-
-
     }
 }

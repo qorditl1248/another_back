@@ -1,6 +1,7 @@
 package com.starbucksorder.another_back.config;
 
 import com.starbucksorder.another_back.security.filter.JwtFilter;
+import com.starbucksorder.another_back.security.handler.AuthenticationHandler;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.context.annotation.Configuration;
 import org.springframework.security.config.annotation.web.builders.HttpSecurity;
@@ -14,6 +15,9 @@ import org.springframework.security.web.authentication.UsernamePasswordAuthentic
 public class SecurityConfig extends WebSecurityConfigurerAdapter {
     @Autowired
     private JwtFilter jwtFilter;
+    @Autowired
+    private AuthenticationHandler AuthenticationHandler;
+
     @Override
     protected void configure(HttpSecurity http) throws Exception {
         http.httpBasic().and().formLogin().and().csrf().disable();
@@ -21,10 +25,11 @@ public class SecurityConfig extends WebSecurityConfigurerAdapter {
         http.sessionManagement().sessionCreationPolicy(SessionCreationPolicy.STATELESS);
 
         http.authorizeRequests()
-                .antMatchers("/auth/**","/**").permitAll()
+                .antMatchers("/admin/auth/signin").permitAll()
                 .antMatchers("/admin/**").authenticated();
-//                .antMatchers(HttpMethod.GET, "/menu/**","/**").permitAll()
-        // exceptionHandling
+        // 토큰 'Authentication' 객체 만들어주지 못하였을 때 발생 할 handler
+        http.exceptionHandling().authenticationEntryPoint(AuthenticationHandler);
+
         // jwtFilter
         http.addFilterBefore(jwtFilter, UsernamePasswordAuthenticationFilter.class);
     }
