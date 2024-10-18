@@ -3,9 +3,11 @@ package com.starbucksorder.another_back.service;
 import com.starbucksorder.another_back.dto.admin.request.ReqSigninDto;
 import com.starbucksorder.another_back.entity.Admin;
 import com.starbucksorder.another_back.entity.User;
+import com.starbucksorder.another_back.exception.AccessTokenValidException;
 import com.starbucksorder.another_back.exception.BadCredentialException;
 import com.starbucksorder.another_back.repository.AdminMapper;
 import com.starbucksorder.another_back.security.jwt.JwtProvider;
+import io.jsonwebtoken.Claims;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.security.core.userdetails.UsernameNotFoundException;
 import org.springframework.security.crypto.bcrypt.BCryptPasswordEncoder;
@@ -23,7 +25,7 @@ public class AuthService {
     // 로그인
     public String signin(ReqSigninDto dto) {
         // 아이디확인 Optional
-         Admin admin = adminMapper.findByUserName(dto.getUsername()).orElseThrow(
+        Admin admin = adminMapper.findByUserName(dto.getUsername()).orElseThrow(
                 // 없어도 되긴해서 얘만 생성하지 않아 봄 (Advice만 생성)
                 () -> new UsernameNotFoundException("Username not found")
         );
@@ -39,6 +41,22 @@ public class AuthService {
         return accessToken;
         // 로그인 자체에서 generatedTotken으로 구현
         // aspect bindingresult 구현 후
+    }
 
+    // 토큰 유효성 검사
+    public Boolean isValidAccessToken(String bearerAccessToken) {
+        try {
+            String accessToken = jwtProvider.removeBearerToken(bearerAccessToken);
+            Claims claims = jwtProvider.parseToken(accessToken);
+            Long userId = ((Integer) claims.get("userId")).longValue();
+            Admin user = adminMapper.findById(userId);
+
+            if (user == null) {
+                throw new RuntimeException();
+            }
+        } catch (RuntimeException e) {
+            throw new AccessTokenValidException("AccessToken 유효성 검사 실패");
+        }
+        return true;
     }
 }

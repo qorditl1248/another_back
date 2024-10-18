@@ -1,5 +1,6 @@
 package com.starbucksorder.another_back.aspect;
 
+import com.starbucksorder.another_back.dto.admin.request.ReqSigninDto;
 import com.starbucksorder.another_back.exception.ValidException;
 import org.aspectj.lang.ProceedingJoinPoint;
 import org.aspectj.lang.annotation.Around;
@@ -17,8 +18,14 @@ public class Valid {
 
     @Around("pointCut()")
     public Object around(ProceedingJoinPoint proceedingJoinPoint) throws Throwable {
+        System.out.println("aspect동작");
         Object[] args = proceedingJoinPoint.getArgs();
         BeanPropertyBindingResult bindingResult = null;
+        for(Object arg : args) {
+            if (arg instanceof ReqSigninDto) {
+                System.out.println(arg);
+            }
+        }
         for( Object arg : args){
             if(arg instanceof BeanPropertyBindingResult){
                 bindingResult = (BeanPropertyBindingResult) arg;

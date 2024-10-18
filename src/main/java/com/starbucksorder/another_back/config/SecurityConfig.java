@@ -25,7 +25,7 @@ public class SecurityConfig extends WebSecurityConfigurerAdapter {
         http.sessionManagement().sessionCreationPolicy(SessionCreationPolicy.STATELESS);
 
         http.authorizeRequests()
-                .antMatchers("/auth/**").permitAll()
+                .antMatchers("/admin/auth/signin").permitAll()
                 .antMatchers("/admin/**").authenticated();
         // 토큰 'Authentication' 객체 만들어주지 못하였을 때 발생 할 handler
         http.exceptionHandling().authenticationEntryPoint(AuthenticationHandler);
