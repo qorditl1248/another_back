@@ -1,5 +1,7 @@
 package com.starbucksorder.another_back.service;
 
+import com.starbucksorder.another_back.aspect.LogAspect;
+import com.starbucksorder.another_back.aspect.annotation.Log;
 import com.starbucksorder.another_back.dto.admin.request.ReqSigninDto;
 import com.starbucksorder.another_back.entity.Admin;
 import com.starbucksorder.another_back.entity.User;
@@ -21,6 +23,8 @@ public class AuthService {
     private BCryptPasswordEncoder bCryptPasswordEncoder;
     @Autowired
     private JwtProvider jwtProvider;
+    @Autowired
+    private LogAspect logAspect;
 
     // 로그인
     public String signin(ReqSigninDto dto) {
@@ -45,11 +49,12 @@ public class AuthService {
 
     // 토큰 유효성 검사
     public Boolean isValidAccessToken(String bearerAccessToken) {
+        Claims claims = null;
         try {
             String accessToken = jwtProvider.removeBearerToken(bearerAccessToken);
-            Claims claims = jwtProvider.parseToken(accessToken);
-            Long userId = ((Integer) claims.get("userId")).longValue();
-            Admin user = adminMapper.findById(userId);
+            claims = jwtProvider.parseToken(accessToken);
+            Long adminId = ((Integer) claims.get("adminId")).longValue();
+            Admin user = adminMapper.findById(adminId);
 
             if (user == null) {
                 throw new RuntimeException();
