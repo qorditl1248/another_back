@@ -28,7 +28,9 @@ public class MenuController {
 //        return ResponseEntity.ok().body(menuService.getMenusByCategoryId(categoryId));
 //    }
 
-    // 카테고리별 메뉴 12개씩
+
+
+    // 카테고리별 메뉴리스트 종류 -> 12개씩
     @Log
     @GetMapping("/home/category/menus")
     public ResponseEntity<?> getMenuList(ReqMenuListDto dto) {
