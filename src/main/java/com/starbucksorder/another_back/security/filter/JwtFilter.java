@@ -25,7 +25,6 @@ public class JwtFilter extends GenericFilter {
     private AdminMapper adminMapper;
 
     @Override
-
     public void doFilter(ServletRequest request, ServletResponse response, FilterChain chain) throws IOException, ServletException {
         HttpServletRequest httpServletRequest = (HttpServletRequest) request;
 
@@ -44,7 +43,7 @@ public class JwtFilter extends GenericFilter {
         String bearerToken = httpServletRequest.getHeader("Authorization");
         System.out.println("bearerToken: " + bearerToken);
 
-        if (bearerToken == null) {
+        if (bearerToken == null || !bearerToken.startsWith("Bearer ")) {
             chain.doFilter(request, response);
             return;
         }
