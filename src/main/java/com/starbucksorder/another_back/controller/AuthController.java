@@ -1,5 +1,6 @@
 package com.starbucksorder.another_back.controller;
 
+import com.starbucksorder.another_back.aspect.annotation.Log;
 import com.starbucksorder.another_back.aspect.annotation.ValidAop;
 import com.starbucksorder.another_back.dto.admin.request.ReqSigninDto;
 import com.starbucksorder.another_back.service.AuthService;
@@ -24,8 +25,9 @@ public class AuthController {
         return ResponseEntity.ok().body(authService.signin(dto));
     }
     // 토큰 확인
+    @Log
     @GetMapping("/auth/access")
-    public ResponseEntity<?> access(String token){
-        return ResponseEntity.ok().body(authService.isValidAccessToken(token));
+    public ResponseEntity<?> access(String accessToken){
+        return ResponseEntity.ok().body(authService.isValidAccessToken(accessToken));
     }
 }

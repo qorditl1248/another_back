@@ -35,19 +35,17 @@ public class JwtFilter extends GenericFilter {
                 "/home",
                 "/error"
         );
-        if(permitAllUrls.contains(requestURI.substring(0, requestURI.indexOf("/", 1) != -1 ? requestURI.indexOf("/", 1) : requestURI.length()))) {
+        if (permitAllUrls.contains(requestURI.substring(0, requestURI.indexOf("/", 1) != -1 ? requestURI.indexOf("/", 1) : requestURI.length()))) {
             chain.doFilter(request, response);
             return;
         }
 
         String bearerToken = httpServletRequest.getHeader("Authorization");
-        System.out.println("bearerToken: " + bearerToken);
 
-        if (bearerToken == null || !bearerToken.startsWith("Bearer ")) {
+        if (bearerToken == null || !bearerToken.startsWith("bearer ")) {
             chain.doFilter(request, response);
             return;
         }
-
         String token = jwtProvider.removeBearerToken(bearerToken);
         Claims payLoad = null;
         try {
@@ -65,7 +63,6 @@ public class JwtFilter extends GenericFilter {
             chain.doFilter(request, response);
             return;
         }
-
         chain.doFilter(request, response);
     }
 }
