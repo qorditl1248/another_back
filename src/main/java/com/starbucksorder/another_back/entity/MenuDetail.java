@@ -18,4 +18,5 @@ public class MenuDetail {
     private Long optionId;
 
     private Option option; // option : menudetail = many : 1
+
 }

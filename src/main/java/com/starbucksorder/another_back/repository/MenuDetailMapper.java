@@ -1,8 +1,10 @@
 package com.starbucksorder.another_back.repository;
 
-import com.starbucksorder.another_back.entity.MenuDetail;
 import org.apache.ibatis.annotations.Mapper;
+
+import java.util.List;
+
 @Mapper
 public interface MenuDetailMapper {
-    int save(MenuDetail menuDetail);
+    int save(Long menuId, List<Long> optionIds);
 }

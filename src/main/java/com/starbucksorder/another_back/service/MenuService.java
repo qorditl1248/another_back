@@ -8,6 +8,7 @@ import com.starbucksorder.another_back.dto.user.response.menu.RespMenuDto;
 import com.starbucksorder.another_back.dto.user.response.menu.RespMenuListByCategoryIdDto;
 import com.starbucksorder.another_back.entity.Menu;
 import com.starbucksorder.another_back.entity.MenuDetail;
+import com.starbucksorder.another_back.entity.OptionDetail;
 import com.starbucksorder.another_back.repository.MenuDetailMapper;
 import com.starbucksorder.another_back.repository.MenuMapper;
 import org.springframework.beans.factory.annotation.Autowired;
@@ -89,15 +90,19 @@ public class MenuService {
     @Transactional(rollbackFor = RuntimeException.class)
     public boolean addMenu(MenuDto.ReqDto dto) {
         Menu menu = dto.toMenuEntity();
+        // 메뉴 추가 순차적실행
         menuMapper.save(menu);
+        List<Long> optionIds = dto.getOptionIds();
         // 옵션 추가
-        for (Long optionId : dto.getOptionIds()) {
-            MenuDetail menuDetail = MenuDetail.builder()
-                    .menuId(menu.getMenuId())
-                    .optionId(optionId)
-                    .build();
-            menuDetailMapper.save(menuDetail);
-        }
+        menuDetailMapper.save(menu.getMenuId(), optionIds);
+//        for (Long optionId : dto.getOptionIds()) {
+//            MenuDetail menuDetail = MenuDetail.builder()
+//                    .menuId(menu.getMenuId())
+//                    .optionId(optionId)
+//                    .build();
+//            menuDetailMapper.save(menuDetail);
+//        }
+
         return true;
     }
 

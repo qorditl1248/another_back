@@ -6,10 +6,20 @@
 <mapper namespace="com.starbucksorder.another_back.repository.MenuDetailMapper">
     <!--    메뉴 추가-->
 
+<!--    <insert id="save">-->
+<!--        INSERT INTO-->
+<!--            menu_detail_tb(menu_id, option_id)-->
+<!--        VALUES-->
+<!--            ( #{menuId}, #{optionId})-->
+<!--    </insert>-->
+
     <insert id="save">
         INSERT INTO
             menu_detail_tb(menu_id, option_id)
         VALUES
-            ( #{menuId}, #{optionId})
+        <foreach collection="optionIds" item="optionId" separator=",">
+            (#{menuId},#{optionId})
+        </foreach>
     </insert>
+
 </mapper>
