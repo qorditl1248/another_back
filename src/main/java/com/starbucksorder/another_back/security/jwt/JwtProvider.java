@@ -35,7 +35,7 @@ public class JwtProvider {
     }
 
     public String removeBearerToken(String token) {
-        if (token != null && token.startsWith("Bearer ")) {
+        if (token == null && token.startsWith("Bearer ")) {
             throw new RuntimeException();
         }
         return token.substring("Bearer ".length());

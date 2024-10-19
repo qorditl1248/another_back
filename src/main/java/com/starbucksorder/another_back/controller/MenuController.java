@@ -8,7 +8,6 @@ import org.springframework.http.ResponseEntity;
 import org.springframework.web.bind.annotation.*;
 
 @RestController
-@CrossOrigin
 public class MenuController {
 
     @Autowired
@@ -42,5 +41,15 @@ public class MenuController {
     public ResponseEntity<?> getMenuById(@PathVariable Long menuId) {
         return ResponseEntity.ok().body(menuService.getMenu(menuId));
     }
+
+    // 메뉴추가를 위한 로직
+
+    // 메뉴 이름 조회 -> 단 건 조회
+    @Log
+    @GetMapping("/admin/menu")
+    public ResponseEntity<?> getMenuByName(@RequestParam String menuName) {
+        return ResponseEntity.ok().body(menuName);
+    }
+
 
 }
