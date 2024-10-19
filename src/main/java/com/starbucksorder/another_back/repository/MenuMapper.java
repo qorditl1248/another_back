@@ -25,4 +25,9 @@ public interface MenuMapper {
 
     Menu findByMenuId(Long menuId);
 
+    boolean findByMenuName(@Param("menuName") String menuName);
+
+    List<Menu> getMenuList();
+
+    int updateMenuName(Long menuId, @Param("menuName") String menuName);
 }

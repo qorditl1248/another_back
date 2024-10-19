@@ -1,16 +1,24 @@
 package com.starbucksorder.another_back.service;
 
 
+import com.starbucksorder.another_back.dto.admin.request.ReqMenuListDtoAll;
+import com.starbucksorder.another_back.dto.user.request.menu.ReqMenuDto;
 import com.starbucksorder.another_back.dto.user.request.menu.ReqMenuListDto;
 import com.starbucksorder.another_back.dto.user.response.menu.RespMenuDto;
+import com.starbucksorder.another_back.dto.user.response.menu.RespMenuListAll;
 import com.starbucksorder.another_back.dto.user.response.menu.RespMenuListByCategoryIdDto;
+import com.starbucksorder.another_back.dto.user.response.menu.RespMenuListDto;
 import com.starbucksorder.another_back.entity.Menu;
 import com.starbucksorder.another_back.entity.MenuDetail;
 import com.starbucksorder.another_back.repository.MenuMapper;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
+import org.springframework.transaction.annotation.Transactional;
 
+import java.nio.charset.StandardCharsets;
 import java.util.List;
+import java.util.Objects;
+import java.util.stream.Collectors;
 
 @Service
 public class MenuService {
@@ -75,4 +83,26 @@ public class MenuService {
                 .build();
     }
 
+    // 관리자 관련
+
+    // 메뉴 이름 조회
+    public boolean getMenuByName(String menuName) {
+        return menuMapper.findByMenuName(menuName);
+    }
+
+    public List<RespMenuListAll> getMenuList() {
+//        List<RespMenuListAll> respList = menuMapper.getMenuList().stream().map(d -> d.toMenuList()).collect(Collectors.toList());
+//        System.out.println(respList);
+//        return respList;
+
+        return null;
+    }
+
+    @Transactional(rollbackFor = Exception.class)
+    public void modifyMenu(List<ReqMenuListDtoAll> menuList) {
+        for (ReqMenuListDtoAll data : menuList) {
+            menuMapper.updateMenuName(data.getMenuId(), data.getMenuName());
+        }
+        System.out.println("완료");
+    }
 }

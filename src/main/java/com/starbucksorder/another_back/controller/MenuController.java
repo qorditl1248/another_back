@@ -1,11 +1,15 @@
 package com.starbucksorder.another_back.controller;
 
 import com.starbucksorder.another_back.aspect.annotation.Log;
+import com.starbucksorder.another_back.dto.admin.request.ReqMenuListDtoAll;
 import com.starbucksorder.another_back.dto.user.request.menu.ReqMenuListDto;
 import com.starbucksorder.another_back.service.MenuService;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.http.ResponseEntity;
+import org.springframework.stereotype.Service;
 import org.springframework.web.bind.annotation.*;
+
+import java.util.List;
 
 @RestController
 public class MenuController {
@@ -28,7 +32,6 @@ public class MenuController {
 //    }
 
 
-
     // 카테고리별 메뉴리스트 종류 -> 12개씩
     @Log
     @GetMapping("/home/category/menus")
@@ -48,7 +51,20 @@ public class MenuController {
     @Log
     @GetMapping("/admin/menu")
     public ResponseEntity<?> getMenuByName(@RequestParam String menuName) {
-        return ResponseEntity.ok().body(menuName);
+
+        return ResponseEntity.ok().body(menuService.getMenuByName(menuName));
+    }
+
+    @GetMapping("/admin/menu/all")
+    public ResponseEntity<?> getAllMenu() {
+
+        return ResponseEntity.ok().body(menuService.getMenuList());
+    }
+
+    @PatchMapping("/admin/modify")
+    public ResponseEntity<?> modifyMenu(@RequestBody List<ReqMenuListDtoAll> menuList) {
+        menuService.modifyMenu(menuList);
+        return ResponseEntity.ok().body(null);
     }
 
 

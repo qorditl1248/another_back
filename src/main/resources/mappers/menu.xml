@@ -92,6 +92,14 @@
         <result property="optionDetailValue" column="optionDetailValue" />
         <result property="optionDetailPrice" column="optionDetailPrice" />
     </resultMap>
+    <update id="updateMenuName">
+        update
+            menu_tb
+        set
+            menu_name = #{menuName}
+        where
+            menu_id = #{menuId}
+    </update>
 
     <select id="findByMenuId" resultMap="menuResultMap">
         SELECT
@@ -206,6 +214,23 @@
             left outer join category_tb ct on (mct.category_id = ct.category_id)
         where
             mct.category_id = #{categoryId}
+    </select>
+    <select id="findByMenuName" resultType="java.lang.Boolean">
+        SELECT
+            count(*) > 0
+        FROM
+            menu_tb
+        WHERE
+            menu_name = #{menuName}
+    </select>
+    <select id="getMenuList" resultType="com.starbucksorder.another_back.entity.Menu">
+        SELECT
+            menu_id as menuId,
+            menu_name as menuName
+        FROM
+            menu_tb
+        order by
+            menu_id
     </select>
 
 </mapper>
