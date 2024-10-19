@@ -1,6 +1,7 @@
 package com.starbucksorder.another_back.controller;
 
 import com.starbucksorder.another_back.aspect.annotation.Log;
+import com.starbucksorder.another_back.dto.admin.MenuDto;
 import com.starbucksorder.another_back.dto.admin.request.ReqMenuListDtoAll;
 import com.starbucksorder.another_back.dto.user.request.menu.ReqMenuListDto;
 import com.starbucksorder.another_back.service.MenuService;
@@ -50,17 +51,16 @@ public class MenuController {
     // 메뉴 이름 조회 -> 단 건 조회
     @Log
     @GetMapping("/admin/menu")
-    public ResponseEntity<?> getMenuByName(@RequestParam String menuName) {
-
-        return ResponseEntity.ok().body(menuService.getMenuByName(menuName));
+    public ResponseEntity<?> validMenuName(@RequestParam String menuName) {
+        return ResponseEntity.ok().body(menuService.validMenuName(menuName));
+    }
+    // 메뉴 추가
+    @PostMapping("/admin/menu")
+    public ResponseEntity<?> addMenu(@RequestBody MenuDto.ReqDto dto) {
+        return ResponseEntity.ok().body(menuService.addMenu(dto));
     }
 
-    @GetMapping("/admin/menu/all")
-    public ResponseEntity<?> getAllMenu() {
-
-        return ResponseEntity.ok().body(menuService.getMenuList());
-    }
-
+    // 자소분리현상 로직
     @PatchMapping("/admin/modify")
     public ResponseEntity<?> modifyMenu(@RequestBody List<ReqMenuListDtoAll> menuList) {
         menuService.modifyMenu(menuList);

@@ -5,6 +5,14 @@
 
 <mapper namespace="com.starbucksorder.another_back.repository.MenuMapper">
 
+    <!--    메뉴 추가-->
+    <insert id="save" useGeneratedKeys="true" keyProperty="menuId">
+        INSERT INTO
+            menu_tb
+        VALUES
+            (DEFAULT, #{menuName}, #{menuPrice}, #{comment}, 1, NOW(), NOW(), #{imgUrl})
+    </insert>
+
 
 <!--    <resultMap id="categoryResultMap" type="com.starbucksorder.another_back.entity.Category">-->
 <!--        <id property="categoryId" column="categoryId" />-->
@@ -61,7 +69,7 @@
         <result property="menuName" column="menuName"/>
         <result property="menuPrice" column="menuPrice"/>
         <result property="comment" column="comment"/>
-        <result property="status" column="status"/>
+        <result property="menuStatus" column="status"/>
         <result property="createDate" column="createDate"/>
         <result property="updateDate" column="updateDate"/>
         <result property="imgUrl" column="imgUrl"/>
@@ -92,6 +100,7 @@
         <result property="optionDetailValue" column="optionDetailValue" />
         <result property="optionDetailPrice" column="optionDetailPrice" />
     </resultMap>
+
     <update id="updateMenuName">
         update
             menu_tb

@@ -20,7 +20,7 @@ public class Menu {
     private String menuName;
     private int menuPrice;
     private String comment;
-    private Long status;
+    private Long menuStatus;
     @JsonIgnore
     private Date createDate;
     @JsonIgnore
