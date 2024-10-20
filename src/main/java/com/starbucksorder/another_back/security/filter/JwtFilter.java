@@ -30,6 +30,7 @@ public class JwtFilter extends GenericFilter {
 
         String requestURI = httpServletRequest.getRequestURI().toString();
         List<String> permitAllUrls = List.of(
+                "/menu",
                 "/user",
                 "/category",
                 "/home",
