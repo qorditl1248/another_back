@@ -1,5 +1,6 @@
 package com.starbucksorder.another_back.repository;
 
+import com.starbucksorder.another_back.dto.admin.MenuDto;
 import com.starbucksorder.another_back.entity.Menu;
 import org.apache.ibatis.annotations.Mapper;
 import org.apache.ibatis.annotations.Param;
@@ -24,5 +25,19 @@ public interface MenuMapper {
 
 
     Menu findByMenuId(Long menuId);
+
+    boolean findByMenuName(@Param("menuName") String menuName);
+
+    List<Menu> getMenuList();
+
+    int updateMenuName(Long menuId, @Param("menuName") String menuName);
+
+    // 메뉴 추가
+    int save(Menu menu);
+    // 메뉴 삭제
+    int deleteByMenuId(Long menuId);
+
+    // 메뉴 상태 수정
+    int updateMenuStatus(Long menuId);
 
 }

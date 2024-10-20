@@ -10,4 +10,5 @@ public interface AdminMapper {
     // signin
     Optional<Admin> findByUserName(String username);
     Admin findById(long id);
+
 }

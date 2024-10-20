@@ -30,6 +30,7 @@ public class JwtFilter extends GenericFilter {
 
         String requestURI = httpServletRequest.getRequestURI().toString();
         List<String> permitAllUrls = List.of(
+                "/menu",
                 "/user",
                 "/category",
                 "/home",
@@ -42,7 +43,7 @@ public class JwtFilter extends GenericFilter {
 
         String bearerToken = httpServletRequest.getHeader("Authorization");
 
-        if (bearerToken == null || !bearerToken.startsWith("bearer ")) {
+        if (bearerToken == null || !bearerToken.startsWith("Bearer ")) {
             chain.doFilter(request, response);
             return;
         }
