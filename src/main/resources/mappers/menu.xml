@@ -20,6 +20,15 @@
         WHERE
             menu_id = #{menuId}
     </delete>
+    <!-- 메뉴 상태 수정    -->
+    <update id="updateMenuStatus">
+        UPDATE
+            menu_tb
+        SET
+            menu_status = IF(menu_status = 1, 0, 1)
+        WHERE
+            menu_id =#{menuId}
+    </update>
 
 
     <!--    <resultMap id="categoryResultMap" type="com.starbucksorder.another_back.entity.Category">-->
@@ -117,6 +126,7 @@
         where
             menu_id = #{menuId}
     </update>
+
 
     <select id="findByMenuId" resultMap="menuResultMap">
         SELECT

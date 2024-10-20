@@ -120,4 +120,8 @@ public class MenuService {
         // 메뉴 디테일 삭제
         return menuMapper.deleteByMenuId(menuId) > 0 ;
     }
+    // 메뉴 상태 변경
+    public boolean updateMenuStatus(Long menuId){
+        return menuMapper.updateMenuStatus(menuId) > 0;
+    }
 }

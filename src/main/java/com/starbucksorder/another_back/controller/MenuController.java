@@ -66,6 +66,11 @@ public class MenuController {
     public ResponseEntity<?> deleteMenu(@PathVariable Long menuId) {
         return ResponseEntity.ok().body(menuService.deleteMenu(menuId));
     }
+    // 메뉴 상태변경
+    @PatchMapping("/admin/menu/status/{menuId}")
+    public ResponseEntity<?> updateMenuStatus(@PathVariable Long menuId) {
+        return ResponseEntity.ok().body(menuService.updateMenuStatus(menuId));
+    }
 
     // 자소분리현상 로직
     @PatchMapping("/admin/modify")
