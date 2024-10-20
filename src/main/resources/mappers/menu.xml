@@ -12,9 +12,17 @@
         VALUES
             (DEFAULT, #{menuName}, #{menuPrice}, #{comment}, 1, NOW(), NOW(), #{imgUrl})
     </insert>
+    <!-- 메뉴삭제    -->
+    <delete id="deleteByMenuId">
+        DELETE
+        FROM
+            menu_tb
+        WHERE
+            menu_id = #{menuId}
+    </delete>
 
 
-<!--    <resultMap id="categoryResultMap" type="com.starbucksorder.another_back.entity.Category">-->
+    <!--    <resultMap id="categoryResultMap" type="com.starbucksorder.another_back.entity.Category">-->
 <!--        <id property="categoryId" column="categoryId" />-->
 <!--        <result property="categoryName" column="categoryName" />-->
 <!--        <result property="categoryName" column="categoryName" />-->

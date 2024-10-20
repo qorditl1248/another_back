@@ -34,4 +34,5 @@ public interface MenuMapper {
 
     // 메뉴 추가
     int save(Menu menu);
+    int deleteByMenuId(Long menuId);
 }

@@ -114,4 +114,10 @@ public class MenuService {
         }
         System.out.println("완료");
     }
+    // 메뉴 삭제
+    public boolean deleteMenu(Long menuId) {
+        // 메뉴 카테고리 삭제
+        // 메뉴 디테일 삭제
+        return menuMapper.deleteByMenuId(menuId) > 0 ;
+    }
 }

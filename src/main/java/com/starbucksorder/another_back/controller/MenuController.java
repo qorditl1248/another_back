@@ -54,10 +54,17 @@ public class MenuController {
     public ResponseEntity<?> validMenuName(@RequestParam String menuName) {
         return ResponseEntity.ok().body(menuService.validMenuName(menuName));
     }
+
     // 메뉴 추가
     @PostMapping("/admin/menu")
     public ResponseEntity<?> addMenu(@RequestBody MenuDto.ReqDto dto) {
         return ResponseEntity.ok().body(menuService.addMenu(dto));
+    }
+
+    // 메뉴 삭제
+    @DeleteMapping("/admin/menu/{menuId}")
+    public ResponseEntity<?> deleteMenu(@PathVariable Long menuId) {
+        return ResponseEntity.ok().body(menuService.deleteMenu(menuId));
     }
 
     // 자소분리현상 로직
@@ -66,6 +73,4 @@ public class MenuController {
         menuService.modifyMenu(menuList);
         return ResponseEntity.ok().body(null);
     }
-
-
 }
