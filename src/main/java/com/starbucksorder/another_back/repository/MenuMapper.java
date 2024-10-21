@@ -28,12 +28,17 @@ public interface MenuMapper {
 
     boolean findByMenuName(@Param("menuName") String menuName);
 
+    // 메뉴리스트 전체 조회
     List<Menu> getMenuList();
 
+    List<Menu> getMenuListPage(@Param("startIndex") Long startIndex, @Param("limit") Long limit);
+
+    // 메뉴 자소 분리 로직
     int updateMenuName(Long menuId, @Param("menuName") String menuName);
 
     // 메뉴 추가
     int save(Menu menu);
+
     // 메뉴 삭제
     int deleteByMenuId(Long menuId);
 

@@ -1,6 +1,7 @@
 package com.starbucksorder.another_back.dto.admin;
 
 import com.starbucksorder.another_back.entity.Menu;
+import lombok.Builder;
 import lombok.Data;
 
 import java.util.List;
@@ -29,4 +30,20 @@ public class MenuDto {
                     .build();
         }
     }
+
+    @Data
+    public static class pageDto {
+        private Long page;
+        private Long limit;
+    }
+
+    @Data
+    @Builder
+    public static class RespMenuList {
+        private Long menuId;
+        private String menuName;
+        private int price;
+        private String categories;
+    }
+
 }

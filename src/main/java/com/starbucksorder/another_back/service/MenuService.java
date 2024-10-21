@@ -16,6 +16,7 @@ import org.springframework.stereotype.Service;
 import org.springframework.transaction.annotation.Transactional;
 
 import java.util.List;
+import java.util.stream.Collectors;
 
 @Service
 public class MenuService {
@@ -86,6 +87,14 @@ public class MenuService {
     public boolean validMenuName(String menuName) {
         return menuMapper.findByMenuName(menuName);
     }
+
+    // 관리자 메뉴 전체조회
+    public List<MenuDto.RespMenuList> getAllMenus(MenuDto.pageDto dto) {
+        Long startIndex = (dto.getPage() - 1) * dto.getLimit();
+        List<Menu> menuList = menuMapper.getMenuListPage(startIndex, dto.getLimit());
+        return menuList.stream().map(d -> d.toPageMenuList()).collect(Collectors.toList());
+    }
+
     // 메뉴 추가
     @Transactional(rollbackFor = RuntimeException.class)
     public boolean addMenu(MenuDto.ReqDto dto) {
@@ -114,14 +123,16 @@ public class MenuService {
         }
         System.out.println("완료");
     }
+
     // 메뉴 삭제
     public boolean deleteMenu(Long menuId) {
         // 메뉴 카테고리 삭제
         // 메뉴 디테일 삭제
-        return menuMapper.deleteByMenuId(menuId) > 0 ;
+        return menuMapper.deleteByMenuId(menuId) > 0;
     }
+
     // 메뉴 상태 변경
-    public boolean updateMenuStatus(Long menuId){
+    public boolean updateMenuStatus(Long menuId) {
         return menuMapper.updateMenuStatus(menuId) > 0;
     }
 }

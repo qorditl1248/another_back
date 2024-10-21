@@ -54,6 +54,12 @@ public class MenuController {
     public ResponseEntity<?> validMenuName(@RequestParam String menuName) {
         return ResponseEntity.ok().body(menuService.validMenuName(menuName));
     }
+    // 메뉴관리 조회 -> 다 건 조회
+    @Log
+    @GetMapping("/admin/menus")
+    public ResponseEntity<?> getAllMenus(@RequestBody MenuDto.pageDto dto) {
+        return ResponseEntity.ok().body(menuService.getAllMenus(dto));
+    }
 
     // 메뉴 추가
     @PostMapping("/admin/menu")
@@ -76,6 +82,7 @@ public class MenuController {
     @PatchMapping("/admin/modify")
     public ResponseEntity<?> modifyMenu(@RequestBody List<ReqMenuListDtoAll> menuList) {
         menuService.modifyMenu(menuList);
-        return ResponseEntity.ok().body(null);
+            return ResponseEntity.ok().body(null);
     }
+
 }
