@@ -33,6 +33,9 @@ public interface MenuMapper {
 
     List<Menu> getMenuListPage(@Param("startIndex") Long startIndex, @Param("limit") Long limit);
 
+    // 메뉴 검색
+    List<Menu> searchMenuByName(@Param("menuName") String menuName);
+
     // 메뉴 자소 분리 로직
     int updateMenuName(Long menuId, @Param("menuName") String menuName);
 

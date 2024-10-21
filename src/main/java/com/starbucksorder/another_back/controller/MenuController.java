@@ -7,7 +7,6 @@ import com.starbucksorder.another_back.dto.user.request.menu.ReqMenuListDto;
 import com.starbucksorder.another_back.service.MenuService;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.http.ResponseEntity;
-import org.springframework.stereotype.Service;
 import org.springframework.web.bind.annotation.*;
 
 import java.util.List;
@@ -57,8 +56,13 @@ public class MenuController {
     // 메뉴관리 조회 -> 다 건 조회
     @Log
     @GetMapping("/admin/menus")
-    public ResponseEntity<?> getAllMenus(@RequestBody MenuDto.pageDto dto) {
+    public ResponseEntity<?> getAllMenus(MenuDto.pageDto dto) {
         return ResponseEntity.ok().body(menuService.getAllMenus(dto));
+    }
+    // 메뉴,카테고리 검색
+    @GetMapping("/admin/menu/search")
+    public ResponseEntity<?> getAllMenus(String menuName) {
+        return ResponseEntity.ok().body(menuService.searchMenus(menuName));
     }
 
     // 메뉴 추가

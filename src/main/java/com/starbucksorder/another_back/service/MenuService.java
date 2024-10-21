@@ -95,6 +95,11 @@ public class MenuService {
         return menuList.stream().map(Menu::toPageMenuList).collect(Collectors.toList());
     }
 
+    public List<MenuDto.RespMenuList> searchMenus(String menuName) {
+
+        return menuMapper.searchMenuByName(menuName).stream().map(Menu::toPageMenuList).collect(Collectors.toList());
+    }
+
     // 메뉴 추가
     @Transactional(rollbackFor = RuntimeException.class)
     public boolean addMenu(MenuDto.ReqDto dto) {
