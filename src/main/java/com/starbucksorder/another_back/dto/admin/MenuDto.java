@@ -1,10 +1,10 @@
 package com.starbucksorder.another_back.dto.admin;
 
 import com.starbucksorder.another_back.entity.Menu;
-import lombok.Builder;
-import lombok.Data;
+import lombok.*;
 
 import java.util.List;
+import java.util.Map;
 
 public class MenuDto {
 
@@ -36,6 +36,13 @@ public class MenuDto {
         private Long page;
         private Long limit;
     }
+    @Data
+    @Builder
+    @AllArgsConstructor
+    public static class CMRespDto<T> {
+        private int totalCount;
+        private T data;
+    }
 
     @Data
     @Builder
@@ -45,5 +52,27 @@ public class MenuDto {
         private int menuPrice;
         private String categories;
         private String options;
+
+    }
+
+    @Data
+    @Builder
+    @AllArgsConstructor
+    public static class CMRespCategoryAndOption {
+        private List<RespOptions> options;
+        private List<RespCategories> categories;
+    }
+
+    @Data
+    @Builder
+    public static class RespCategories {
+        private Long categoryId;
+        private String categoryName;
+    }
+    @Data
+    @Builder
+    public static class RespOptions {
+        private Long optionId;
+        private String optionName;
     }
 }

@@ -2,6 +2,7 @@ package com.starbucksorder.another_back.repository;
 
 import com.starbucksorder.another_back.dto.admin.MenuDto;
 import com.starbucksorder.another_back.entity.Menu;
+import com.starbucksorder.another_back.entity.Option;
 import org.apache.ibatis.annotations.Mapper;
 import org.apache.ibatis.annotations.Param;
 
@@ -28,10 +29,14 @@ public interface MenuMapper {
 
     boolean findByMenuName(@Param("menuName") String menuName);
 
+
     // 메뉴리스트 전체 조회
     List<Menu> getMenuList();
+    int totalCount();
 
     List<Menu> getMenuListPage(@Param("startIndex") Long startIndex, @Param("limit") Long limit);
+
+    List<Option> getOptionList();
 
     // 메뉴 검색
     List<Menu> searchMenuByName(@Param("menuName") String menuName);
@@ -47,5 +52,6 @@ public interface MenuMapper {
 
     // 메뉴 상태 수정
     int updateMenuStatus(Long menuId);
+
 
 }

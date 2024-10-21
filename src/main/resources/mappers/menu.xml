@@ -242,6 +242,7 @@
         where
             mct.category_id = #{categoryId}
     </select>
+    <!-- NOTE: 관리자   -->
     <select id="findByMenuName" resultType="java.lang.Boolean">
         SELECT
             count(*) > 0
@@ -259,7 +260,32 @@
         order by
             menu_id
     </select>
-    <!-- 관리자 메뉴 조회    -->
+
+    <!-- 관리자 메뉴 카운트 -->
+    <select id="totalCount" resultType="java.lang.Integer">
+        SELECT COUNT(*) AS count
+        FROM (
+            SELECT
+                mt.menu_id AS menuId,
+                mt.menu_name AS menuName,
+                mt.menu_price AS menuPrice,
+                mt.menu_status AS menuStatus,
+                GROUP_CONCAT(DISTINCT ct.category_name ORDER BY ct.category_name SEPARATOR ', ') AS categories,
+                GROUP_CONCAT(DISTINCT ot.option_name ORDER BY ot.option_name SEPARATOR ', ') AS options
+            FROM
+                menu_category_tb mct
+                LEFT OUTER JOIN menu_tb mt on (mt.menu_id = mct.menu_id)
+                LEFT OUTER JOIN category_tb ct on(ct.category_id = mct.category_id)
+                LEFT OUTER JOIN menu_detail_tb mdt on(mdt.menu_id = mct.menu_id)
+                LEFT OUTER JOIN option_tb ot on(ot.option_id = mdt.option_id)
+            GROUP BY
+                mt.menu_id
+            ORDER BY
+                mt.menu_id
+                ) AS subquery
+    </select>
+
+    <!-- 관리자 메뉴 조회   -->
     <select id="getMenuListPage" resultType="com.starbucksorder.another_back.entity.Menu">
         SELECT
             mt.menu_id AS menuId,
@@ -304,5 +330,16 @@
         ORDER BY
             mt.menu_id
     </select>
+
+    <select id="getOptionList" resultType="com.starbucksorder.another_back.entity.Option">
+        SELECT
+            option_id AS optionId,
+            option_name AS optionName
+        FROM
+            option_tb
+        WHERE
+            1 = 1
+    </select>
+
 
 </mapper>

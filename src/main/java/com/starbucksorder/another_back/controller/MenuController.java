@@ -45,13 +45,16 @@ public class MenuController {
         return ResponseEntity.ok().body(menuService.getMenu(menuId));
     }
 
-    // 메뉴추가를 위한 로직
-
-    // 메뉴 이름 조회 -> 단 건 조회
+    /* NOTE: --------------관리자 메뉴추가를 위한 로직-------------- */
+    // 메뉴 추가를 위한 이름 조회 -> 단 건 조회
     @Log
     @GetMapping("/admin/menu")
     public ResponseEntity<?> validMenuName(@RequestParam String menuName) {
         return ResponseEntity.ok().body(menuService.validMenuName(menuName));
+    }
+    @GetMapping("/admin/menu/add")
+    public ResponseEntity<?> getNames() {
+        return ResponseEntity.ok().body(menuService.getValueAll());
     }
     // 메뉴관리 조회 -> 다 건 조회
     @Log
@@ -81,6 +84,9 @@ public class MenuController {
     public ResponseEntity<?> updateMenuStatus(@PathVariable Long menuId) {
         return ResponseEntity.ok().body(menuService.updateMenuStatus(menuId));
     }
+
+    /* NOTE: ------------------------------------------------------------ */
+
 
     // 자소분리현상 로직
     @PatchMapping("/admin/modify")
