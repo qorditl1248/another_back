@@ -259,5 +259,23 @@
         order by
             menu_id
     </select>
+    <select id="getMenuListPage" resultType="com.starbucksorder.another_back.entity.Menu">
+        SELECT
+            mt.menu_id AS menuId,
+            mt.menu_name AS menuName,
+            mt.menu_price AS menuPrice,
+            mt.menu_status AS menuStatus,
+            GROUP_CONCAT(ct.category_name ORDER BY ct.category_name SEPARATOR ', ') AS categories
+        FROM
+            menu_category_tb mct
+            LEFT OUTER JOIN menu_tb mt on (mt.menu_id = mct.menu_id)
+            LEFT OUTER JOIN category_tb ct on(ct.category_id = mct.category_id)
+        GROUP BY
+            mt.menu_id
+        ORDER BY
+            mt.menu_id
+        LIMIT
+            #{startIndex}, #{limit}
+    </select>
 
 </mapper>
