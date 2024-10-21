@@ -42,8 +42,8 @@ public class MenuDto {
     public static class RespMenuList {
         private Long menuId;
         private String menuName;
-        private int price;
+        private int menuPrice;
         private String categories;
+        private String options;
     }
-
 }

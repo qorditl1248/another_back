@@ -92,7 +92,7 @@ public class MenuService {
     public List<MenuDto.RespMenuList> getAllMenus(MenuDto.pageDto dto) {
         Long startIndex = (dto.getPage() - 1) * dto.getLimit();
         List<Menu> menuList = menuMapper.getMenuListPage(startIndex, dto.getLimit());
-        return menuList.stream().map(d -> d.toPageMenuList()).collect(Collectors.toList());
+        return menuList.stream().map(Menu::toPageMenuList).collect(Collectors.toList());
     }
 
     // 메뉴 추가
