@@ -265,11 +265,14 @@
             mt.menu_name AS menuName,
             mt.menu_price AS menuPrice,
             mt.menu_status AS menuStatus,
-            GROUP_CONCAT(ct.category_name ORDER BY ct.category_name SEPARATOR ', ') AS categories
+            GROUP_CONCAT(ct.category_name ORDER BY ct.category_name SEPARATOR ', ') AS categories,
+            GROUP_CONCAT(DISTINCT ot.option_name ORDER BY ot.option_name SEPARATOR ', ') AS options
         FROM
             menu_category_tb mct
             LEFT OUTER JOIN menu_tb mt on (mt.menu_id = mct.menu_id)
             LEFT OUTER JOIN category_tb ct on(ct.category_id = mct.category_id)
+            LEFT OUTER JOIN menu_detail_tb mdt on(mdt.menu_id = mct.menu_id)
+            LEFT OUTER JOIN option_tb ot on(ot.option_id = mdt.option_id)
         GROUP BY
             mt.menu_id
         ORDER BY

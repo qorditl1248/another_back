@@ -31,6 +31,7 @@ public class Menu {
     private List<MenuDetail> menuDetails; // menu : menudetail = 1 : many
 
     private String categories;
+    private String options;
 
     public RespMenuListAll toMenuList() {
         return RespMenuListAll.builder()
@@ -44,8 +45,9 @@ public class Menu {
         return MenuDto.RespMenuList.builder()
                 .menuId(menuId)
                 .menuName(menuName)
-                .price(menuPrice)
+                .menuPrice(menuPrice)
                 .categories(categories)
+                .options(options)
                 .build();
     }
 
