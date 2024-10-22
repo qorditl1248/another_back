@@ -1,7 +1,7 @@
 package com.starbucksorder.another_back.entity;
 
 import com.fasterxml.jackson.annotation.JsonIgnore;
-import com.starbucksorder.another_back.dto.admin.MenuDto;
+import com.starbucksorder.another_back.dto.admin.response.menu.RespAdminCategories;
 import lombok.AllArgsConstructor;
 import lombok.Builder;
 import lombok.Data;
@@ -27,8 +27,8 @@ public class Category {
     private List<Menu> menuList;
 
     // 관리자 메뉴추가 -> 카테고리 조회
-    public MenuDto.RespCategories toCategoryDto() {
-        return MenuDto.RespCategories.builder()
+    public RespAdminCategories toCategoryDto() {
+        return RespAdminCategories.builder()
                 .categoryId(categoryId)
                 .categoryName(categoryName)
                 .build();

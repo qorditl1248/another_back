@@ -13,5 +13,5 @@ public class Point {
     private Long pointId;
     private Long userId;
     private int point;
-
+    private Long pointType;
 }

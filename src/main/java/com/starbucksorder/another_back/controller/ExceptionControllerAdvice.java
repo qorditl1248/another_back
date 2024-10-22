@@ -29,4 +29,5 @@ public class ExceptionControllerAdvice {
     public ResponseEntity<?> validException(ValidException e) {
         return ResponseEntity.status(401).body(e.getMessage());
     }
+
 }
