@@ -19,4 +19,10 @@ public class CategoryController {
     public ResponseEntity<?> getCategory() {
         return ResponseEntity.ok().body(categoryService.getCategory());
     }
+
+
+    /* NOTE: ---------------------------------ADMIN 관련----------------------------------------*/
+    // 등록
+
+
 }
