@@ -34,6 +34,7 @@ public class PointController {
 
     // 포인트 사용
     @PostMapping("/use")
+    // FIXME: usePoints -> usepoint 변경요청
     public ResponseEntity<?> usePoints(@RequestBody ReqUsePointDto dto) {
         pointService.usePoints(dto);
         return ResponseEntity.ok().body(true);
