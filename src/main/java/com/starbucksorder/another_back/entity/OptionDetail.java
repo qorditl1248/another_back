@@ -15,5 +15,5 @@ public class OptionDetail {
     @JsonIgnore
     private Long optionId;
     private String optionDetailValue;
-    private String optionDetailPrice;
+    private int optionDetailPrice;
 }
