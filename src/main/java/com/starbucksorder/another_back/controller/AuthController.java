@@ -12,7 +12,6 @@ import org.springframework.web.bind.annotation.*;
 import javax.validation.Valid;
 
 @RestController
-@RequestMapping("/admin")
 public class AuthController {
     @Autowired
     private AuthService authService;
@@ -26,7 +25,7 @@ public class AuthController {
     }
     // 토큰 확인
     @Log
-    @GetMapping("/auth/access")
+    @GetMapping("/admin/auth/access")
     public ResponseEntity<?> access(String accessToken){
         return ResponseEntity.ok().body(authService.isValidAccessToken(accessToken));
     }

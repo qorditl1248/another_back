@@ -1,8 +1,9 @@
 package com.starbucksorder.another_back.controller;
 
 import com.starbucksorder.another_back.aspect.annotation.Log;
-import com.starbucksorder.another_back.dto.admin.MenuDto;
-import com.starbucksorder.another_back.dto.admin.request.ReqMenuListDtoAll;
+import com.starbucksorder.another_back.dto.admin.request.menu.ReqAdminDto;
+import com.starbucksorder.another_back.dto.admin.request.menu.ReqAdminMenuListDtoAll;
+import com.starbucksorder.another_back.dto.admin.request.menu.ReqAdminMenuDto;
 import com.starbucksorder.another_back.dto.user.request.menu.ReqMenuListDto;
 import com.starbucksorder.another_back.service.MenuService;
 import org.springframework.beans.factory.annotation.Autowired;
@@ -65,14 +66,15 @@ public class MenuController {
     // FIXME: 단비누나 이거 메소드명 잘봐주세요
     @Log
     @GetMapping("/admin/menus")
-    public ResponseEntity<?> getAllMenus(MenuDto.adminMenuDto dto) {
+    public ResponseEntity<?> getAllMenus(ReqAdminMenuDto dto) {
+        System.out.println("동작됨");
         return ResponseEntity.ok().body(menuService.getAllMenus(dto));
     }
 
 
     // 메뉴 추가
     @PostMapping("/admin/menu")
-    public ResponseEntity<?> addMenu(@RequestBody MenuDto.ReqDto dto) {
+    public ResponseEntity<?> addMenu(@RequestBody ReqAdminDto dto) {
         return ResponseEntity.ok().body(menuService.addMenu(dto));
     }
 
@@ -100,7 +102,7 @@ public class MenuController {
 
     // 자소분리현상 로직
     @PatchMapping("/admin/modify")
-    public ResponseEntity<?> modifyMenu(@RequestBody List<ReqMenuListDtoAll> menuList) {
+    public ResponseEntity<?> modifyMenu(@RequestBody List<ReqAdminMenuListDtoAll> menuList) {
         menuService.modifyMenu(menuList);
         return ResponseEntity.ok().body(null);
     }

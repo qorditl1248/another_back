@@ -1,8 +1,7 @@
 package com.starbucksorder.another_back.entity;
 
 import com.fasterxml.jackson.annotation.JsonIgnore;
-import com.starbucksorder.another_back.dto.admin.MenuDto;
-import com.starbucksorder.another_back.dto.admin.response.MenuDetailRespDto;
+import com.starbucksorder.another_back.dto.admin.response.menu.RespAdminMenuList;
 import com.starbucksorder.another_back.dto.user.response.menu.RespMenuListAll;
 import lombok.AllArgsConstructor;
 import lombok.Builder;
@@ -42,8 +41,8 @@ public class Menu {
     }
 
     // 관리자 메뉴페이지
-    public MenuDto.RespMenuList toPageMenuList() {
-        return MenuDto.RespMenuList.builder()
+    public RespAdminMenuList toPageMenuList() {
+        return RespAdminMenuList.builder()
                 .menuId(menuId)
                 .menuName(menuName)
                 .menuPrice(menuPrice)
@@ -53,8 +52,8 @@ public class Menu {
     }
 
     // 관리자 메뉴 상세보기 리턴
-    public MenuDetailRespDto toMenuDetail() {
-        return MenuDetailRespDto.builder()
+    public RespAdminMenuList.MenuAdminDetailRespDto toMenuDetail() {
+        return RespAdminMenuList.MenuAdminDetailRespDto.builder()
                 .menuId(menuId)
                 .menuName(menuName)
                 .menuPrice(menuPrice)
