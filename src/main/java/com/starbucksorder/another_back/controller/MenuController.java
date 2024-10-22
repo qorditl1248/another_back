@@ -52,21 +52,22 @@ public class MenuController {
     public ResponseEntity<?> validMenuName(@RequestParam String menuName) {
         return ResponseEntity.ok().body(menuService.validMenuName(menuName));
     }
+
+    // 메뉴추가를 하기위한 옵션과 카테고리 불러오기
     @GetMapping("/admin/menu/add")
     public ResponseEntity<?> getNames() {
         return ResponseEntity.ok().body(menuService.getValueAll());
     }
+
     // 메뉴관리 조회 -> 다 건 조회
+    // 검색기능 추가
+    // FIXME: 단비누나 이거 메소드명 잘봐주세요
     @Log
     @GetMapping("/admin/menus")
-    public ResponseEntity<?> getAllMenus(MenuDto.pageDto dto) {
+    public ResponseEntity<?> getAllMenus(MenuDto.adminMenuDto dto) {
         return ResponseEntity.ok().body(menuService.getAllMenus(dto));
     }
-    // 메뉴,카테고리 검색
-    @GetMapping("/admin/menu/search")
-    public ResponseEntity<?> getAllMenus(String menuName) {
-        return ResponseEntity.ok().body(menuService.searchMenus(menuName));
-    }
+
 
     // 메뉴 추가
     @PostMapping("/admin/menu")
@@ -74,11 +75,15 @@ public class MenuController {
         return ResponseEntity.ok().body(menuService.addMenu(dto));
     }
 
+    // 메뉴 상세보기
+
+
     // 메뉴 삭제
     @DeleteMapping("/admin/menu/{menuId}")
     public ResponseEntity<?> deleteMenu(@PathVariable Long menuId) {
         return ResponseEntity.ok().body(menuService.deleteMenu(menuId));
     }
+
     // 메뉴 상태변경
     @PatchMapping("/admin/menu/status/{menuId}")
     public ResponseEntity<?> updateMenuStatus(@PathVariable Long menuId) {
@@ -92,7 +97,7 @@ public class MenuController {
     @PatchMapping("/admin/modify")
     public ResponseEntity<?> modifyMenu(@RequestBody List<ReqMenuListDtoAll> menuList) {
         menuService.modifyMenu(menuList);
-            return ResponseEntity.ok().body(null);
+        return ResponseEntity.ok().body(null);
     }
 
 }

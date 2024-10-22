@@ -95,22 +95,25 @@ public class MenuService {
         return MenuDto.CMRespCategoryAndOption.builder().categories(categoryMapper.getCategory().stream().map(Category::toString).collect(Collectors.toList())).build();
     }*/
 
-    // 관리자 메뉴 전체조회
-    public MenuDto.CMRespDto getAllMenus(MenuDto.pageDto dto) {
+    // 관리자 메뉴 전체조회 및 페이지로 주기
+    public MenuDto.CMRespDto getAllMenus(MenuDto.adminMenuDto dto) {
+        // NOTE: 사용되는 애
         Long startIndex = (dto.getPage() - 1) * dto.getLimit();
-        List<Menu> menuList = menuMapper.getMenuListPage(startIndex, dto.getLimit());
-        return new MenuDto.CMRespDto(menuMapper.totalCount(),menuList.stream().map(Menu::toPageMenuList).collect(Collectors.toList()));
+        List<Menu> menuList = menuMapper.getMenuListPageByName(startIndex, dto.getLimit(),dto.getSearchName());
+
+        return new MenuDto.CMRespDto(menuMapper.totalCount(dto.getSearchName()),menuList.stream().map(Menu::toPageMenuList).collect(Collectors.toList()));
     }
+
+    // 메뉴추가를 하기위한 옵션과 카테고리 불러오기
     public MenuDto.CMRespCategoryAndOption getValueAll(){
+
         List<MenuDto.RespCategories> categories = categoryMapper.getCategoryAll().stream().map(Category::toCategoryDto).collect(Collectors.toList());
         List<MenuDto.RespOptions> options = menuMapper.getOptionList().stream().map(Option::toOptionsDto).collect(Collectors.toList());
+
         System.out.println(categories);
         System.out.println(options);
+
         return new MenuDto.CMRespCategoryAndOption(options,categories);
-    }
-    // 메뉴 검색
-    public List<MenuDto.RespMenuList> searchMenus(String menuName) {
-        return menuMapper.searchMenuByName(menuName).stream().map(Menu::toPageMenuList).collect(Collectors.toList());
     }
 
     // 메뉴 추가
