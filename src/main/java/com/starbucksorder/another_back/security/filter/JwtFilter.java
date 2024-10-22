@@ -42,8 +42,8 @@ public class JwtFilter extends GenericFilter {
         }
 
         String bearerToken = httpServletRequest.getHeader("Authorization");
-
-        if (bearerToken == null || !bearerToken.startsWith("Bearer ")) {
+        // FIXME: !bearerToken.startsWith("Bearer ") -> isBlank로 변경 됨
+        if (bearerToken == null || bearerToken.isBlank()) {
             chain.doFilter(request, response);
             return;
         }
