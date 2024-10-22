@@ -57,6 +57,7 @@ public class PointService {
     }
 
     // 포인트 사용
+    // FIXME: usePoints -> usePoint 변경요청
     public void usePoints(ReqUsePointDto dto) {
 
         User user = userMapper.findUserByUserId(dto.getUserId());
