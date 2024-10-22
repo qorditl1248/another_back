@@ -47,6 +47,7 @@ public class MenuController {
 
     /* NOTE: --------------관리자 메뉴추가를 위한 로직-------------- */
     // 메뉴 추가를 위한 이름 조회 -> 단 건 조회
+
     @Log
     @GetMapping("/admin/menu")
     public ResponseEntity<?> validMenuName(@RequestParam String menuName) {
@@ -76,7 +77,11 @@ public class MenuController {
     }
 
     // 메뉴 상세보기
-
+    @Log
+    @GetMapping("/admin/menu/detail/{menuId}")
+    public ResponseEntity<?> getMenuDetail(@PathVariable Long menuId) {
+        return ResponseEntity.ok().body(menuService.getMenuDetail(menuId));
+    }
 
     // 메뉴 삭제
     @DeleteMapping("/admin/menu/{menuId}")
