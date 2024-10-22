@@ -23,7 +23,7 @@ public interface MenuMapper {
 
     int getCountAllBySearch(Long categoryId);
 
-
+    // 사용자 메뉴 선택시 상세보기
     Menu findByMenuId(Long menuId);
 
     boolean findByMenuName(@Param("menuName") String menuName);
@@ -46,6 +46,9 @@ public interface MenuMapper {
     // 메뉴 추가
     int save(Menu menu);
 
+    // FIXME: 사용자의 findbyId와 유사한 메소드명 설정
+    // 관리자 메뉴 상세보기
+    Menu menuDetailByMenuId(Long menuId);
     // 메뉴 삭제
     int deleteByMenuId(Long menuId);
 

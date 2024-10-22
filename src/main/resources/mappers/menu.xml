@@ -251,6 +251,28 @@
         WHERE
             menu_name = #{menuName}
     </select>
+    <!-- 관리자 메뉴 상세보기    -->
+    <select id="menuDetailByMenuId" resultType="com.starbucksorder.another_back.entity.Menu">
+        SELECT
+            mt.menu_id AS menuId,
+            mt.menu_name AS menuName,
+            mt.comment,
+            mt.menu_status AS menuStatus,
+            mt.img_url AS imgUrl,
+            mt.menu_price AS menuPrice,
+            group_concat(distinct ot.option_name) AS options,
+            group_concat(distinct ct.category_name) AS categories
+        FROM
+            menu_detail_tb mdt
+            left outer join menu_tb mt on (mt.menu_id = mdt.menu_id)
+            left outer join option_tb ot on(ot.option_id = mdt.option_id)
+            left outer join menu_category_tb mct on (mct.menu_id = mt.menu_id)
+            left outer join category_tb ct on (ct.category_id = mct.category_id)
+        WHERE
+            mt.menu_id = #{menuId}
+        group by
+            mt.menu_id
+    </select>
     <select id="getMenuList" resultType="com.starbucksorder.another_back.entity.Menu">
         SELECT
             menu_id as menuId,

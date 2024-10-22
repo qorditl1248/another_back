@@ -1,13 +1,16 @@
 package com.starbucksorder.another_back.service;
 
 
-import com.starbucksorder.another_back.aspect.annotation.Log;
 import com.starbucksorder.another_back.dto.admin.MenuDto;
 import com.starbucksorder.another_back.dto.admin.request.ReqMenuListDtoAll;
+import com.starbucksorder.another_back.dto.admin.response.MenuDetailRespDto;
 import com.starbucksorder.another_back.dto.user.request.menu.ReqMenuListDto;
 import com.starbucksorder.another_back.dto.user.response.menu.RespMenuDto;
 import com.starbucksorder.another_back.dto.user.response.menu.RespMenuListByCategoryIdDto;
-import com.starbucksorder.another_back.entity.*;
+import com.starbucksorder.another_back.entity.Category;
+import com.starbucksorder.another_back.entity.Menu;
+import com.starbucksorder.another_back.entity.MenuDetail;
+import com.starbucksorder.another_back.entity.Option;
 import com.starbucksorder.another_back.repository.CategoryMapper;
 import com.starbucksorder.another_back.repository.MenuDetailMapper;
 import com.starbucksorder.another_back.repository.MenuMapper;
@@ -99,13 +102,13 @@ public class MenuService {
     public MenuDto.CMRespDto getAllMenus(MenuDto.adminMenuDto dto) {
         // NOTE: 사용되는 애
         Long startIndex = (dto.getPage() - 1) * dto.getLimit();
-        List<Menu> menuList = menuMapper.getMenuListPageByName(startIndex, dto.getLimit(),dto.getSearchName());
+        List<Menu> menuList = menuMapper.getMenuListPageByName(startIndex, dto.getLimit(), dto.getSearchName());
 
-        return new MenuDto.CMRespDto(menuMapper.totalCount(dto.getSearchName()),menuList.stream().map(Menu::toPageMenuList).collect(Collectors.toList()));
+        return new MenuDto.CMRespDto(menuMapper.totalCount(dto.getSearchName()), menuList.stream().map(Menu::toPageMenuList).collect(Collectors.toList()));
     }
 
     // 메뉴추가를 하기위한 옵션과 카테고리 불러오기
-    public MenuDto.CMRespCategoryAndOption getValueAll(){
+    public MenuDto.CMRespCategoryAndOption getValueAll() {
 
         List<MenuDto.RespCategories> categories = categoryMapper.getCategoryAll().stream().map(Category::toCategoryDto).collect(Collectors.toList());
         List<MenuDto.RespOptions> options = menuMapper.getOptionList().stream().map(Option::toOptionsDto).collect(Collectors.toList());
@@ -113,7 +116,7 @@ public class MenuService {
         System.out.println(categories);
         System.out.println(options);
 
-        return new MenuDto.CMRespCategoryAndOption(options,categories);
+        return new MenuDto.CMRespCategoryAndOption(options, categories);
     }
 
     // 메뉴 추가
@@ -134,6 +137,11 @@ public class MenuService {
 //        }
 
         return true;
+    }
+
+    // 메뉴 상세보기
+    public MenuDetailRespDto getMenuDetail(Long menuId) {
+        return menuMapper.menuDetailByMenuId(menuId).toMenuDetail();
     }
 
     // 자소분리현상 처리 로직

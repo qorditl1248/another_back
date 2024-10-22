@@ -22,7 +22,7 @@ public class JwtProvider {
     }
 
     private Date getExpirationDate() {
-        return new Date(new Date().getTime() + 1000l * 60 * 60 * 3);
+        return new Date(new Date().getTime() + 1000l * 60 * 60 * 24);
     }
 
     public String generateToken(Admin admin) {

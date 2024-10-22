@@ -2,6 +2,7 @@ package com.starbucksorder.another_back.entity;
 
 import com.fasterxml.jackson.annotation.JsonIgnore;
 import com.starbucksorder.another_back.dto.admin.MenuDto;
+import com.starbucksorder.another_back.dto.admin.response.MenuDetailRespDto;
 import com.starbucksorder.another_back.dto.user.response.menu.RespMenuListAll;
 import lombok.AllArgsConstructor;
 import lombok.Builder;
@@ -48,6 +49,20 @@ public class Menu {
                 .menuPrice(menuPrice)
                 .categories(categories)
                 .options(options)
+                .build();
+    }
+
+    // 관리자 메뉴 상세보기 리턴
+    public MenuDetailRespDto toMenuDetail() {
+        return MenuDetailRespDto.builder()
+                .menuId(menuId)
+                .menuName(menuName)
+                .menuPrice(menuPrice)
+                .comment(comment)
+                .menuStatus(menuStatus)
+                .imgUrl(imgUrl)
+                .options(options)
+                .categories(categories)
                 .build();
     }
 

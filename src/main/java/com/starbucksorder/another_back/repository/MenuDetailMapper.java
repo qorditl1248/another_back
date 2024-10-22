@@ -7,4 +7,6 @@ import java.util.List;
 @Mapper
 public interface MenuDetailMapper {
     int save(Long menuId, List<Long> optionIds);
+
+
 }
