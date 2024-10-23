@@ -20,8 +20,6 @@ public class RespAdminMenuList {
         private String menuName;
         private int menuPrice;
         private String comment;
-        // 추후 추가예정
-        @JsonIgnore
         private Long menuStatus;
         private String imgUrl;
         private String options;
