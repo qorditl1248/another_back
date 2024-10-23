@@ -56,7 +56,7 @@ public class MenuController {
     }
 
     // 메뉴추가를 하기위한 옵션과 카테고리 불러오기
-    @GetMapping("/admin/menu/add")
+    @GetMapping("/admin/menu/category")
     public ResponseEntity<?> getNames() {
         return ResponseEntity.ok().body(menuService.getValueAll());
     }
@@ -91,6 +91,9 @@ public class MenuController {
         return ResponseEntity.ok().body(menuService.deleteMenu(menuId));
     }
 
+    // 메뉴수정
+
+
     // 메뉴 상태변경
     @PatchMapping("/admin/menu/status/{menuId}")
     public ResponseEntity<?> updateMenuStatus(@PathVariable Long menuId) {
@@ -98,7 +101,6 @@ public class MenuController {
     }
 
     /* NOTE: ------------------------------------------------------------ */
-
 
     // 자소분리현상 로직
     @PatchMapping("/admin/modify")

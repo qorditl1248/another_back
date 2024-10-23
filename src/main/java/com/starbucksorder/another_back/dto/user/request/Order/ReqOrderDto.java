@@ -17,6 +17,8 @@ public class ReqOrderDto {
     private int quantity; // 메뉴별 갯수
     private String orderComment; // 메뉴별 옵션, 갯수, 이름 등...
 
+
+
     public Order toOrderEntity() {
         return Order.builder()
                 .userId(userId)
