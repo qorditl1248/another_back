@@ -1,6 +1,7 @@
 package com.starbucksorder.another_back.service;
 
 
+import com.starbucksorder.another_back.aspect.annotation.NameDuplicate;
 import com.starbucksorder.another_back.dto.admin.request.menu.ReqAdminDto;
 import com.starbucksorder.another_back.dto.admin.request.menu.ReqAdminMenuDto;
 import com.starbucksorder.another_back.dto.admin.request.menu.ReqAdminMenuListDtoAll;
@@ -92,7 +93,7 @@ public class MenuService {
 
     // 메뉴 이름 조회
     public boolean validMenuName(String menuName) {
-        return menuMapper.findByMenuName(menuName);
+        return menuMapper.duplicateByMenuName(menuName);
     }
     // 메뉴추가 할 때 필요한 옵션, 카테고리 조회
 /*    public MenuDto.CMRespCategoryAndOption getNames() {
@@ -137,7 +138,6 @@ public class MenuService {
 //                    .build();
 //            menuDetailMapper.save(menuDetail);
 //        }
-
         return true;
     }
 
@@ -147,22 +147,26 @@ public class MenuService {
     }
 
     // 메뉴수정
+    @NameDuplicate
     @Transactional(rollbackFor = RuntimeException.class)
     public boolean modifyMenu(ReqAdminModifyDto dto) {
-        if (menuMapper.update(dto.toEntity()) > 0) {
-            // 기존 옵션 삭제 후, 다시 추가하기
-            if (menuDetailMapper.deleteByMenuId(dto.getMenuId()) < 0) {
-                throw new RuntimeException("Delete Option Error");
-            }
-            // 기존 카테고리 삭제 후 다시 추가하기
-            if (categoryMapper.deleteCategoryById(dto.getMenuId()) < 0) {
-                throw new RuntimeException("Delete Category Error");
-            }
-            menuDetailMapper.save(dto.getMenuId(), dto.getOptionIds());
-            categoryMapper.save(dto.getMenuId(), dto.getCategoryIds());
-            return true;
+        try {
+            menuMapper.update(dto.toEntity());
+        } catch (Exception e) {
+            throw new RuntimeException("Duplicate MenuName");
         }
-        throw new RuntimeException("중복된 메뉴명");
+        // 기존 옵션 삭제 후, 다시 추가하기
+        if (menuDetailMapper.deleteByMenuId(dto.getMenuId()) < 0) {
+            throw new RuntimeException("Delete Option Error");
+        }
+        // 기존 카테고리 삭제 후 다시 추가하기
+        if (categoryMapper.deleteCategoryById(dto.getMenuId()) < 0) {
+            throw new RuntimeException("Delete Category Error");
+        }
+        menuDetailMapper.save(dto.getMenuId(), dto.getOptionIds());
+        categoryMapper.save(dto.getMenuId(), dto.getCategoryIds());
+
+        return true;
     }
 
     // 자소분리현상 처리 로직

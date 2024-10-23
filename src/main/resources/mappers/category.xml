@@ -5,13 +5,33 @@
 
 <mapper namespace="com.starbucksorder.another_back.repository.CategoryMapper">
 
+    <resultMap id="categoryResultMap" type="com.starbucksorder.another_back.entity.Category">
+        <id property="categoryId" column="category_id"/>
+        <result property="categoryName" column="category_name"/>
+        <result property="categoryStatus" column="category_status"/>
+        <result property="categorySeq" column="category_seq"/>
+    </resultMap>
 
-    <select id="getCategory" resultType="com.starbucksorder.another_back.entity.Category">
+    <select id="findByCategoryName" resultMap="categoryResultMap">
         select
-            category_id as categoryId,
-            category_name as categoryName,
-            category_status as categoryStatus,
-            category_seq as categorySeq
+            category_id,
+            category_name,
+            category_status,
+            category_seq,
+        from
+            category_tb
+        where
+            category_name = #{categoryName}
+        order by
+            category_seq
+    </select>
+
+    <select id="getCategory" resultMap="categoryResultMap">
+        select
+            category_id,
+            category_name,
+            category_status,
+            category_seq
         from
             category_tb
         where

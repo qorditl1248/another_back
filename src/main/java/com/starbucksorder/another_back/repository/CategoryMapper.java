@@ -8,10 +8,11 @@ import java.util.List;
 @Mapper
 public interface CategoryMapper {
     int save(Long menuId, List<Long> categories);
-
+    // FIXME: findAllByEnable
     List<Category> getCategory();
-
+    // FIXME: FindAll
     List<Category> getCategoryAll();
 
     int deleteCategoryById(Long menuId);
+    Category findByCategoryName(String categoryName);
 }

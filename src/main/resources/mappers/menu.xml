@@ -243,13 +243,36 @@
             mct.category_id = #{categoryId}
     </select>
     <!-- NOTE: 관리자   -->
-    <select id="findByMenuName" resultType="java.lang.Boolean">
+    <select id="findByMenuName" resultMap="menuResultMap">
         SELECT
-            count(*) > 0
+        mt.menu_id as menuId,
+        mt.menu_name as menuName,
+        mt.menu_price as menuPrice,
+        mt.comment as comment,
+        mt.menu_status as status,
+        <!--            mt.create_date as createDate,-->
+        <!--            mt.update_date as updateDate,-->
+        mt.img_url as imgUrl,
+
+        mdt.menu_detail_id as menuDetailId,
+        mdt.menu_id as menuId,
+        mdt.option_id as optionId,
+
+        ot.option_id as optionId,
+        ot.option_name as optionName,
+        <!--            ot.create_date as createDate,-->
+        <!--            ot.update_date as updateDate,-->
+
+        odt.option_detail_id as optionDetailId,
+        odt.option_detail_value as optionDetailValue,
+        odt.option_detail_price as optionDetailPrice
         FROM
-            menu_tb
+        menu_tb mt
+        LEFT OUTER JOIN menu_detail_tb mdt on (mdt.menu_id = mt.menu_id)
+        LEFT OUTER JOIN option_tb ot on (ot.option_id = mdt.option_id)
+        LEFT OUTER JOIN option_detail_tb odt on (odt.option_id = ot.option_id)
         WHERE
-            menu_name = #{menuName}
+        mt.menu_name = #{menuName}
     </select>
     <!-- 관리자 메뉴 상세보기    -->
     <select id="menuDetailByMenuId" resultType="com.starbucksorder.another_back.entity.Menu">
@@ -358,6 +381,5 @@
         WHERE
             menu_id = #{menuId}
     </update>
-
 
 </mapper>
