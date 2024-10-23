@@ -155,13 +155,14 @@ public class MenuService {
                 throw new RuntimeException("Delete Option Error");
             }
             // 기존 카테고리 삭제 후 다시 추가하기
-            if(categoryMapper.deleteCategoryById(dto.getMenuId()) < 0){
+            if (categoryMapper.deleteCategoryById(dto.getMenuId()) < 0) {
                 throw new RuntimeException("Delete Category Error");
             }
-                menuDetailMapper.save(dto.getMenuId(), dto.getOptionIds());
-                categoryMapper.save(dto.getMenuId(),dto.getCategoryIds());
+            menuDetailMapper.save(dto.getMenuId(), dto.getOptionIds());
+            categoryMapper.save(dto.getMenuId(), dto.getCategoryIds());
+            return true;
         }
-        return true;
+        throw new RuntimeException("중복된 메뉴명");
     }
 
     // 자소분리현상 처리 로직
