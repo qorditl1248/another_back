@@ -18,8 +18,14 @@
             menu_detail_tb(menu_id, option_id)
         VALUES
         <foreach collection="optionIds" item="optionId" separator=",">
-            (#{menuId},#{optionId})
+            (#{menuId}, #{optionId})
         </foreach>
     </insert>
-
+    <delete id="deleteByMenuId">
+        DELETE
+        FROM
+            menu_detail_tb
+        WHERE
+            menu_id = #{menuId}
+    </delete>
 </mapper>

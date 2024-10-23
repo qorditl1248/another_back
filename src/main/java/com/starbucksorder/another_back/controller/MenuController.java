@@ -4,6 +4,7 @@ import com.starbucksorder.another_back.aspect.annotation.Log;
 import com.starbucksorder.another_back.dto.admin.request.menu.ReqAdminDto;
 import com.starbucksorder.another_back.dto.admin.request.menu.ReqAdminMenuListDtoAll;
 import com.starbucksorder.another_back.dto.admin.request.menu.ReqAdminMenuDto;
+import com.starbucksorder.another_back.dto.admin.request.menu.ReqAdminModifyDto;
 import com.starbucksorder.another_back.dto.user.request.menu.ReqMenuListDto;
 import com.starbucksorder.another_back.service.MenuService;
 import org.springframework.beans.factory.annotation.Autowired;
@@ -56,7 +57,7 @@ public class MenuController {
     }
 
     // 메뉴추가를 하기위한 옵션과 카테고리 불러오기
-    @GetMapping("/admin/menu/category")
+    @GetMapping("/admin/menu/values")
     public ResponseEntity<?> getNames() {
         return ResponseEntity.ok().body(menuService.getValueAll());
     }
@@ -70,7 +71,6 @@ public class MenuController {
         System.out.println("동작됨");
         return ResponseEntity.ok().body(menuService.getAllMenus(dto));
     }
-
 
     // 메뉴 추가
     @PostMapping("/admin/menu")
@@ -92,6 +92,11 @@ public class MenuController {
     }
 
     // 메뉴수정
+    @Log
+    @PatchMapping("/admin/modify/{menuId}")
+    public ResponseEntity<?> modifyMenu(@PathVariable Long menuId, @RequestBody ReqAdminModifyDto dto) {
+        return ResponseEntity.ok().body(menuService.modifyMenu(dto));
+    }
 
 
     // 메뉴 상태변경

@@ -46,6 +46,9 @@ public interface MenuMapper {
     // 메뉴 추가
     int save(Menu menu);
 
+    // 메뉴수정
+    int update(Menu menu);
+
     // FIXME: 사용자의 findbyId와 유사한 메소드명 설정
     // 관리자 메뉴 상세보기
     Menu menuDetailByMenuId(Long menuId);
