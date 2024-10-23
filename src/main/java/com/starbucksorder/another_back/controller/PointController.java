@@ -18,7 +18,7 @@ public class PointController {
     // 포인트 적립 할래요 : 포인트 적립 전 userId 확인
     // 포인트 사용 : 포인트 사용 전 userId 확인
     @GetMapping("/user")
-    public ResponseEntity<?> getUser(@RequestBody ReqUserDto dto) {
+    public ResponseEntity<?> getUserId(@RequestBody ReqUserDto dto) {
         return ResponseEntity.ok().body(pointService.getUserId(dto));
     }
 
