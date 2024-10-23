@@ -1,6 +1,5 @@
 package com.starbucksorder.another_back.dto.admin.response.menu;
 
-import com.fasterxml.jackson.annotation.JsonIgnore;
 import lombok.Builder;
 import lombok.Data;
 

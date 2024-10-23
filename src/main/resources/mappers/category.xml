@@ -30,4 +30,21 @@
         ORDER BY
             category_seq
     </select>
+
+    <insert id="save">
+        INSERT INTO
+            menu_category_tb(menu_id, category_id)
+        VALUES
+        <foreach collection="categories" item="categoryId" separator=",">
+            (#{menuId},#{categoryId})
+        </foreach>
+    </insert>
+
+    <delete id="deleteCategoryById">
+        DELETE
+        FROM
+            menu_category_tb
+        WHERE
+            menu_id = #{menuId}
+    </delete>
 </mapper>

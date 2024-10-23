@@ -4,6 +4,7 @@ package com.starbucksorder.another_back.service;
 import com.starbucksorder.another_back.dto.admin.request.menu.ReqAdminDto;
 import com.starbucksorder.another_back.dto.admin.request.menu.ReqAdminMenuDto;
 import com.starbucksorder.another_back.dto.admin.request.menu.ReqAdminMenuListDtoAll;
+import com.starbucksorder.another_back.dto.admin.request.menu.ReqAdminModifyDto;
 import com.starbucksorder.another_back.dto.admin.response.menu.*;
 import com.starbucksorder.another_back.dto.user.request.menu.ReqMenuListDto;
 import com.starbucksorder.another_back.dto.user.response.menu.RespMenuDto;
@@ -87,7 +88,7 @@ public class MenuService {
                 .build();
     }
 
-    // 관리자 관련
+    // NOTE: 관리자 관련
 
     // 메뉴 이름 조회
     public boolean validMenuName(String menuName) {
@@ -143,6 +144,24 @@ public class MenuService {
     // 메뉴 상세보기
     public RespAdminMenuList.MenuAdminDetailRespDto getMenuDetail(Long menuId) {
         return menuMapper.menuDetailByMenuId(menuId).toMenuDetail();
+    }
+
+    // 메뉴수정
+    @Transactional(rollbackFor = RuntimeException.class)
+    public boolean modifyMenu(ReqAdminModifyDto dto) {
+        if (menuMapper.update(dto.toEntity()) > 0) {
+            // 기존 옵션 삭제 후, 다시 추가하기
+            if (menuDetailMapper.deleteByMenuId(dto.getMenuId()) < 0) {
+                throw new RuntimeException("Delete Option Error");
+            }
+            // 기존 카테고리 삭제 후 다시 추가하기
+            if(categoryMapper.deleteCategoryById(dto.getMenuId()) < 0){
+                throw new RuntimeException("Delete Category Error");
+            }
+                menuDetailMapper.save(dto.getMenuId(), dto.getOptionIds());
+                categoryMapper.save(dto.getMenuId(),dto.getCategoryIds());
+        }
+        return true;
     }
 
     // 자소분리현상 처리 로직

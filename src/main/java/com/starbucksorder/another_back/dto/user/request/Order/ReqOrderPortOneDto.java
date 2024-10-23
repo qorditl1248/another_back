@@ -6,22 +6,24 @@ import java.util.List;
 
 @Data
 public class ReqOrderPortOneDto {
-    private Long merchantId;
+    private String merchantId;
     private int amount;
+    // takeout : 1, eatin : 2
     private Long orderType;
-    private String totalQuantity;
+    private int totalQuantity;
     private List<orderDetail> productList;
 
+    @Data
     public static class orderDetail {
         private Long menuId;
         private String menuName;
         private int quantity;
         private List<optionsDto> options;
     }
-
+    @Data
     public static class optionsDto {
         private Long optionId;
         private String optionName;
-        private String valueName;
+        private String optionDetailValue;
     }
 }

@@ -346,6 +346,18 @@
         WHERE
             1 = 1
     </select>
+    <update id="update">
+        UPDATE
+            menu_tb
+        SET
+            menu_name = #{menuName},
+            menu_price = #{menuPrice},
+            img_url = #{imgUrl},
+            comment = #{comment},
+            update_date = now()
+        WHERE
+            menu_id = #{menuId}
+    </update>
 
 
 </mapper>
