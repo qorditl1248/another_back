@@ -10,7 +10,7 @@
             menu_category_tb
         VALUES
         <foreach collection="menuIds"  item="menuId" separator=",">
-            (DEFAULT, #{categoryId}, #{menuId})
+            (DEFAULT, #{menuId}, #{categoryId})
         </foreach>
     </insert>
     <delete id="deleteByCategoryId">

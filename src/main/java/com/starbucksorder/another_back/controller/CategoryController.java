@@ -29,7 +29,6 @@ public class CategoryController {
         return ResponseEntity.ok().body(categoryService.add(dto));
     }
 
-
     // 메뉴에 해당 카테고리 부여하기
     @PostMapping("/admin/category/menu")
     public ResponseEntity<?> includeMenu(@RequestBody ReqAdminIncludMenuByCategoryDto dto) {
