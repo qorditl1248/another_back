@@ -1,5 +1,6 @@
 package com.starbucksorder.another_back.service;
 
+import com.starbucksorder.another_back.exception.DuplicateNameException;
 import com.starbucksorder.another_back.repository.CategoryMapper;
 import com.starbucksorder.another_back.repository.MenuMapper;
 import com.starbucksorder.another_back.repository.OptionMapper;
@@ -15,16 +16,15 @@ public class DuplicateService {
     @Autowired
     private CategoryMapper categoryMapper;
 
-    public boolean isDuplicateName(String mapperName, String name) {
+    public boolean isNotDuplicateName(String mapperName, String name) {
         switch (mapperName) {
             case "menu":
-                return menuMapper.findByMenuName(name) != null;
+                return menuMapper.findByMenuName(name) == null;
             case "category":
-                return categoryMapper.findByCategoryName(name) != null;
+                return categoryMapper.findByCategoryName(name) == null;
             case "optionMapper":
-                return optionMapper.findByOptionName(name)!=null;
+                return optionMapper.findByOptionName(name) == null;
         }
-        return true;
+        throw new DuplicateNameException(mapperName + "이미 중복된 이름입니다");
     }
-
 }
