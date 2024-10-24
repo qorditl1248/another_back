@@ -128,16 +128,9 @@ public class MenuService {
         Menu menu = dto.toMenuEntity();
         // 메뉴 추가 순차적실행
         menuMapper.save(menu);
-        List<Long> optionIds = dto.getOptionIds();
         // 옵션 추가
-        menuDetailMapper.save(menu.getMenuId(), optionIds);
-//        for (Long optionId : dto.getOptionIds()) {
-//            MenuDetail menuDetail = MenuDetail.builder()
-//                    .menuId(menu.getMenuId())
-//                    .optionId(optionId)
-//                    .build();
-//            menuDetailMapper.save(menuDetail);
-//        }
+        menuDetailMapper.save(menu.getMenuId(), dto.getOptionIds());
+        categoryMapper.save(menu.getMenuId(), dto.getCategories());
         return true;
     }
 
