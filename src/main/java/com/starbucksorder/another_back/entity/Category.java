@@ -15,6 +15,7 @@ import java.util.List;
 @AllArgsConstructor
 @Data
 public class Category {
+    // FIXME: categoryStatus, Seq 데이터타입 생각해보기
     private Long categoryId;
     private String categoryName;
     private Long categoryStatus;

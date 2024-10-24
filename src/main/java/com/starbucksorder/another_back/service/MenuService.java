@@ -116,13 +116,13 @@ public class MenuService {
     // 메뉴 추가
     @Transactional(rollbackFor = RuntimeException.class)
     public boolean addMenu(ReqAdminDto dto) {
-        duplicateService.isNotDuplicateName("menu", dto.getMenuName());
+        duplicateService.isDuplicateName("menu", dto.getMenuName());
         Menu menu = dto.toMenuEntity();
         // 메뉴 추가 순차적실행
         menuMapper.save(menu);
         // 옵션 추가
         menuDetailMapper.save(menu.getMenuId(), dto.getOptionIds());
-        categoryMapper.save(menu.getMenuId(), dto.getCategories());
+        categoryMapper.saveByMenuId(menu.getMenuId(), dto.getCategories());
         return true;
     }
 
@@ -149,7 +149,7 @@ public class MenuService {
             throw new RuntimeException("Delete Category Error");
         }
         menuDetailMapper.save(dto.getMenuId(), dto.getOptionIds());
-        categoryMapper.save(dto.getMenuId(), dto.getCategoryIds());
+        categoryMapper.saveByMenuId(dto.getMenuId(), dto.getCategoryIds());
 
         return true;
     }

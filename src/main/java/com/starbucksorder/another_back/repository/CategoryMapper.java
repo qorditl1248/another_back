@@ -7,7 +7,11 @@ import java.util.List;
 
 @Mapper
 public interface CategoryMapper {
-    int save(Long menuId, List<Long> categories);
+    // FIXME: 해당코드는 menu_category_tb에 각 메뉴아이디를 이용하여 저장하는 save임으로 경로 조정 논의
+    int saveByMenuId(Long menuId, List<Long> categories);
+
+    // 카테고리 추가
+    int save(Category category);
 
     // 상태코드 1번인 것만의 카테고리를 전부 다 가지고오는 것
     List<Category> findAllByEnable();
