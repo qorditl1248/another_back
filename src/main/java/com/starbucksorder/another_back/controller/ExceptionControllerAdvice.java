@@ -1,6 +1,7 @@
 package com.starbucksorder.another_back.controller;
 
 import com.starbucksorder.another_back.exception.BadCredentialException;
+import com.starbucksorder.another_back.exception.DuplicateNameException;
 import com.starbucksorder.another_back.exception.UserNotFoundException;
 import com.starbucksorder.another_back.exception.ValidException;
 import org.springframework.http.ResponseEntity;
@@ -28,6 +29,10 @@ public class ExceptionControllerAdvice {
     @ExceptionHandler(ValidException.class)
     public ResponseEntity<?> validException(ValidException e) {
         return ResponseEntity.status(401).body(e.getMessage());
+    }
+    @ExceptionHandler(DuplicateNameException.class)
+    public ResponseEntity<?> duplicateNameException(DuplicateNameException e) {
+        return ResponseEntity.status(409).body(e.getMessage());
     }
 
 }

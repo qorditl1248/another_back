@@ -16,6 +16,7 @@ public class ReqAdminDto {
 
     // 옵션 추가를 위한 것
     private List<Long> optionIds;
+    private List<Long> categories;
 
     public Menu toMenuEntity() {
         return Menu.builder()
