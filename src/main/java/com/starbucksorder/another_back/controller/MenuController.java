@@ -108,6 +108,7 @@ public class MenuController {
         return ResponseEntity.ok().body(menuService.updateMenuStatus(menuId));
     }
 
+
     /* NOTE: ------------------------------------------------------------ */
 
     // 자소분리현상 로직

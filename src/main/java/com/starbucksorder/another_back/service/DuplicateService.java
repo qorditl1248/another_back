@@ -16,15 +16,24 @@ public class DuplicateService {
     @Autowired
     private CategoryMapper categoryMapper;
 
-    public boolean isNotDuplicateName(String mapperName, String name) {
+    public boolean isDuplicateName(String mapperName, String name) {
+        boolean isDuplicate;
         switch (mapperName) {
             case "menu":
-                return menuMapper.findByMenuName(name) == null;
+                isDuplicate = menuMapper.findByMenuName(name) != null;
+                break;
             case "category":
-                return categoryMapper.findByCategoryName(name) == null;
+                isDuplicate = categoryMapper.findByCategoryName(name) != null;
+                break;
             case "optionMapper":
-                return optionMapper.findByOptionName(name) == null;
+                isDuplicate = optionMapper.findByOptionName(name) != null;
+                break;
+            default:
+                throw new IllegalArgumentException("Invalid mapper name");
         }
-        throw new DuplicateNameException(mapperName + "이미 중복된 이름입니다");
+        if (isDuplicate) {
+            throw new DuplicateNameException(name + " is Duplicate By " + mapperName );
+        }
+        return true;
     }
 }
