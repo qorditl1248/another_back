@@ -26,7 +26,7 @@
             category_seq
     </select>
 
-    <select id="getCategory" resultMap="categoryResultMap">
+    <select id="findAllByEnable" resultMap="categoryResultMap">
         select
             category_id,
             category_name,
@@ -40,7 +40,7 @@
             category_seq
     </select>
 
-    <select id="getCategoryAll" resultType="com.starbucksorder.another_back.entity.Category">
+    <select id="FindAll" resultType="com.starbucksorder.another_back.entity.Category">
         SELECT
             category_id as categoryId,
             category_name as categoryName,

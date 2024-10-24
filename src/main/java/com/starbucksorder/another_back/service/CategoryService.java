@@ -14,7 +14,7 @@ public class CategoryService {
     private CategoryMapper categoryMapper;
 
     public RespCategoryDto getCategory() {
-        List<Category> categoryList = categoryMapper.getCategory();
+        List<Category> categoryList = categoryMapper.findAllByEnable();
 
         return RespCategoryDto.builder()
                 .categories(categoryList)

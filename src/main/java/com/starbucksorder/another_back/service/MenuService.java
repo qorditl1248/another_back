@@ -18,7 +18,6 @@ import com.starbucksorder.another_back.repository.CategoryMapper;
 import com.starbucksorder.another_back.repository.MenuDetailMapper;
 import com.starbucksorder.another_back.repository.MenuMapper;
 import org.springframework.beans.factory.annotation.Autowired;
-import org.springframework.http.HttpStatus;
 import org.springframework.stereotype.Service;
 import org.springframework.transaction.annotation.Transactional;
 
@@ -106,7 +105,7 @@ public class MenuService {
     // 메뉴추가를 하기위한 옵션과 카테고리 불러오기
     public CMRespAdminCategoryAndOption getValueAll() {
 
-        List<RespAdminCategories> categories = categoryMapper.getCategoryAll().stream().map(Category::toCategoryDto).collect(Collectors.toList());
+        List<RespAdminCategories> categories = categoryMapper.FindAll().stream().map(Category::toCategoryDto).collect(Collectors.toList());
         List<RespAdminOptions> options = menuMapper.getOptionList().stream().map(Option::toOptionsDto).collect(Collectors.toList());
 
         System.out.println(categories);
