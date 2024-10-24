@@ -6,6 +6,7 @@ import com.starbucksorder.another_back.dto.admin.request.menu.ReqAdminMenuListDt
 import com.starbucksorder.another_back.dto.admin.request.menu.ReqAdminMenuDto;
 import com.starbucksorder.another_back.dto.admin.request.menu.ReqAdminModifyDto;
 import com.starbucksorder.another_back.dto.user.request.menu.ReqMenuListDto;
+import com.starbucksorder.another_back.service.DuplicateService;
 import com.starbucksorder.another_back.service.MenuService;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.http.ResponseEntity;
@@ -18,6 +19,8 @@ public class MenuController {
 
     @Autowired
     private MenuService menuService;
+    @Autowired
+    private DuplicateService duplicateService;
 
     // 전체 메뉴리스트
 //    @GetMapping("/menus")
@@ -53,7 +56,7 @@ public class MenuController {
     @Log
     @GetMapping("/admin/menu")
     public ResponseEntity<?> validMenuName(@RequestParam String menuName) {
-        return ResponseEntity.ok().body(menuService.validMenuName(menuName));
+        return ResponseEntity.ok().body(null);
     }
 
     // 메뉴추가를 하기위한 옵션과 카테고리 불러오기

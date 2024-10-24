@@ -18,6 +18,7 @@ import com.starbucksorder.another_back.repository.CategoryMapper;
 import com.starbucksorder.another_back.repository.MenuDetailMapper;
 import com.starbucksorder.another_back.repository.MenuMapper;
 import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.http.HttpStatus;
 import org.springframework.stereotype.Service;
 import org.springframework.transaction.annotation.Transactional;
 
@@ -33,6 +34,8 @@ public class MenuService {
     private MenuDetailMapper menuDetailMapper;
     @Autowired
     private CategoryMapper categoryMapper;
+    @Autowired
+    private DuplicateService duplicateService;
 
     // 전체 메뉴리스트 조회
     /*public RespMenuListDto getMenus() {
@@ -91,16 +94,6 @@ public class MenuService {
 
     // NOTE: 관리자 관련
 
-    // 메뉴 이름 조회
-    public boolean validMenuName(String menuName) {
-        return menuMapper.duplicateByMenuName(menuName);
-    }
-    // 메뉴추가 할 때 필요한 옵션, 카테고리 조회
-/*    public MenuDto.CMRespCategoryAndOption getNames() {
-
-        return MenuDto.CMRespCategoryAndOption.builder().categories(categoryMapper.getCategory().stream().map(Category::toString).collect(Collectors.toList())).build();
-    }*/
-
     // 관리자 메뉴 전체조회 및 페이지로 주기
     public CMRespAdminDto getAllMenus(ReqAdminMenuDto dto) {
         // NOTE: 사용되는 애
@@ -121,10 +114,10 @@ public class MenuService {
 
         return new CMRespAdminCategoryAndOption(options, categories);
     }
-
     // 메뉴 추가
     @Transactional(rollbackFor = RuntimeException.class)
     public boolean addMenu(ReqAdminDto dto) {
+        duplicateService.isNotDuplicateName("menu", dto.getMenuName());
         Menu menu = dto.toMenuEntity();
         // 메뉴 추가 순차적실행
         menuMapper.save(menu);

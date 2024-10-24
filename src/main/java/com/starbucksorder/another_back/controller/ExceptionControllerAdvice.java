@@ -32,7 +32,7 @@ public class ExceptionControllerAdvice {
     }
     @ExceptionHandler(DuplicateNameException.class)
     public ResponseEntity<?> duplicateNameException(DuplicateNameException e) {
-        return ResponseEntity.status(409).body(e.getMessage());
+        return ResponseEntity.status(400).body(e.getMessage());
     }
 
 }
