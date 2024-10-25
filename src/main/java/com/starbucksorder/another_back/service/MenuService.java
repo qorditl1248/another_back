@@ -13,10 +13,13 @@ import com.starbucksorder.another_back.entity.Category;
 import com.starbucksorder.another_back.entity.Menu;
 import com.starbucksorder.another_back.entity.MenuDetail;
 import com.starbucksorder.another_back.entity.Option;
+import com.starbucksorder.another_back.exception.DuplicateNameException;
 import com.starbucksorder.another_back.repository.CategoryMapper;
 import com.starbucksorder.another_back.repository.MenuDetailMapper;
 import com.starbucksorder.another_back.repository.MenuMapper;
 import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.dao.DataIntegrityViolationException;
+import org.springframework.dao.DuplicateKeyException;
 import org.springframework.stereotype.Service;
 import org.springframework.transaction.annotation.Transactional;
 
@@ -136,24 +139,21 @@ public class MenuService {
     public boolean modifyMenu(ReqAdminModifyDto dto) {
         try {
             menuMapper.update(dto.toEntity());
-        } catch (Exception e) {
-            throw new RuntimeException("Duplicate MenuName");
+        // 데이터무결성 위반 예외처리
+        } catch (DataIntegrityViolationException e) {
+            throw new DuplicateNameException("Duplicate MenuName");
         }
         // 기존 옵션 삭제 후, 다시 추가하기
-        if (menuDetailMapper.deleteByMenuId(dto.getMenuId()) < 0) {
-            throw new RuntimeException("Delete Option Error");
-        }
+        menuDetailMapper.deleteByMenuId(dto.getMenuId());
         // 기존 카테고리 삭제 후 다시 추가하기
-        if (categoryMapper.deleteCategoryById(dto.getMenuId()) < 0) {
-            throw new RuntimeException("Delete Category Error");
-        }
-        if (dto.getOptionIds() != null) {
+        categoryMapper.deleteCategoryById(dto.getMenuId());
+
+        if (dto.getOptionIds() != null && !dto.getOptionIds().isEmpty()) {
             menuDetailMapper.save(dto.getMenuId(), dto.getOptionIds());
         }
-        if (dto.getCategoryIds() != null) {
+        if (dto.getCategoryIds() != null && !dto.getCategoryIds().isEmpty()) {
             categoryMapper.saveByMenuId(dto.getMenuId(), dto.getCategoryIds());
         }
-
         return true;
     }
 
