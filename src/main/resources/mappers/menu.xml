@@ -95,12 +95,11 @@
 
 
     <resultMap id="menuDetailResultMap" type="com.starbucksorder.another_back.entity.MenuDetail">
-        <id property="menuDetailId" column="menuDetailId" />
+        <id property="menuDetailId" column="menuDetailMenuId" />
         <result property="menuId" column="menuId" />
-        <result property="optionId" column="optionId" />
+        <result property="optionId" column="menuDetailOptionId" />
         <association property="option" resultMap="OptionResultMap" />
     </resultMap>
-
 
     <resultMap id="OptionResultMap" type="com.starbucksorder.another_back.entity.Option">
         <id property="optionId" column="optionId" />
@@ -109,7 +108,6 @@
         <result property="updateDate" column="updateDate" />
         <collection property="optionDetail" javaType="java.util.List" resultMap="OptionDetailResultMap" />
     </resultMap>
-
 
     <resultMap id="OptionDetailResultMap" type="com.starbucksorder.another_back.entity.OptionDetail">
         <id property="optionDetailId" column="optionDetailId" />
@@ -140,8 +138,8 @@
             mt.img_url as imgUrl,
 
             mdt.menu_detail_id as menuDetailId,
-            mdt.menu_id as menuId,
-            mdt.option_id as optionId,
+            mdt.menu_id as menuDetailMenuId,
+            mdt.option_id as menuDetailOptionId,
 
             ot.option_id as optionId,
             ot.option_name as optionName,
