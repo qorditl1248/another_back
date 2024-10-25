@@ -127,7 +127,7 @@ public class MenuService {
     }
 
     // 메뉴 상세보기
-    public RespAdminMenuList.MenuAdminDetailRespDto getMenuDetail(Long menuId) {
+    public MenuAdminDetailRespDto getMenuDetail(Long menuId) {
         return menuMapper.menuDetailByMenuId(menuId).toMenuDetail();
     }
 

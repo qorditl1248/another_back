@@ -5,11 +5,14 @@ import lombok.Data;
 
 @Data
 @Builder
-public class RespAdminMenuList {
+public class MenuAdminDetailRespDto {
+
     private Long menuId;
     private String menuName;
     private int menuPrice;
+    private String comment;
     private Long menuStatus;
-    private String categories;
+    private String imgUrl;
     private String options;
+    private String categories;
 }
