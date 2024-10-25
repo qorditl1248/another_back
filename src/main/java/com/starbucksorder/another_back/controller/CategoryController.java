@@ -32,9 +32,25 @@ public class CategoryController {
     // 메뉴에 해당 카테고리 부여하기
     @PostMapping("/admin/category/menu")
     public ResponseEntity<?> includeMenu(@RequestBody ReqAdminIncludMenuByCategoryDto dto) {
-
         return ResponseEntity.ok().body(categoryService.includeMenusByCategoryId(dto));
     }
 
+    //카테고리 삭제
+    @DeleteMapping("admin/category/{categoryId}")
+    public ResponseEntity<?> delete(@PathVariable Long categoryId) {
+        return ResponseEntity.ok().body(categoryService.delete(categoryId));
+    }
 
+    // 카테고리 수정
+    @PatchMapping("admin/category/{categoryId}")
+    public ResponseEntity<?> update(@PathVariable Long categoryId, @RequestBody ReqAdminCategoryDto dto) {
+        return ResponseEntity.ok().body(categoryService.update(dto));
+    }
+
+    // 카테고리 상태 수정
+    @PatchMapping("/admin/category/status/{categoryId}")
+    public ResponseEntity<?> updateStatus(@PathVariable Long categoryId) {
+        categoryService.updateStatus(categoryId);
+        return ResponseEntity.ok().body(true);
+    }
 }

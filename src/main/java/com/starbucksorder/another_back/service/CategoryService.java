@@ -46,10 +46,25 @@ public class CategoryService {
     public Boolean includeMenusByCategoryId(ReqAdminIncludMenuByCategoryDto dto) {
         // 우선 삭제
         menuCategoryMapper.deleteByCategoryId(dto.getCategoryId());
-        if(dto.getCategoryId() == null){
+        if (dto.getCategoryId() == null) {
             return true;
         }
         return menuCategoryMapper.save(dto.getCategoryId(), dto.getMenuIds()) > 0;
+    }
+
+    // 카테고리 삭제
+    public boolean delete(Long id) {
+        return categoryMapper.delete(id) > 0;
+    }
+
+    // 카테고리 수정
+    public boolean update(ReqAdminCategoryDto dto) {
+        return categoryMapper.update(dto.toEntity()) > 0;
+    }
+
+    // 카테고리 상태수정
+    public void updateStatus(Long categoryId) {
+        categoryMapper.updateStatus(categoryId);
     }
 
 
