@@ -35,14 +35,20 @@ public class CategoryController {
         return ResponseEntity.ok().body(categoryService.includeMenusByCategoryId(dto));
     }
 
+    // 카테고리 조회
+    @GetMapping("/admin/category")
+    public ResponseEntity<?> getAllCategories() {
+        return ResponseEntity.ok().body(categoryService.getAllCategories());
+    }
+
     //카테고리 삭제
-    @DeleteMapping("admin/category/{categoryId}")
+    @DeleteMapping("/admin/category/{categoryId}")
     public ResponseEntity<?> delete(@PathVariable Long categoryId) {
         return ResponseEntity.ok().body(categoryService.delete(categoryId));
     }
 
     // 카테고리 수정
-    @PatchMapping("admin/category/{categoryId}")
+    @PatchMapping("/admin/category/{categoryId}")
     public ResponseEntity<?> update(@PathVariable Long categoryId, @RequestBody ReqAdminCategoryDto dto) {
         return ResponseEntity.ok().body(categoryService.update(dto));
     }
@@ -54,9 +60,7 @@ public class CategoryController {
         return ResponseEntity.ok().body(true);
     }
 
-    // 카테고리 조회
-    @GetMapping("/admin/category")
-    public ResponseEntity<?> getAllCategories() {
-        return ResponseEntity.ok().body(categoryService.getAllCategories());
-    }
+
+    // 해당 카테고리에서 메뉴 제외하기
+//    @DeleteMapping("/admin")
 }

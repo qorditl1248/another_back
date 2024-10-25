@@ -5,9 +5,11 @@ import com.starbucksorder.another_back.dto.admin.request.category.ReqAdminInclud
 import com.starbucksorder.another_back.dto.admin.response.category.RespAdminCategoryDto;
 import com.starbucksorder.another_back.dto.user.response.category.RespCategoryDto;
 import com.starbucksorder.another_back.entity.Category;
+import com.starbucksorder.another_back.exception.DuplicateNameException;
 import com.starbucksorder.another_back.repository.CategoryMapper;
 import com.starbucksorder.another_back.repository.MenuCategoryMapper;
 import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.cglib.core.DuplicatesPredicate;
 import org.springframework.stereotype.Service;
 
 import java.util.List;
@@ -60,7 +62,13 @@ public class CategoryService {
 
     // 카테고리 수정
     public boolean update(ReqAdminCategoryDto dto) {
-        return categoryMapper.update(dto.toEntity()) > 0;
+
+        try {
+            categoryMapper.update(dto.toEntity());
+        } catch (Exception e) {
+            throw new DuplicateNameException("Category name already exist");
+        }
+        return true;
     }
 
     // 카테고리 상태수정

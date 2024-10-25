@@ -24,22 +24,20 @@ public class PointService {
     @Autowired
     private UserMapper userMapper;
 
-    // 포인트 적립 전, 사용 전 userId 찾기
-    public Long getUserId(ReqUserDto dto) {
+    // HACK: 전화번호로 포인트와 사용자 id 가져오기
+    public RespPointDto getUserId(ReqUserDto dto) {
         User user = userMapper.findUserByPhoneNumber(dto.getPhoneNumber());
 
-        if(user != null) {
-            return user.getUserId();
-        } else {
-            userMapper.saveUser(dto.getPhoneNumber());
-        }
-        return user.getUserId();
+        return RespPointDto.builder()
+                .userId(user.getUserId())
+                .totalPoint(user.getPoint().getPoint())
+                .build();
     }
 
     // 포인트 적립
     public void addPoint(ReqPointDto dto) {
 
-        if(dto.getUserId() != null) {
+        if (dto.getUserId() != null) {
             int point = (int) (dto.getTotal() * 0.1);
             pointMapper.save(dto.getUserId(), point);
         }
@@ -52,7 +50,7 @@ public class PointService {
 
         return RespPointDto.builder()
                 .userId(point.getUserId())
-                .totalPoints(point.getPoint() / 4000)
+                .totalPoint(point.getPoint() / 4000)
                 .build();
     }
 

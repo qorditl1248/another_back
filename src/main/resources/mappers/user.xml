@@ -10,17 +10,38 @@
         values(default, #{phoneNumber}, null, now(), now())
     </insert>
 
+    <resultMap id="userResultMap" type="com.starbucksorder.another_back.entity.User">
+        <id property="userId" column="user_id"/>
+        <result property="phoneNumber" column="phone_number"/>
+        <result property="registerDate" column="register_date"/>
+        <result property="memo" column="memo"/>
+        <result property="updateDate" column="update_date"/>
+        <association property="point" resultMap="pointResultMap"/>
+    </resultMap>
 
-    <select id="findUserByPhoneNumber" resultType="com.starbucksorder.another_back.entity.User">
-        select
-            user_id as userId,
-            phone_number as phoneNumber,
-            memo as memo,
-            register_date as RegisterDate,
-            update_date as updateDate
-        from
-            user_tb
-        where
+    <resultMap id="pointResultMap" type="com.starbucksorder.another_back.entity.Point">
+        <id property="pointId" column="point_id"/>
+        <result property="userId" column="user_id"/>
+        <result property="point" column="point"/>
+        <result property="pointType" column="point_type"/>
+    </resultMap>
+
+
+    <select id="findUserByPhoneNumber" resultMap="userResultMap">
+        SELECT
+            ut.user_id as userId,
+            ut.phone_number as phoneNumber,
+            ut.register_date as RegisterDate,
+            ut.memo,
+            ut.update_date as updateDate,
+            pt.point_id,
+            pt.user_id,
+            pt.point,
+            pt.point_type
+        FROM
+            user_tb ut
+            left outer join point_tb pt on (pt.user_id = ut.user_id)
+        WHERE
             phone_number = #{phoneNumber}
     </select>
 
