@@ -11,6 +11,7 @@ import com.starbucksorder.another_back.service.MenuService;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.http.ResponseEntity;
 import org.springframework.web.bind.annotation.*;
+
 import java.util.List;
 
 @RestController
@@ -20,21 +21,6 @@ public class MenuController {
     private MenuService menuService;
     @Autowired
     private DuplicateService duplicateService;
-
-    // 전체 메뉴리스트
-//    @GetMapping("/menus")
-//    public ResponseEntity<?> getMenusByCategory() {
-////        return ResponseEntity.ok().body(menuService.getMenus());
-//        return null;
-//    }
-
-
-    // 카테고리별 메뉴리스트 종류 -> 그냥 다 들고옴
-//    @GetMapping("/menu/category/{categoryId}")
-//    public ResponseEntity<?> getMenusByCategoryId(@PathVariable Long categoryId) {
-//        return ResponseEntity.ok().body(menuService.getMenusByCategoryId(categoryId));
-//    }
-
 
     // 카테고리별 메뉴리스트 종류 -> 12개씩
     @GetMapping("/home/category/menus")
@@ -49,17 +35,17 @@ public class MenuController {
     }
 
     /* NOTE: --------------관리자 메뉴추가를 위한 로직-------------- */
-    // 메뉴 추가를 위한 이름 조회 -> 단 건 조회
-
-    @GetMapping("/admin/menu")
-    public ResponseEntity<?> validMenuName(@RequestParam String menuName) {
-        return ResponseEntity.ok().body(null);
-    }
 
     // 메뉴추가를 하기위한 옵션과 카테고리 불러오기
     @GetMapping("/admin/menu/values")
     public ResponseEntity<?> getNames() {
         return ResponseEntity.ok().body(menuService.getValueAll());
+    }
+
+    // 카테고리 또는 옵션에 들어갈 메뉴 전체조회
+    @GetMapping("/admin/menu")
+    public ResponseEntity<?> getMenuListAll() {
+        return ResponseEntity.ok().body(menuService.getMenuListAll());
     }
 
     // 메뉴관리 조회 -> 다 건 조회

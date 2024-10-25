@@ -34,10 +34,10 @@ public class Menu {
     private String categories;
     private String options;
 
-    public RespMenuListAll toMenuList() {
+    public RespMenuListAll toMenuListAll() {
         return RespMenuListAll.builder()
                 .menuId(menuId)
-                .menuName(new String(menuName.getBytes(StandardCharsets.UTF_8)))
+                .menuName(menuName)
                 .build();
     }
 

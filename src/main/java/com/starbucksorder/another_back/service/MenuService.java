@@ -8,7 +8,9 @@ import com.starbucksorder.another_back.dto.admin.request.menu.ReqAdminModifyDto;
 import com.starbucksorder.another_back.dto.admin.response.menu.*;
 import com.starbucksorder.another_back.dto.user.request.menu.ReqMenuListDto;
 import com.starbucksorder.another_back.dto.user.response.menu.RespMenuDto;
+import com.starbucksorder.another_back.dto.user.response.menu.RespMenuListAll;
 import com.starbucksorder.another_back.dto.user.response.menu.RespMenuListByCategoryIdDto;
+import com.starbucksorder.another_back.dto.user.response.menu.RespMenuListDto;
 import com.starbucksorder.another_back.entity.Category;
 import com.starbucksorder.another_back.entity.Menu;
 import com.starbucksorder.another_back.entity.MenuDetail;
@@ -19,7 +21,6 @@ import com.starbucksorder.another_back.repository.MenuDetailMapper;
 import com.starbucksorder.another_back.repository.MenuMapper;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.dao.DataIntegrityViolationException;
-import org.springframework.dao.DuplicateKeyException;
 import org.springframework.stereotype.Service;
 import org.springframework.transaction.annotation.Transactional;
 
@@ -94,6 +95,10 @@ public class MenuService {
     }
 
     // NOTE: 관리자 관련
+    // 관리자 메뉴 전체조회
+    public List<RespMenuListAll> getMenuListAll() {
+        return menuMapper.getMenuList().stream().map(Menu::toMenuListAll).collect(Collectors.toList());
+    }
 
     // 관리자 메뉴 전체조회 및 페이지로 주기
     public CMRespAdminDto getAllMenus(ReqAdminMenuDto dto) {

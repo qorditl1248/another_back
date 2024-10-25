@@ -13,6 +13,5 @@ public class RespMenuListDto {
     private String menuName;
     private Double menuPrice;
 
-
     ArrayList<RespMenuListDto> menuList;
 }

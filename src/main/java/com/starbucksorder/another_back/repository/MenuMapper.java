@@ -9,11 +9,6 @@ import java.util.List;
 
 @Mapper
 public interface MenuMapper {
-//    ArrayList<Menu> findAllCategoryItem();
-
-    // 카테고리별 메뉴리스트 -> 아예 전체 조회
-//    ArrayList<Menu> findByCategoryId(Long categoryId);
-
     // 카테고리별 메뉴리스트 -> 12개씩
     List<Menu> findAllByStartIndexAndLimit(
             @Param("categoryId") Long categoryId,
