@@ -6,4 +6,5 @@ import org.apache.ibatis.annotations.Mapper;
 @Mapper
 public interface OptionMapper {
     Option findByOptionName(String name);
+    int save(Option option);
 }

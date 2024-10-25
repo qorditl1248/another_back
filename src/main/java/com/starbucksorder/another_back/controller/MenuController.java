@@ -11,7 +11,6 @@ import com.starbucksorder.another_back.service.MenuService;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.http.ResponseEntity;
 import org.springframework.web.bind.annotation.*;
-
 import java.util.List;
 
 @RestController
@@ -101,13 +100,11 @@ public class MenuController {
         return ResponseEntity.ok().body(menuService.modifyMenu(dto));
     }
 
-
     // 메뉴 상태변경
     @PatchMapping("/admin/menu/status/{menuId}")
     public ResponseEntity<?> updateMenuStatus(@PathVariable Long menuId) {
         return ResponseEntity.ok().body(menuService.updateMenuStatus(menuId));
     }
-
 
     /* NOTE: ------------------------------------------------------------ */
 
