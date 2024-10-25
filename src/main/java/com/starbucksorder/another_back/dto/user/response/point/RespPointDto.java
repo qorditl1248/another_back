@@ -8,7 +8,8 @@ import lombok.Data;
 public class RespPointDto {
 
     private Long userId;
-    private int totalPoints;
+    // HACK: totalPoints -> totalPoint로 변경
+    private int totalPoint;
     // private int point;
 
 }

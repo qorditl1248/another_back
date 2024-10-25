@@ -37,7 +37,6 @@ public class MenuController {
 
 
     // 카테고리별 메뉴리스트 종류 -> 12개씩
-    @Log
     @GetMapping("/home/category/menus")
     public ResponseEntity<?> getMenuList(ReqMenuListDto dto) {
         return ResponseEntity.ok().body(menuService.getMenuList(dto));
@@ -52,7 +51,6 @@ public class MenuController {
     /* NOTE: --------------관리자 메뉴추가를 위한 로직-------------- */
     // 메뉴 추가를 위한 이름 조회 -> 단 건 조회
 
-    @Log
     @GetMapping("/admin/menu")
     public ResponseEntity<?> validMenuName(@RequestParam String menuName) {
         return ResponseEntity.ok().body(null);
@@ -67,7 +65,6 @@ public class MenuController {
     // 메뉴관리 조회 -> 다 건 조회
     // 검색기능 추가
     // FIXME: 단비누나 이거 메소드명 잘봐주세요
-    @Log
     @GetMapping("/admin/menus")
     public ResponseEntity<?> getAllMenus(ReqAdminMenuDto dto) {
         System.out.println("동작됨");
@@ -81,7 +78,6 @@ public class MenuController {
     }
 
     // 메뉴 상세보기
-    @Log
     @GetMapping("/admin/menu/detail/{menuId}")
     public ResponseEntity<?> getMenuDetail(@PathVariable Long menuId) {
         return ResponseEntity.ok().body(menuService.getMenuDetail(menuId));

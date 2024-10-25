@@ -11,32 +11,51 @@
         <result property="categoryStatus" column="category_status"/>
         <result property="categorySeq" column="category_seq"/>
     </resultMap>
+    <update id="update">
+        UPDATE
+            category_tb
+        SET
+            category_name = #{categoryName},
+            category_status = COALESCE(#{categoryStatus}, category_status),
+            category_seq = #{categorySeq},
+            update_date = NOW()
+        WHERE
+            category_id = #{categoryId}
+    </update>
+    <update id="updateStatus">
+        UPDATE
+            category_tb
+        SET
+            category_status = IF(category_status = 1, 0, 1)
+        WHERE
+            category_id = #{categoryId}
+    </update>
 
     <select id="findByCategoryName" resultMap="categoryResultMap">
-        select
+        SELECT
             category_id,
             category_name,
             category_status,
             category_seq
-        from
+        FROM
             category_tb
-        where
+        WHERE
             category_name = #{categoryName}
-        order by
+        ORDER BY
             category_seq
     </select>
 
     <select id="findAllByEnable" resultMap="categoryResultMap">
-        select
+        SELECT
             category_id,
             category_name,
             category_status,
             category_seq
-        from
+        FROM
             category_tb
-        where
+        WHERE
             category_status = 1
-        order by
+        ORDER BY
             category_seq
     </select>
 
@@ -73,4 +92,12 @@
         WHERE
             menu_id = #{menuId}
     </delete>
+    <delete id="delete">
+        DELETE
+        FROM
+            category_tb
+        WHERE
+            category_id = #{categoryId}
+    </delete>
+
 </mapper>

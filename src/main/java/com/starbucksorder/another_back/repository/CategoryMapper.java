@@ -12,6 +12,12 @@ public interface CategoryMapper {
 
     // 카테고리 추가
     int save(Category category);
+    // 카테고리 삭제
+    int delete(Long categoryId);
+    // 카테고리 수정
+    int update(Category category);
+    //카테고리 상태 수정
+    int updateStatus(Long categoryId);
 
     // 상태코드 1번인 것만의 카테고리를 전부 다 가지고오는 것
     List<Category> findAllByEnable();
