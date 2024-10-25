@@ -1,6 +1,7 @@
 package com.starbucksorder.another_back.entity;
 
 import com.fasterxml.jackson.annotation.JsonIgnore;
+import com.starbucksorder.another_back.dto.admin.response.category.RespAdminCategoryDto;
 import com.starbucksorder.another_back.dto.admin.response.menu.RespAdminCategories;
 import lombok.AllArgsConstructor;
 import lombok.Builder;
@@ -32,6 +33,15 @@ public class Category {
         return RespAdminCategories.builder()
                 .categoryId(categoryId)
                 .categoryName(categoryName)
+                .build();
+    }
+
+    public RespAdminCategoryDto toCategories() {
+        return RespAdminCategoryDto.builder()
+                .categoryId(categoryId)
+                .categoryName(categoryName)
+                .categoryStatus(categoryStatus)
+                .categorySeq(categorySeq)
                 .build();
     }
 

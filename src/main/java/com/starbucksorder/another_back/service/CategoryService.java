@@ -1,8 +1,8 @@
 package com.starbucksorder.another_back.service;
 
-import com.starbucksorder.another_back.aspect.LogAspect;
 import com.starbucksorder.another_back.dto.admin.request.category.ReqAdminCategoryDto;
 import com.starbucksorder.another_back.dto.admin.request.category.ReqAdminIncludMenuByCategoryDto;
+import com.starbucksorder.another_back.dto.admin.response.category.RespAdminCategoryDto;
 import com.starbucksorder.another_back.dto.user.response.category.RespCategoryDto;
 import com.starbucksorder.another_back.entity.Category;
 import com.starbucksorder.another_back.repository.CategoryMapper;
@@ -11,6 +11,7 @@ import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
 
 import java.util.List;
+import java.util.stream.Collectors;
 
 @Service
 public class CategoryService {
@@ -22,8 +23,6 @@ public class CategoryService {
 
     @Autowired
     private DuplicateService duplicateService;
-    @Autowired
-    private LogAspect logAspect;
 
     public RespCategoryDto getCategory() {
         List<Category> categoryList = categoryMapper.findAllByEnable();
@@ -33,6 +32,8 @@ public class CategoryService {
                 .build();
 
     }
+
+    // NOTE: 관리자 카테고리 기능
 
     // 카테고리추가
     public Boolean add(ReqAdminCategoryDto dto) {
@@ -67,5 +68,9 @@ public class CategoryService {
         categoryMapper.updateStatus(categoryId);
     }
 
+    // 카테고리 전체조회
+    public List<RespAdminCategoryDto> getAllCategories() {
+        return categoryMapper.FindAll().stream().map(Category::toCategories).collect(Collectors.toList());
+    }
 
 }

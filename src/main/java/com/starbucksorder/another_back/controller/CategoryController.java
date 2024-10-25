@@ -53,4 +53,10 @@ public class CategoryController {
         categoryService.updateStatus(categoryId);
         return ResponseEntity.ok().body(true);
     }
+
+    // 카테고리 조회
+    @GetMapping("/admin/category")
+    public ResponseEntity<?> getAllCategories() {
+        return ResponseEntity.ok().body(categoryService.getAllCategories());
+    }
 }
