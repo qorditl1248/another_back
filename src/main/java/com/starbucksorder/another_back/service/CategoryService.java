@@ -43,9 +43,12 @@ public class CategoryService {
     }
 
     // 해당 카테고리에 메뉴들 포함시키기
-    public Boolean includMenusByCategoryId(ReqAdminIncludMenuByCategoryDto dto) {
+    public Boolean includeMenusByCategoryId(ReqAdminIncludMenuByCategoryDto dto) {
         // 우선 삭제
         menuCategoryMapper.deleteByCategoryId(dto.getCategoryId());
+        if(dto.getCategoryId() == null){
+            return true;
+        }
         return menuCategoryMapper.save(dto.getCategoryId(), dto.getMenuIds()) > 0;
     }
 

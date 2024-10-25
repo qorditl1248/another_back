@@ -113,6 +113,7 @@ public class MenuService {
 
         return new CMRespAdminCategoryAndOption(options, categories);
     }
+
     // 메뉴 추가
     @Transactional(rollbackFor = RuntimeException.class)
     public boolean addMenu(ReqAdminDto dto) {
@@ -132,7 +133,6 @@ public class MenuService {
     }
 
     // 메뉴수정
-    @NameDuplicate
     @Transactional(rollbackFor = RuntimeException.class)
     public boolean modifyMenu(ReqAdminModifyDto dto) {
         try {
@@ -148,8 +148,12 @@ public class MenuService {
         if (categoryMapper.deleteCategoryById(dto.getMenuId()) < 0) {
             throw new RuntimeException("Delete Category Error");
         }
-        menuDetailMapper.save(dto.getMenuId(), dto.getOptionIds());
-        categoryMapper.saveByMenuId(dto.getMenuId(), dto.getCategoryIds());
+        if (dto.getOptionIds() != null) {
+            menuDetailMapper.save(dto.getMenuId(), dto.getOptionIds());
+        }
+        if (dto.getCategoryIds() != null) {
+            categoryMapper.saveByMenuId(dto.getMenuId(), dto.getCategoryIds());
+        }
 
         return true;
     }

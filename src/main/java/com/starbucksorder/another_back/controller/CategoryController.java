@@ -33,7 +33,7 @@ public class CategoryController {
     @PostMapping("/admin/category/menu")
     public ResponseEntity<?> includeMenu(@RequestBody ReqAdminIncludMenuByCategoryDto dto) {
 
-        return ResponseEntity.ok().body(categoryService.includMenusByCategoryId(dto));
+        return ResponseEntity.ok().body(categoryService.includeMenusByCategoryId(dto));
     }
 
 
