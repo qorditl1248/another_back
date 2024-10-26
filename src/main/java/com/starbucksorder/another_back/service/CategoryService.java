@@ -12,6 +12,7 @@ import com.starbucksorder.another_back.repository.CategoryMapper;
 import com.starbucksorder.another_back.repository.MenuCategoryMapper;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.cglib.core.DuplicatesPredicate;
+import org.springframework.dao.DataIntegrityViolationException;
 import org.springframework.stereotype.Service;
 
 import java.util.List;
@@ -67,10 +68,9 @@ public class CategoryService {
 
     // 카테고리 수정
     public boolean update(ReqAdminCategoryDto dto) {
-
         try {
             categoryMapper.update(dto.toEntity());
-        } catch (Exception e) {
+        } catch (DataIntegrityViolationException e) {
             throw new DuplicateNameException("Category name already exist");
         }
         return true;

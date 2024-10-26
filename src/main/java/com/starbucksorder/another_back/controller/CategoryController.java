@@ -46,7 +46,8 @@ public class CategoryController {
     public ResponseEntity<?> getCategoryById(@PathVariable Long categoryId) {
         return ResponseEntity.ok().body(categoryService.getCategoryById(categoryId));
     }
-    //카테고리 삭제
+
+    // 카테고리 삭제
     @DeleteMapping("/admin/category/{categoryId}")
     public ResponseEntity<?> delete(@PathVariable Long categoryId) {
         return ResponseEntity.ok().body(categoryService.delete(categoryId));
@@ -64,8 +65,4 @@ public class CategoryController {
         categoryService.updateStatus(categoryId);
         return ResponseEntity.ok().body(true);
     }
-
-
-    // 해당 카테고리에서 메뉴 제외하기
-//    @DeleteMapping("/admin")
 }
