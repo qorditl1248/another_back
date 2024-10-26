@@ -5,7 +5,7 @@ import lombok.Data;
 
 @Data
 @Builder
-public class RespMenuListAll {
+public class RespOnlyMenuIdAdnName {
     private Long menuId;
     private String menuName;
 }
