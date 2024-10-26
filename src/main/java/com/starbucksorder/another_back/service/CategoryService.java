@@ -4,7 +4,9 @@ import com.starbucksorder.another_back.dto.admin.request.category.ReqAdminCatego
 import com.starbucksorder.another_back.dto.admin.request.category.ReqAdminIncludMenuByCategoryDto;
 import com.starbucksorder.another_back.dto.admin.response.category.RespAdminCategoryDto;
 import com.starbucksorder.another_back.dto.user.response.category.RespCategoryDto;
+import com.starbucksorder.another_back.dto.user.response.menu.RespOnlyMenuIdAdnName;
 import com.starbucksorder.another_back.entity.Category;
+import com.starbucksorder.another_back.entity.Menu;
 import com.starbucksorder.another_back.exception.DuplicateNameException;
 import com.starbucksorder.another_back.repository.CategoryMapper;
 import com.starbucksorder.another_back.repository.MenuCategoryMapper;
@@ -52,7 +54,10 @@ public class CategoryService {
         if (dto.getCategoryId() == null) {
             return true;
         }
-        return menuCategoryMapper.save(dto.getCategoryId(), dto.getMenuIds()) > 0;
+        if (dto.getMenuIds() != null && dto.getMenuIds().size() > 0) {
+            menuCategoryMapper.save(dto.getCategoryId(), dto.getMenuIds());
+        }
+        return true;
     }
 
     // 카테고리 삭제
@@ -79,6 +84,11 @@ public class CategoryService {
     // 카테고리 전체조회
     public List<RespAdminCategoryDto> getAllCategories() {
         return categoryMapper.FindAll().stream().map(Category::toCategories).collect(Collectors.toList());
+    }
+
+    // 카테고리 단건조회
+    public List<RespOnlyMenuIdAdnName> getCategoryById(Long categoryId) {
+        return menuCategoryMapper.findAllByCategoryId(categoryId).stream().map(Menu::toRespOnlyIdAndNameDto).collect(Collectors.toList());
     }
 
 }

@@ -13,6 +13,7 @@
             (DEFAULT, #{menuId}, #{categoryId})
         </foreach>
     </insert>
+
     <delete id="deleteByCategoryId">
         DELETE
         FROM
@@ -20,5 +21,17 @@
         WHERE
             category_id = #{categoryId}
     </delete>
+
+    <select id="findAllByCategoryId" resultType="com.starbucksorder.another_back.entity.Menu">
+        SELECT
+            mt.menu_id AS menuId,
+            mt.menu_name AS menuName
+        FROM
+            menu_category_tb mct
+            LEFT OUTER JOIN category_tb ct on (ct.category_id = mct.category_id)
+            LEFT OUTER JOIN menu_tb mt on (mt.menu_id = mct.menu_id)
+        WHERE
+            ct.category_id = #{categoryId}
+    </select>
 
 </mapper>

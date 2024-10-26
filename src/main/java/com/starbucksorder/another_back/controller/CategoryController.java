@@ -41,6 +41,11 @@ public class CategoryController {
         return ResponseEntity.ok().body(categoryService.getAllCategories());
     }
 
+    // 카테고리 단 건 조회
+    @GetMapping("/admin/category/{categoryId}")
+    public ResponseEntity<?> getCategoryById(@PathVariable Long categoryId) {
+        return ResponseEntity.ok().body(categoryService.getCategoryById(categoryId));
+    }
     //카테고리 삭제
     @DeleteMapping("/admin/category/{categoryId}")
     public ResponseEntity<?> delete(@PathVariable Long categoryId) {

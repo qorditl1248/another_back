@@ -3,13 +3,12 @@ package com.starbucksorder.another_back.entity;
 import com.fasterxml.jackson.annotation.JsonIgnore;
 import com.starbucksorder.another_back.dto.admin.response.menu.MenuAdminDetailRespDto;
 import com.starbucksorder.another_back.dto.admin.response.menu.RespAdminMenuList;
-import com.starbucksorder.another_back.dto.user.response.menu.RespMenuListAll;
+import com.starbucksorder.another_back.dto.user.response.menu.RespOnlyMenuIdAdnName;
 import lombok.AllArgsConstructor;
 import lombok.Builder;
 import lombok.Data;
 import lombok.NoArgsConstructor;
 
-import java.nio.charset.StandardCharsets;
 import java.util.Date;
 import java.util.List;
 
@@ -34,8 +33,9 @@ public class Menu {
     private String categories;
     private String options;
 
-    public RespMenuListAll toMenuListAll() {
-        return RespMenuListAll.builder()
+    // 메뉴 아이디, 이름만 뿌려주는 메소드
+    public RespOnlyMenuIdAdnName toRespOnlyIdAndNameDto() {
+        return RespOnlyMenuIdAdnName.builder()
                 .menuId(menuId)
                 .menuName(menuName)
                 .build();
@@ -66,5 +66,7 @@ public class Menu {
                 .categories(categories)
                 .build();
     }
+
+
 
 }
