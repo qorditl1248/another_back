@@ -1,7 +1,10 @@
 package com.starbucksorder.another_back.service;
 
 import com.starbucksorder.another_back.dto.admin.request.option.ReqAdminOptionDto;
+import com.starbucksorder.another_back.dto.admin.request.option.ReqAdminOptionsDto;
 import com.starbucksorder.another_back.dto.admin.response.option.RespAdminOptionDto;
+import com.starbucksorder.another_back.dto.user.response.menu.RespOnlyMenuIdAdnName;
+import com.starbucksorder.another_back.entity.Menu;
 import com.starbucksorder.another_back.entity.Option;
 import com.starbucksorder.another_back.repository.OptionMapper;
 import org.springframework.beans.factory.annotation.Autowired;
@@ -39,6 +42,11 @@ public class OptionService {
     // 옵션 전체 불러오기
     public List<RespAdminOptionDto> getAll() {
         return optionMapper.getAll().stream().map(Option::toOptionAllDto).collect(Collectors.toList());
+    }
+
+    // 옵션에 해당하는 메뉴들 불러오기
+    public List<RespOnlyMenuIdAdnName> getAllByOptionIds(ReqAdminOptionsDto dto) {
+        return optionMapper.getAllByOptionId(dto.getOptionIds()).stream().map(Menu::toRespOnlyIdAndNameDto).collect(Collectors.toList());
     }
 
     // 옵션 삭제만

@@ -60,6 +60,24 @@
             LEFT OUTER JOIN option_detail_tb odt on (odt.option_id = ot.option_id)
     </select>
 
+    <select id="getAllByOptionId" resultType="com.starbucksorder.another_back.entity.Menu">
+        SELECT
+            mdt.menu_id as menuId,
+            mt.menu_name as menuName
+        FROM
+            option_tb ot
+            LEFT OUTER JOIN menu_detail_tb mdt ON (mdt.option_id = ot.option_id)
+            LEFT OUTER JOIN menu_tb mt ON (mt.menu_id = mdt.menu_id)
+        WHERE
+            ot.option_id
+        in
+            <foreach collection="optionIds" item="optionId" open="(" separator="," close=")">
+                #{optionId}
+            </foreach>
+        ORDER BY
+            mt.menu_id;
+    </select>
+
     <resultMap id="optionResultMap" type="com.starbucksorder.another_back.entity.Option">
         <id property="optionId" column="option_id"/>
         <result property="optionName" column="option_name"/>

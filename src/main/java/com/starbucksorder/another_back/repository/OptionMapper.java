@@ -1,5 +1,6 @@
 package com.starbucksorder.another_back.repository;
 
+import com.starbucksorder.another_back.entity.Menu;
 import com.starbucksorder.another_back.entity.Option;
 import org.apache.ibatis.annotations.Mapper;
 
@@ -19,5 +20,9 @@ public interface OptionMapper {
 
     // 전체 불러오기
     List<Option> getAll();
+
+    // 옵션아이디에 해당하는 메뉴 전체 불러오기
+    List<Menu> getAllByOptionId(List<Long> optionIds);
+
     int deleteByOptionId(Long optionId);
 }

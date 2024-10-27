@@ -1,7 +1,7 @@
 package com.starbucksorder.another_back.controller;
 
 import com.starbucksorder.another_back.dto.admin.request.category.ReqAdminCategoryDto;
-import com.starbucksorder.another_back.dto.admin.request.category.ReqAdminIncludMenuByCategoryDto;
+import com.starbucksorder.another_back.dto.admin.request.category.ReqAdminIncludeMenuByCategoryDto;
 import com.starbucksorder.another_back.service.CategoryService;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.http.ResponseEntity;
@@ -31,7 +31,7 @@ public class CategoryController {
 
     // 메뉴에 해당 카테고리 부여하기
     @PostMapping("/admin/category/menu")
-    public ResponseEntity<?> includeMenu(@RequestBody ReqAdminIncludMenuByCategoryDto dto) {
+    public ResponseEntity<?> includeMenu(@RequestBody ReqAdminIncludeMenuByCategoryDto dto) {
         return ResponseEntity.ok().body(categoryService.includeMenusByCategoryId(dto));
     }
 
