@@ -24,5 +24,8 @@ public interface OptionMapper {
     // 옵션아이디에 해당하는 메뉴 전체 불러오기
     List<Menu> getAllByOptionId(List<Long> optionIds);
 
+    // 옵션 삭제
     int deleteByOptionId(Long optionId);
+
+    int updateStatus(Long optionId);
 }

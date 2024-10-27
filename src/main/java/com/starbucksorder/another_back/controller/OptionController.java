@@ -38,4 +38,9 @@ public class OptionController {
     public ResponseEntity<?> delete(@PathVariable Long optionId) {
         return ResponseEntity.ok().body(optionService.delete(optionId));
     }
+
+    @PatchMapping("/admin/option/{optionId}")
+    public ResponseEntity<?> updateStatus(@PathVariable Long optionId) {
+        return ResponseEntity.ok().body(optionService.updateStatus(optionId));
+    }
 }

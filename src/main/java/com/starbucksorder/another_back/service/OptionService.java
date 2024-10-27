@@ -53,4 +53,9 @@ public class OptionService {
     public boolean delete(Long optionId) {
         return optionMapper.deleteByOptionId(optionId) > 0;
     }
+
+    // 옵션 상태수정
+    public boolean updateStatus(Long optionId) {
+        return optionMapper.updateStatus(optionId) > 0;
+    }
 }
