@@ -2,13 +2,15 @@ package com.starbucksorder.another_back.entity;
 
 import com.fasterxml.jackson.annotation.JsonIgnore;
 import com.starbucksorder.another_back.dto.admin.response.menu.RespAdminOptions;
+import com.starbucksorder.another_back.dto.admin.response.option.RespAdminOptionDto;
 import lombok.AllArgsConstructor;
 import lombok.Builder;
 import lombok.Data;
 import lombok.NoArgsConstructor;
 
-import java.util.Date;
+import java.time.LocalDateTime;
 import java.util.List;
+import java.util.stream.Collectors;
 
 @Builder
 @NoArgsConstructor
@@ -18,17 +20,25 @@ public class Option {
     private Long optionId;
     private String optionName;
     @JsonIgnore
-    private Date createDate;
+    private LocalDateTime createDate;
     @JsonIgnore
-    private Date updateDate;
+    private LocalDateTime updateDate;
 
 
     private List<OptionDetail> optionDetail; // optionDetail : option = many : 1
 
-    public RespAdminOptions toOptionsDto(){
+    public RespAdminOptions toOptionsDto() {
         return RespAdminOptions.builder()
                 .optionId(optionId)
                 .optionName(optionName)
+                .build();
+    }
+
+    public RespAdminOptionDto toOptionAllDto() {
+        return RespAdminOptionDto.builder()
+                .optionId(optionId)
+                .optionName(optionName)
+                .optionDetail(optionDetail.stream().map(OptionDetail::toDetail).collect(Collectors.toList()))
                 .build();
     }
 }
