@@ -1,5 +1,8 @@
 package com.starbucksorder.another_back.service;
 
+import com.starbucksorder.another_back.aspect.LogAspect;
+import com.starbucksorder.another_back.aspect.annotation.Log;
+import com.starbucksorder.another_back.entity.Option;
 import com.starbucksorder.another_back.exception.DuplicateNameException;
 import com.starbucksorder.another_back.repository.CategoryMapper;
 import com.starbucksorder.another_back.repository.MenuMapper;
@@ -15,7 +18,10 @@ public class DuplicateService {
     private MenuMapper menuMapper;
     @Autowired
     private CategoryMapper categoryMapper;
+    @Autowired
+    private LogAspect logAspect;
 
+    @Log
     public boolean isDuplicateName(String mapperName, String name) {
         boolean isDuplicate;
         switch (mapperName) {
@@ -25,14 +31,14 @@ public class DuplicateService {
             case "category":
                 isDuplicate = categoryMapper.findByCategoryName(name) != null;
                 break;
-            case "optionMapper":
+            case "option":
                 isDuplicate = optionMapper.findByOptionName(name) != null;
                 break;
             default:
                 throw new IllegalArgumentException("Invalid mapper name");
         }
         if (isDuplicate) {
-            throw new DuplicateNameException(name + " is Duplicate By " + mapperName );
+            throw new DuplicateNameException(name + " is Duplicate By " + mapperName);
         }
         return true;
     }

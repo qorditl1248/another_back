@@ -6,17 +6,30 @@
 <mapper namespace="com.starbucksorder.another_back.repository.OptionMapper">
 
 
-    <insert id="save" >
+    <insert id="save" useGeneratedKeys="true" keyProperty="optionId">
         INSERT INTO
             option_tb (option_id, option_name, create_date, update_date)
         VALUES
             (DEFAULT, #{optionName}, NOW(), NOW())
     </insert>
 
-    <select id="findByOptionName" resultMap="optionDetailResultMap">
+    <insert id="detailSave">
+        INSERT INTO
+            option_detail_tb
+        VALUES
+            <foreach collection="values" item="entry" separator=",">
+                (DEFAULT, #{optionId}, #{entry.key}, #{entry.value})
+            </foreach>
+
+    </insert>
+
+
+    <select id="findByOptionName" resultMap="optionResultMap">
         SELECT
             ot.option_id,
             ot.option_name,
+            ot.create_date,
+            ot.update_date,
             odt.option_detail_id,
             odt.option_detail_value,
             odt.option_detail_price
@@ -26,16 +39,32 @@
         WHERE
             option_name = #{optionName}
     </select>
+    <select id="getAll" resultMap="optionResultMap">
+        SELECT
+            ot.option_id,
+            ot.option_name,
+            ot.create_date,
+            ot.update_date,
+            odt.option_detail_id,
+            odt.option_detail_value,
+            odt.option_detail_price
+        FROM
+            option_tb ot
+            LEFT OUTER JOIN option_detail_tb odt on (odt.option_id = ot.option_id)
+    </select>
+
     <resultMap id="optionResultMap" type="com.starbucksorder.another_back.entity.Option">
         <id property="optionId" column="option_id"/>
         <result property="optionName" column="option_name"/>
-        <association property="optionDetail" resultMap="optionDetailResultMap"/>
+        <result property="createDate" column="create_date"/>
+        <result property="updateDate" column="update_date"/>
+        <association property="optionDetail" javaType="java.util.List" resultMap="optionDetailResultMap"/>
     </resultMap>
 
     <resultMap id="optionDetailResultMap" type="com.starbucksorder.another_back.entity.OptionDetail">
         <id property="optionDetailId" column="option_detail_id"/>
         <result property="optionDetailValue" column="option_detail_value"/>
-        <result property="optionDetailValue" column="option_detail_price"/>
+        <result property="optionDetailPrice" column="option_detail_price"/>
     </resultMap>
 
 </mapper>
