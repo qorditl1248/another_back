@@ -5,7 +5,7 @@ import lombok.Data;
 import java.util.List;
 
 @Data
-public class ReqAdminIncludMenuByCategoryDto {
+public class ReqAdminIncludeMenuByCategoryDto {
     private Long categoryId;
     private List<Long> menuIds;
 }

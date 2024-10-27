@@ -1,7 +1,7 @@
 package com.starbucksorder.another_back.service;
 
 import com.starbucksorder.another_back.dto.admin.request.category.ReqAdminCategoryDto;
-import com.starbucksorder.another_back.dto.admin.request.category.ReqAdminIncludMenuByCategoryDto;
+import com.starbucksorder.another_back.dto.admin.request.category.ReqAdminIncludeMenuByCategoryDto;
 import com.starbucksorder.another_back.dto.admin.response.category.RespAdminCategoryDto;
 import com.starbucksorder.another_back.dto.user.response.category.RespCategoryDto;
 import com.starbucksorder.another_back.dto.user.response.menu.RespOnlyMenuIdAdnName;
@@ -11,7 +11,6 @@ import com.starbucksorder.another_back.exception.DuplicateNameException;
 import com.starbucksorder.another_back.repository.CategoryMapper;
 import com.starbucksorder.another_back.repository.MenuCategoryMapper;
 import org.springframework.beans.factory.annotation.Autowired;
-import org.springframework.cglib.core.DuplicatesPredicate;
 import org.springframework.dao.DataIntegrityViolationException;
 import org.springframework.stereotype.Service;
 
@@ -49,7 +48,7 @@ public class CategoryService {
     }
 
     // 해당 카테고리에 메뉴들 포함시키기
-    public Boolean includeMenusByCategoryId(ReqAdminIncludMenuByCategoryDto dto) {
+    public Boolean includeMenusByCategoryId(ReqAdminIncludeMenuByCategoryDto dto) {
         // 우선 삭제
         menuCategoryMapper.deleteByCategoryId(dto.getCategoryId());
         if (dto.getCategoryId() == null) {

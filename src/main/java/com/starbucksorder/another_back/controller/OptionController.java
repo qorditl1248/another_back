@@ -1,13 +1,12 @@
 package com.starbucksorder.another_back.controller;
 
+import com.starbucksorder.another_back.aspect.annotation.Log;
 import com.starbucksorder.another_back.dto.admin.request.option.ReqAdminOptionDto;
+import com.starbucksorder.another_back.dto.admin.request.option.ReqAdminOptionsDto;
 import com.starbucksorder.another_back.service.OptionService;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.http.ResponseEntity;
-import org.springframework.web.bind.annotation.GetMapping;
-import org.springframework.web.bind.annotation.PostMapping;
-import org.springframework.web.bind.annotation.RequestBody;
-import org.springframework.web.bind.annotation.RestController;
+import org.springframework.web.bind.annotation.*;
 
 @RestController
 public class OptionController {
@@ -25,5 +24,23 @@ public class OptionController {
     @GetMapping("/admin/option")
     public ResponseEntity<?> getAll() {
         return ResponseEntity.ok().body(optionService.getAll());
+    }
+
+    // 옵션에 속한 메뉴들 전체 불러오기
+    @Log
+    @GetMapping("/admin/option/menus")
+    public ResponseEntity<?> getById(@RequestBody ReqAdminOptionsDto dto) {
+        return ResponseEntity.ok().body(optionService.getAllByOptionIds(dto));
+    }
+
+    //옵션 삭제
+    @DeleteMapping("/admin/option/{optionId}")
+    public ResponseEntity<?> delete(@PathVariable Long optionId) {
+        return ResponseEntity.ok().body(optionService.delete(optionId));
+    }
+
+    @PatchMapping("/admin/option/{optionId}")
+    public ResponseEntity<?> updateStatus(@PathVariable Long optionId) {
+        return ResponseEntity.ok().body(optionService.updateStatus(optionId));
     }
 }
