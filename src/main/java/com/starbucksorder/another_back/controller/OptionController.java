@@ -4,10 +4,7 @@ import com.starbucksorder.another_back.dto.admin.request.option.ReqAdminOptionDt
 import com.starbucksorder.another_back.service.OptionService;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.http.ResponseEntity;
-import org.springframework.web.bind.annotation.GetMapping;
-import org.springframework.web.bind.annotation.PostMapping;
-import org.springframework.web.bind.annotation.RequestBody;
-import org.springframework.web.bind.annotation.RestController;
+import org.springframework.web.bind.annotation.*;
 
 @RestController
 public class OptionController {
@@ -25,5 +22,11 @@ public class OptionController {
     @GetMapping("/admin/option")
     public ResponseEntity<?> getAll() {
         return ResponseEntity.ok().body(optionService.getAll());
+    }
+
+    //옵션 삭제
+    @DeleteMapping("/admin/option/{optionId}")
+    public ResponseEntity<?> delete(@PathVariable Long optionId) {
+        return ResponseEntity.ok().body(optionService.delete(optionId));
     }
 }

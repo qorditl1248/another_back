@@ -8,10 +8,16 @@ import java.util.Map;
 
 @Mapper
 public interface OptionMapper {
+    // 중복검사를 위한 것
     Option findByOptionName(String optionName);
 
+    // 옵션 이름 추가
     int save(Option option);
 
+    // 부가옵션 추가
     int detailSave(Long optionId, Map<String, Integer> values);
+
+    // 전체 불러오기
     List<Option> getAll();
+    int deleteByOptionId(Long optionId);
 }

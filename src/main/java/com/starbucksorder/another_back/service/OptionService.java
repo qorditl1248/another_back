@@ -1,11 +1,9 @@
 package com.starbucksorder.another_back.service;
 
-import com.starbucksorder.another_back.aspect.annotation.Log;
 import com.starbucksorder.another_back.dto.admin.request.option.ReqAdminOptionDto;
 import com.starbucksorder.another_back.dto.admin.response.option.RespAdminOptionDto;
 import com.starbucksorder.another_back.entity.Option;
 import com.starbucksorder.another_back.repository.OptionMapper;
-import io.jsonwebtoken.impl.lang.OptionalMethodInvoker;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.dao.DataIntegrityViolationException;
 import org.springframework.stereotype.Service;
@@ -22,6 +20,7 @@ public class OptionService {
     @Autowired
     private DuplicateService duplicateService;
 
+    // 옵션 추가
     @Transactional(rollbackFor = SQLException.class)
     public boolean add(ReqAdminOptionDto dto) {
         // 중복검사
@@ -37,7 +36,13 @@ public class OptionService {
         return true;
     }
 
+    // 옵션 전체 불러오기
     public List<RespAdminOptionDto> getAll() {
         return optionMapper.getAll().stream().map(Option::toOptionAllDto).collect(Collectors.toList());
+    }
+
+    // 옵션 삭제만
+    public boolean delete(Long optionId) {
+        return optionMapper.deleteByOptionId(optionId) > 0;
     }
 }
