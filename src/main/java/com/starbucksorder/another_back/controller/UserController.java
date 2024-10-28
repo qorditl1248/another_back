@@ -24,13 +24,13 @@ public class UserController {
         return ResponseEntity.ok().body(pointService.getUserIdByPhoneNumber(phoneNumber));
     }
 
-    // 사용자 등록
-
-
-    // 포인트 적립 할래요 : 결제 성공 후 -> 포인트 적립
-    // 포인트 적립 안할래요 : 결제 성공 -> 끝
-
-
     // 포인트 사용
+    @GetMapping("/point/user/reward")
+    public ResponseEntity<?> getRewardPoint(@RequestParam String phoneNumber) {
+//        return ResponseEntity.ok().body(pointService.(phoneNumber));
+        return null;
+    }
+
+    // 사용자 등록
 
 }

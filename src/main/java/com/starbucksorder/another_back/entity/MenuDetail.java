@@ -14,7 +14,7 @@ import java.util.List;
 @Data
 public class MenuDetail {
     private Long menuDetailId;
-    private Long menuId;
+//    private Long menuId;
     private Long optionId;
 
     private Option option; // option : menudetail = many : 1

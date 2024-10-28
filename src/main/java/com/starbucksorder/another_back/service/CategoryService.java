@@ -85,9 +85,13 @@ public class CategoryService {
         return categoryMapper.FindAll().stream().map(Category::toCategories).collect(Collectors.toList());
     }
 
-    // 카테고리 단건조회
-    public List<RespOnlyMenuIdAdnName> getCategoryById(Long categoryId) {
-        return menuCategoryMapper.findAllByCategoryId(categoryId).stream().map(Menu::toRespOnlyIdAndNameDto).collect(Collectors.toList());
+    // 카테고리id에 해당하는 메뉴 조회
+    public RespOnlyMenuIdAdnName getCategoryById(Long categoryId) {
+//        return menuCategoryMapper.findAllByCategoryId(categoryId);
+        return null;
+    }
+
+    public void getusUserIdByPhoneNumber(String phoneNumber){
     }
 
 }

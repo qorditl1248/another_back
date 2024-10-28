@@ -22,10 +22,27 @@
             category_id = #{categoryId}
     </delete>
 
-    <select id="findAllByCategoryId" resultType="com.starbucksorder.another_back.entity.Menu">
+    <resultMap id="categoryResultMap" type="com.starbucksorder.another_back.entity.Category">
+        <id property="categoryId" column="category_id"/>
+        <result property="categoryName" column="category_name"/>
+        <result property="categoryStatus" column="category_status"/>
+        <result property="categorySeq" column="category_seq"/>
+        <association property="menuList" javaType="java.util.List" resultMap="menuResultMap"/>
+    </resultMap>
+
+    <resultMap id="menuResultMap" type="com.starbucksorder.another_back.entity.Menu">
+        <id property="menuId" column="menu_id"/>
+        <result property="menuName" column="menu_name"/>
+    </resultMap>
+
+    <select id="findAllByCategoryId" resultMap="categoryResultMap">
         SELECT
-            mt.menu_id AS menuId,
-            mt.menu_name AS menuName
+            ct.category_id,
+            ct.category_name,
+            ct.category_status,
+            ct.category_seq,
+            mt.menu_id,
+            mt.menu_name
         FROM
             menu_category_tb mct
             LEFT OUTER JOIN category_tb ct on (ct.category_id = mct.category_id)
