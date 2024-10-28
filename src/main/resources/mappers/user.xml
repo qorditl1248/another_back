@@ -29,11 +29,11 @@
 
     <select id="findUserByPhoneNumber" resultMap="userResultMap">
         SELECT
-            ut.user_id as userId,
-            ut.phone_number as phoneNumber,
-            ut.register_date as RegisterDate,
+            ut.user_id,
+            ut.phone_number,
+            ut.register_date,
             ut.memo,
-            ut.update_date as updateDate,
+            ut.update_date,
             pt.point_id,
             pt.user_id,
             pt.point,
@@ -42,7 +42,7 @@
             user_tb ut
             left outer join point_tb pt on (pt.user_id = ut.user_id)
         WHERE
-            phone_number = #{phoneNumber}
+            ut.phone_number = #{phoneNumber}
     </select>
 
     <select id="findUserByUserId" resultType="com.starbucksorder.another_back.entity.User">

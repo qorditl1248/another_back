@@ -10,20 +10,20 @@ public class ReqOrderPortOneDto {
     private int amount;
     // takeout : 1, eatin : 2
     private Long orderType;
-    private int totalQuantity;
-    private List<orderDetail> productList;
+    private List<orderDetail> products;
 
     @Data
     public static class orderDetail {
-        private Long menuId;
-        private String menuName;
+        private Long id;
+        private String name;
+        private int amount;
         private int quantity;
-        private List<optionsDto> options;
+//        private List<optionsDto> options;
     }
-    @Data
-    public static class optionsDto {
-        private Long optionId;
-        private String optionName;
-        private String optionDetailValue;
-    }
+//    @Data
+//    public static class optionsDto {
+//        private Long optionId;
+//        private String optionName;
+//        private String optionDetailValue;
+//    }
 }
