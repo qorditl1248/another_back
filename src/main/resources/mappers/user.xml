@@ -17,7 +17,7 @@
         <result property="registerDate" column="register_date"/>
         <result property="updateDate" column="update_date"/>
         <result property="starCount" column="star_count"/>
-        <association property="coupon" resultMap="couponResultMap"/>
+        <association property="coupons" resultMap="couponResultMap"/>
     </resultMap>
 
     <resultMap id="couponResultMap" type="com.starbucksorder.another_back.entity.Coupon">
@@ -48,6 +48,7 @@
             LEFT OUTER JOIN coupon_tb ct on (ct.user_id = ut.user_id)
         WHERE
             ut.phone_number = #{phoneNumber}
+        AND ct.use_date is NULL
     </select>
 
     <select id="findUserByUserId" resultType="com.starbucksorder.another_back.entity.User">
