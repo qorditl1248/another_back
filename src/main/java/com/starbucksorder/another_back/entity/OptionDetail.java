@@ -14,6 +14,7 @@ import lombok.NoArgsConstructor;
 public class OptionDetail {
     private Long optionDetailId;
     @JsonIgnore
+    private Long optionId;
     private String optionDetailValue;
     private int optionDetailPrice;
 

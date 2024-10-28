@@ -33,37 +33,37 @@
     </update>
 
     <resultMap id="menuResultMap" type="com.starbucksorder.another_back.entity.Menu">
-        <id property="menuId" column="menuId"/>
-        <result property="menuName" column="menuName"/>
-        <result property="menuPrice" column="menuPrice"/>
+        <id property="menuId" column="menu_id"/>
+        <result property="menuName" column="menu_name"/>
+        <result property="menuPrice" column="menu_price"/>
         <result property="comment" column="comment"/>
         <result property="menuStatus" column="status"/>
-        <result property="createDate" column="createDate"/>
-        <result property="updateDate" column="updateDate"/>
-        <result property="imgUrl" column="imgUrl"/>
+        <result property="createDate" column="create_date"/>
+        <result property="updateDate" column="update_date"/>
+        <result property="imgUrl" column="img_url"/>
         <collection property="menuDetails" javaType="java.util.List" resultMap="menuDetailResultMap" />
     </resultMap>
 
     <resultMap id="menuDetailResultMap" type="com.starbucksorder.another_back.entity.MenuDetail">
-        <id property="menuDetailId" column="menuDetailMenuId" />
-        <result property="menuId" column="menuId" />
-        <result property="optionId" column="menuDetailOptionId" />
+        <id property="menuDetailId" column="menu_detail_id" />
+        <result property="menuId" column="menu_id" />
+        <result property="optionId" column="option_id" />
         <association property="option" resultMap="OptionResultMap" />
     </resultMap>
 
     <resultMap id="OptionResultMap" type="com.starbucksorder.another_back.entity.Option">
-        <id property="optionId" column="optionId" />
-        <result property="optionName" column="optionName" />
-        <result property="createDate" column="createDate" />
-        <result property="updateDate" column="updateDate" />
+        <id property="optionId" column="option_id" />
+        <result property="optionName" column="option_name" />
+<!--        <result property="createDate" column="createDate" />-->
+<!--        <result property="updateDate" column="updateDate" />-->
         <collection property="optionDetail" javaType="java.util.List" resultMap="OptionDetailResultMap" />
     </resultMap>
 
     <resultMap id="OptionDetailResultMap" type="com.starbucksorder.another_back.entity.OptionDetail">
-        <id property="optionDetailId" column="optionDetailId" />
-        <result property="optionId" column="optionId" />
-        <result property="optionDetailValue" column="optionDetailValue" />
-        <result property="optionDetailPrice" column="optionDetailPrice" />
+        <id property="optionDetailId" column="option_detail_id" />
+<!--        <result property="optionId" column="optionId" />-->
+        <result property="optionDetailValue" column="option_detail_value" />
+        <result property="optionDetailPrice" column="option_detail_price" />
     </resultMap>
 
     <update id="updateMenuName">
@@ -78,27 +78,27 @@
 
     <select id="findByMenuId" resultMap="menuResultMap">
         SELECT
-            mt.menu_id as menuId,
-            mt.menu_name as menuName,
-            mt.menu_price as menuPrice,
-            mt.comment as comment,
-            mt.menu_status as status,
+            mt.menu_id,
+            mt.menu_name,
+            mt.menu_price,
+            mt.comment,
+            mt.menu_status,
 <!--            mt.create_date as createDate,-->
 <!--            mt.update_date as updateDate,-->
-            mt.img_url as imgUrl,
+            mt.img_url,
 
-            mdt.menu_detail_id as menuDetailId,
-            mdt.menu_id as menuDetailMenuId,
-            mdt.option_id as menuDetailOptionId,
+            mdt.menu_detail_id,
+            mdt.menu_id,
+            mdt.option_id,
 
-            ot.option_id as optionId,
-            ot.option_name as optionName,
+            ot.option_id,
+            ot.option_name,
 <!--            ot.create_date as createDate,-->
 <!--            ot.update_date as updateDate,-->
 
-            odt.option_detail_id as optionDetailId,
-            odt.option_detail_value as optionDetailValue,
-            odt.option_detail_price as optionDetailPrice
+            odt.option_detail_id,
+            odt.option_detail_value,
+            odt.option_detail_price
         FROM
             menu_tb mt
         LEFT OUTER JOIN menu_detail_tb mdt on (mdt.menu_id = mt.menu_id)
