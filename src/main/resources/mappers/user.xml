@@ -13,8 +13,8 @@
     <resultMap id="userResultMap" type="com.starbucksorder.another_back.entity.User">
         <id property="userId" column="user_id"/>
         <result property="phoneNumber" column="phone_number"/>
-        <result property="registerDate" column="register_date"/>
         <result property="memo" column="memo"/>
+        <result property="registerDate" column="register_date"/>
         <result property="updateDate" column="update_date"/>
         <association property="point" resultMap="pointResultMap"/>
     </resultMap>
