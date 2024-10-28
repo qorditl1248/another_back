@@ -2,18 +2,13 @@ package com.starbucksorder.another_back.service;
 
 import com.starbucksorder.another_back.dto.user.request.Point.ReqPointDto;
 import com.starbucksorder.another_back.dto.user.request.Point.ReqUsePointDto;
-import com.starbucksorder.another_back.dto.user.request.User.ReqUserDto;
 import com.starbucksorder.another_back.dto.user.response.point.RespPointDto;
-import com.starbucksorder.another_back.entity.Order;
 import com.starbucksorder.another_back.entity.Point;
 import com.starbucksorder.another_back.entity.User;
 //import com.starbucksorder.another_back.exception.UserNotFoundException;
-import com.starbucksorder.another_back.exception.UserNotFoundException;
-import com.starbucksorder.another_back.repository.OrderMapper;
 import com.starbucksorder.another_back.repository.PointMapper;
 import com.starbucksorder.another_back.repository.UserMapper;
 import org.springframework.beans.factory.annotation.Autowired;
-import org.springframework.security.core.parameters.P;
 import org.springframework.stereotype.Service;
 
 @Service
@@ -25,8 +20,9 @@ public class PointService {
     private UserMapper userMapper;
 
     // HACK: 전화번호로 포인트와 사용자 id 가져오기
-    public RespPointDto getUserId(ReqUserDto dto) {
-        User user = userMapper.findUserByPhoneNumber(dto.getPhoneNumber());
+    public RespPointDto getUserIdByPhoneNumber(String phoneNumber) {
+        User user = userMapper.findUserByPhoneNumber(phoneNumber);
+        System.out.println(user);
 
         return RespPointDto.builder()
                 .userId(user.getUserId())
