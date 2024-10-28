@@ -16,14 +16,16 @@
         <result property="memo" column="memo"/>
         <result property="registerDate" column="register_date"/>
         <result property="updateDate" column="update_date"/>
-        <association property="point" resultMap="pointResultMap"/>
+        <result property="starCount" column="star_count"/>
+        <association property="coupon" resultMap="couponResultMap"/>
     </resultMap>
 
-    <resultMap id="pointResultMap" type="com.starbucksorder.another_back.entity.Point">
-        <id property="pointId" column="point_id"/>
+    <resultMap id="couponResultMap" type="com.starbucksorder.another_back.entity.Coupon">
+        <id property="couponId" column="coupon_id"/>
         <result property="userId" column="user_id"/>
-        <result property="point" column="point"/>
-        <result property="pointType" column="point_type"/>
+        <result property="couponName" column="coupon_name"/>
+        <result property="registerDate" column="register_date"/>
+        <result property="useDate" column="use_date"/>
     </resultMap>
 
 
@@ -31,16 +33,19 @@
         SELECT
             ut.user_id,
             ut.phone_number,
-            ut.register_date,
             ut.memo,
+            ut.star_count,
+            ut.register_date,
             ut.update_date,
-            pt.point_id,
-            pt.user_id,
-            pt.point,
-            pt.point_type
+
+            ct.coupon_id,
+            ct.user_id,
+            ct.coupon_name,
+            ct.register_date,
+            ct.use_date
         FROM
             user_tb ut
-            left outer join point_tb pt on (pt.user_id = ut.user_id)
+            LEFT OUTER JOIN coupon_tb ct on (ct.user_id = ut.user_id)
         WHERE
             ut.phone_number = #{phoneNumber}
     </select>

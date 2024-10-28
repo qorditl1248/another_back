@@ -8,6 +8,8 @@
     <insert id="save">
         insert into
             order_detail_tb
-        values(default, #{orderId}, #{menuId}, #{quantity}, #{orderComment})
+        values
+        <foreach collection="orderDetails" item="orderDetail"></foreach>
+        (default, #{orderId}, #{menuId}, #{quantity}, #{orderComment})
     </insert>
 </mapper>
