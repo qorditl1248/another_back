@@ -5,13 +5,18 @@ import lombok.Builder;
 import lombok.Data;
 import lombok.NoArgsConstructor;
 
+import java.time.LocalDateTime;
+
+@Data
 @Builder
 @NoArgsConstructor
 @AllArgsConstructor
-@Data
-public class Point {
-    private Long pointId;
+public class Coupon {
+
+    private Long couponId;
     private Long userId;
-    private int point;
-    private Long pointType;
+    private String couponName;
+    private LocalDateTime registerDate;
+    private LocalDateTime useDate;
+
 }
