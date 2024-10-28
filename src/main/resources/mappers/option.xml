@@ -60,6 +60,7 @@
         SELECT
             ot.option_id,
             ot.option_name,
+            ot.option_status,
             ot.create_date,
             ot.update_date,
             odt.option_detail_id,
@@ -91,6 +92,7 @@
     <resultMap id="optionResultMap" type="com.starbucksorder.another_back.entity.Option">
         <id property="optionId" column="option_id"/>
         <result property="optionName" column="option_name"/>
+        <result property="optionStatus" column="option_status"/>
         <result property="createDate" column="create_date"/>
         <result property="updateDate" column="update_date"/>
         <association property="optionDetail" javaType="java.util.List" resultMap="optionDetailResultMap"/>

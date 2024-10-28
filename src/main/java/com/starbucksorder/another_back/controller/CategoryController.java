@@ -41,7 +41,7 @@ public class CategoryController {
         return ResponseEntity.ok().body(categoryService.getAllCategories());
     }
 
-    // 카테고리 단 건 조회
+    // 카테고리 id에 상세보기 및 해당하는 메뉴들 불러오기
     @GetMapping("/admin/category/{categoryId}")
     public ResponseEntity<?> getCategoryById(@PathVariable Long categoryId) {
         return ResponseEntity.ok().body(categoryService.getCategoryById(categoryId));

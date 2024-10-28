@@ -78,7 +78,6 @@ public class MenuService {
     // 메뉴id 별 메뉴상세정보
     public RespMenuDto getMenu(Long menuId) {
         Menu selectedMenu = menuMapper.findByMenuId(menuId);
-
         List<MenuDetail> details = selectedMenu.getMenuDetails();
 //        List<OptionDetail> options = selectedMenu.getMenuDetails().getOptions().getOptions();
 
@@ -143,7 +142,7 @@ public class MenuService {
     public boolean modifyMenu(ReqAdminModifyDto dto) {
         try {
             menuMapper.update(dto.toEntity());
-        // 데이터무결성 위반 예외처리
+            // 데이터무결성 위반 예외처리
         } catch (DataIntegrityViolationException e) {
             throw new DuplicateNameException("Duplicate MenuName");
         }

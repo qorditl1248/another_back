@@ -19,6 +19,7 @@ import java.util.stream.Collectors;
 public class Option {
     private Long optionId;
     private String optionName;
+    private Long optionStatus;
     @JsonIgnore
     private LocalDateTime createDate;
     @JsonIgnore

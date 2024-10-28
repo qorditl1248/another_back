@@ -46,7 +46,6 @@
 
     <resultMap id="menuDetailResultMap" type="com.starbucksorder.another_back.entity.MenuDetail">
         <id property="menuDetailId" column="menu_detail_id" />
-        <result property="menuId" column="menu_id" />
         <result property="optionId" column="option_id" />
         <association property="option" resultMap="OptionResultMap" />
     </resultMap>
@@ -61,7 +60,7 @@
 
     <resultMap id="OptionDetailResultMap" type="com.starbucksorder.another_back.entity.OptionDetail">
         <id property="optionDetailId" column="option_detail_id" />
-<!--        <result property="optionId" column="optionId" />-->
+        <result property="optionId" column="optionId" />
         <result property="optionDetailValue" column="option_detail_value" />
         <result property="optionDetailPrice" column="option_detail_price" />
     </resultMap>
@@ -88,7 +87,7 @@
             mt.img_url,
 
             mdt.menu_detail_id,
-            mdt.menu_id,
+<!--            mdt.menu_id,-->
             mdt.option_id,
 
             ot.option_id,
@@ -101,9 +100,9 @@
             odt.option_detail_price
         FROM
             menu_tb mt
-        LEFT OUTER JOIN menu_detail_tb mdt on (mdt.menu_id = mt.menu_id)
-        LEFT OUTER JOIN option_tb ot on (ot.option_id = mdt.option_id)
-        LEFT OUTER JOIN option_detail_tb odt on (odt.option_id = ot.option_id)
+            LEFT OUTER JOIN menu_detail_tb mdt on (mdt.menu_id = mt.menu_id)
+            LEFT OUTER JOIN option_tb ot on (ot.option_id = mdt.option_id)
+            LEFT OUTER JOIN option_detail_tb odt on (odt.option_id = ot.option_id)
         WHERE
             mt.menu_id = #{menuId}
     </select>
@@ -180,11 +179,12 @@
             mt.menu_status AS menuStatus,
             mt.img_url AS imgUrl,
             mt.menu_price AS menuPrice,
+
             group_concat(distinct ot.option_name) AS options,
             group_concat(distinct ct.category_name) AS categories
         FROM
-            menu_detail_tb mdt
-            left outer join menu_tb mt on (mt.menu_id = mdt.menu_id)
+            menu_tb mt
+            left outer join menu_detail_tb mdt on(mdt.menu_id = mt.menu_id)
             left outer join option_tb ot on(ot.option_id = mdt.option_id)
             left outer join menu_category_tb mct on (mct.menu_id = mt.menu_id)
             left outer join category_tb ct on (ct.category_id = mct.category_id)
