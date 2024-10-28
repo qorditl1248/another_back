@@ -24,7 +24,7 @@
         <id property="couponId" column="coupon_id"/>
         <result property="userId" column="user_id"/>
         <result property="couponName" column="coupon_name"/>
-        <result property="registerDate" column="register_date"/>
+        <result property="registerDate" column="ct_register_date"/>
         <result property="useDate" column="use_date"/>
     </resultMap>
 
@@ -41,7 +41,7 @@
             ct.coupon_id,
             ct.user_id,
             ct.coupon_name,
-            ct.register_date,
+            ct.register_date AS ct_register_date,
             ct.use_date
         FROM
             user_tb ut
