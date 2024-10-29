@@ -14,7 +14,7 @@
         UPDATE
             user_tb
         SET
-            star_count = #{starCount}
+            star_count = star_count + #{starCount}
         WHERE
             user_id = #{userId}
     </update>

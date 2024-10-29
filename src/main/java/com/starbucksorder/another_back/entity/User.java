@@ -30,7 +30,6 @@ public class User {
                 .userId(userId)
                 .phoneNumber(phoneNumber)
                 .starCount(starCount)
-                .isSuccess(true)
                 .Coupons(coupons.stream().map(Coupon::toCouponDto).collect(Collectors.toList()))
                 .build();
     }

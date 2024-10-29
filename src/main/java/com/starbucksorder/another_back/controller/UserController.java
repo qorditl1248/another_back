@@ -1,5 +1,6 @@
 package com.starbucksorder.another_back.controller;
 
+import com.starbucksorder.another_back.aspect.annotation.Log;
 import com.starbucksorder.another_back.service.PointService;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.http.ResponseEntity;
@@ -18,18 +19,10 @@ public class UserController {
 
     // HACK: 응답 데이터 확인
 
-    // 전화번호로 사용자 조회 및 포인트 조회
-    @GetMapping("/user/phone")
-    public ResponseEntity<?> getUserId(@RequestParam String phoneNumber) {
+    // 포인트 사용을 위한 조회요청
+    @Log
+    @GetMapping("/user/reward")
+    public ResponseEntity<?> getRewardPoint(@RequestParam String phoneNumber) {
         return ResponseEntity.ok().body(pointService.getUserIdByPhoneNumber(phoneNumber));
     }
-
-    // 포인트 사용
-    @GetMapping("/point/user/reward")
-    public ResponseEntity<?> getRewardPoint(@RequestParam String phoneNumber) {
-//        return ResponseEntity.ok().body(pointService.(phoneNumber));
-        return null;
-    }
-    // 사용자 등록
-
 }

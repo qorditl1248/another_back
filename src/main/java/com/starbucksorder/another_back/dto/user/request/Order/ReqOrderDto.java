@@ -21,6 +21,7 @@ public class ReqOrderDto {
     // takeout : 1, eat-in : 2
     private Long orderType;
     private customer customer;
+    private int totalQuantity;
     // 상품들
     private List<Product> products;
 
@@ -70,13 +71,13 @@ public class ReqOrderDto {
     }
 
 
-
-    public Order toOrderEntity() {
+    public Order toOrderEntity(Long userId) {
         List<OrderDetail> orderDetails = products.stream().map(Product::toOrderDetailEntity).collect(Collectors.toList());
         return Order.builder()
-                .userId(customer.getUserId())
+                .userId(userId)
                 .paymentId(paymentId)
                 .orderType(orderType)
+                .totalQuantity(totalQuantity)
                 .orderAmount(totalAmount)
                 .orderDetails(orderDetails)
                 .build();
