@@ -7,5 +7,5 @@ import org.apache.ibatis.annotations.Mapper;
 public interface UserMapper {
     User findUserByPhoneNumber(String phoneNumber);
     User findUserByUserId(Long userId);
-    int saveUser(String phoneNumber);
+    int saveUser(User user);
 }

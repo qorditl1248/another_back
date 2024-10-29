@@ -6,10 +6,11 @@
 <mapper namespace="com.starbucksorder.another_back.repository.OrderDetailMapper">
 
     <insert id="save">
-        insert into
+        INSERT INTO
             order_detail_tb
-        values
-        <foreach collection="orderDetails" item="orderDetail"></foreach>
-        (default, #{orderId}, #{menuId}, #{quantity}, #{orderComment})
+        VALUES
+        <foreach collection="orderDetails" item="orderDetail" separator=",">
+            (DEFAULT, #{orderId}, #{orderDetail.menuId}, #{orderDetail.quantity}, #{orderDetail.orderComment})
+        </foreach>
     </insert>
 </mapper>
