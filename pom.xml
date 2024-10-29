@@ -30,7 +30,8 @@
 		<java.version>11</java.version>
 	</properties>
 	<dependencies>
-		<!-- Security,Web,Devtools,Lombok,MyBatis,MySQL Connector, JWT, AOP, Validation,  -->
+		<!-- Security,Web,Devtools,Lombok,MyBatis,MySQL Connector, JWT, AOP, Validation,openApi  -->
+
 		<dependency>
 			<groupId>org.springframework.boot</groupId>
 			<artifactId>spring-boot-starter-security</artifactId>
