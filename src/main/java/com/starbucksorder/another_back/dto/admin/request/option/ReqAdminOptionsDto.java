@@ -6,4 +6,5 @@ import java.util.List;
 @Data
 public class ReqAdminOptionsDto {
     private List<Long> optionIds;
+    private Long optionId;
 }

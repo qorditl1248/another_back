@@ -8,6 +8,8 @@ import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.http.ResponseEntity;
 import org.springframework.web.bind.annotation.*;
 
+import java.util.List;
+
 @RestController
 public class OptionController {
     @Autowired
@@ -29,8 +31,10 @@ public class OptionController {
     // 옵션에 속한 메뉴들 전체 불러오기
     @Log
     @GetMapping("/admin/option/menus")
-    public ResponseEntity<?> getById(@RequestBody ReqAdminOptionsDto dto) {
-        return ResponseEntity.ok().body(optionService.getAllByOptionIds(dto));
+//    public ResponseEntity<?> getById(@RequestParam ReqAdminOptionsDto dto) {
+    public ResponseEntity<?> getById(@RequestParam List<Long> ids) {
+//        return ResponseEntity.ok().body(optionService.getAllByOptionIds(dto));
+        return ResponseEntity.ok().body(optionService.getAllByOptionIds(ids));
     }
 
     //옵션 삭제

@@ -45,8 +45,10 @@ public class OptionService {
     }
 
     // 옵션에 해당하는 메뉴들 불러오기
-    public List<RespOnlyMenuIdAdnName> getAllByOptionIds(ReqAdminOptionsDto dto) {
-        return optionMapper.getAllByOptionId(dto.getOptionIds()).stream().map(Menu::toRespOnlyIdAndNameDto).collect(Collectors.toList());
+//    public List<RespOnlyMenuIdAdnName> getAllByOptionIds(ReqAdminOptionsDto dto) {
+    public List<RespOnlyMenuIdAdnName> getAllByOptionIds(List<Long> ids) {
+//        return optionMapper.getAllByOptionId(dto.getOptionIds()).stream().map(Menu::toRespOnlyIdAndNameDto).collect(Collectors.toList());
+        return optionMapper.getAllByOptionId(ids).stream().map(Menu::toRespOnlyIdAndNameDto).collect(Collectors.toList());
     }
 
     // 옵션 삭제만

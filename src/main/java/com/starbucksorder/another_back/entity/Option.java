@@ -39,6 +39,7 @@ public class Option {
         return RespAdminOptionDto.builder()
                 .optionId(optionId)
                 .optionName(optionName)
+                .optionStatus(optionStatus)
                 .optionDetail(optionDetail.stream().map(OptionDetail::toDetail).collect(Collectors.toList()))
                 .build();
     }
