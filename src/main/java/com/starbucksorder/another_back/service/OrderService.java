@@ -23,26 +23,36 @@ public class OrderService {
     // 주문목록 저장
     @Transactional(rollbackFor = RuntimeException.class)
     public void saveOrder(ReqOrderDto dto) {
-        Order order = dto.toOrderEntity();
         // 번호조회 먼저
         User user = findUser(dto.getCustomer().getPhoneNumber());
+
+        System.out.println(user);
         if (user == null) {
+            // 사용자가 없다면 저장
             user = dto.getCustomer().toUser();
             // 번호등록
             userMapper.saveUser(user);
+            // 진행 후 아이디 담기
+            user.setUserId(user.getUserId());
         }
-        // user = dto.getCustomer().toUser(order.getTotalQuantity());
-        order.setUserId(user.getUserId());
+        Order order = dto.toOrderEntity(user.getUserId());
         // 주문등록
         orderMapper.save(order);
         // 주문 상세 등록
         orderDetailMapper.save(order.getOrderDetails(), order.getOrderId());
         // 적립
+
+        user = User.builder()
+                .userId(order.getUserId())
+                .starCount(order.getTotalQuantity())
+                .build();
+
+        System.out.println(order);
+        System.out.println(user);
         userMapper.updateStar(user.builder()
                 .userId(order.getUserId())
                 .starCount(order.getTotalQuantity())
                 .build());
-
     }
 
     public User findUser(String phoneNumber) {

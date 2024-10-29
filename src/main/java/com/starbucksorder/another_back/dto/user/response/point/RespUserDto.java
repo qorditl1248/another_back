@@ -10,7 +10,6 @@ import java.util.List;
 @Builder
 @Data
 public class RespUserDto {
-    private boolean isSuccess;
     private Long userId;
     private String phoneNumber;
     private int starCount;

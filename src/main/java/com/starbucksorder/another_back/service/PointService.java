@@ -15,9 +15,7 @@ public class PointService {
 
     // HACK: 전화번호로 포인트와 사용자 id 가져오기
     public RespUserDto getUserIdByPhoneNumber(String phoneNumber) {
-
         RespUserDto user = null;
-
         try {
             user = findUserByPhoneNumber(phoneNumber).toRespUserDto();
             if (user == null) {
