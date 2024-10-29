@@ -6,6 +6,10 @@ import org.apache.ibatis.annotations.Mapper;
 @Mapper
 public interface UserMapper {
     User findUserByPhoneNumber(String phoneNumber);
+
     User findUserByUserId(Long userId);
+
     int saveUser(User user);
+
+    int updateStar(User user);
 }

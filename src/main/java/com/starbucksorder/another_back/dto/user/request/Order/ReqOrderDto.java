@@ -25,6 +25,22 @@ public class ReqOrderDto {
     private List<Product> products;
 
     @Data
+    public static class Product {
+        private Long id; // menuId
+        private String name; // 상세
+        private int amount; // 상품 개별 옵션포함한 금액합계
+        private int quantity; // 총 수량
+
+        public OrderDetail toOrderDetailEntity() {
+            return OrderDetail.builder()
+                    .menuId(id)
+                    .quantity(quantity)
+                    .orderComment(name)
+                    .build();
+        }
+    }
+
+    @Data
     public static class customer {
         private Long userId;
         private String phoneNumber;
@@ -53,21 +69,7 @@ public class ReqOrderDto {
         }
     }
 
-    @Data
-    public static class Product {
-        private Long id; // menuId
-        private String name; // 상세
-        private int amount; // 상품 개별 옵션포함한 금액합계
-        private int quantity; // 총 수량
 
-        public OrderDetail toOrderDetailEntity() {
-            return OrderDetail.builder()
-                    .menuId(id)
-                    .quantity(quantity)
-                    .orderComment(name)
-                    .build();
-        }
-    }
 
     public Order toOrderEntity() {
         List<OrderDetail> orderDetails = products.stream().map(Product::toOrderDetailEntity).collect(Collectors.toList());

@@ -19,6 +19,7 @@ public class Order {
     private String paymentId;
     private Long orderType;
     private int orderAmount; // 전체 주문 금액
+    private int totalQuantity;
     private Long orderState; // 결제 완료 or 취소
     private Date createDate;
     private List<OrderDetail> orderDetails;
