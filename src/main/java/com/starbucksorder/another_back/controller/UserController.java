@@ -30,7 +30,6 @@ public class UserController {
 //        return ResponseEntity.ok().body(pointService.(phoneNumber));
         return null;
     }
-
     // 사용자 등록
 
 }
