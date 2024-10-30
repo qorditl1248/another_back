@@ -9,6 +9,7 @@ import org.springframework.http.ResponseEntity;
 import org.springframework.web.bind.annotation.*;
 
 import java.util.List;
+import java.util.Map;
 
 @RestController
 public class OptionController {
@@ -21,8 +22,7 @@ public class OptionController {
     @Log
     @PostMapping("/admin/option")
     public ResponseEntity<?> add(@RequestBody ReqAdminOptionDto dto) {
-        optionService.add(dto);
-        return ResponseEntity.ok().body(dto);
+        return ResponseEntity.ok().body(optionService.add(dto));
     }
 
     // 옵션 전체 조회
@@ -52,9 +52,17 @@ public class OptionController {
         return ResponseEntity.ok().body(optionService.delete(optionId));
     }
 
+    // 옵션 수정
+    @Log
     @PatchMapping("/admin/option/{optionId}")
+    public ResponseEntity<?> update(@PathVariable Long optionId, @RequestBody ReqAdminOptionDto dto) {
+        return ResponseEntity.ok().body(optionService.update(dto));
+    }
+
+    // 옵션 상태 수정
+    @PatchMapping("/admin/option/status/{optionId}")
     public ResponseEntity<?> updateStatus(@PathVariable Long optionId) {
         return ResponseEntity.ok().body(optionService.updateStatus(optionId));
     }
-    //
+
 }

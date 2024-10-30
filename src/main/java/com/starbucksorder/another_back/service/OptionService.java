@@ -1,11 +1,11 @@
 package com.starbucksorder.another_back.service;
 
 import com.starbucksorder.another_back.dto.admin.request.option.ReqAdminOptionDto;
-import com.starbucksorder.another_back.dto.admin.request.option.ReqAdminOptionsDto;
 import com.starbucksorder.another_back.dto.admin.response.option.RespAdminOptionDto;
 import com.starbucksorder.another_back.dto.user.response.menu.RespOnlyMenuIdAdnName;
 import com.starbucksorder.another_back.entity.Menu;
 import com.starbucksorder.another_back.entity.Option;
+import com.starbucksorder.another_back.entity.OptionDetail;
 import com.starbucksorder.another_back.repository.OptionMapper;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.dao.DataIntegrityViolationException;
@@ -14,6 +14,7 @@ import org.springframework.transaction.annotation.Transactional;
 
 import java.sql.SQLException;
 import java.util.List;
+import java.util.Map;
 import java.util.stream.Collectors;
 
 @Service
@@ -31,9 +32,11 @@ public class OptionService {
         Option option = dto.toEntity();
 
         try {
-            System.out.println(option);
             optionMapper.save(option);
-            optionMapper.detailSave(option.getOptionId(), dto.getValues());
+            for (Map.Entry<String, Integer> entry : dto.getOptionDetail().entrySet()) {
+//                optionMapper.detailSave(OptionDetail.builder().optionId(option.getOptionId()).optionDetailValue(entry.getKey()).optionDetailPrice(entry.getValue()).build());
+                optionMapper.detailSave(dto.toDetailEntity(entry.getKey(),entry.getValue()));
+            }
         } catch (DataIntegrityViolationException e) {
             throw new RuntimeException("데이터베이스 요청 오류" + e.getMessage());
         }
@@ -60,6 +63,18 @@ public class OptionService {
     // 옵션 삭제만
     public boolean delete(Long optionId) {
         return optionMapper.deleteByOptionId(optionId) > 0;
+    }
+
+    // 옵션 수정
+    @Transactional(rollbackFor = SQLException.class)
+    public boolean update(ReqAdminOptionDto dto) {
+        Option option = dto.toEntity();
+        optionMapper.update(option);
+        optionMapper.deleteDetailById(option.getOptionId());
+        for (Map.Entry<String, Integer> entry : dto.getOptionDetail().entrySet()) {
+            optionMapper.detailSave(dto.toDetailEntity(entry.getKey(),entry.getValue()));
+        }
+        return true;
     }
 
     // 옵션 상태수정
