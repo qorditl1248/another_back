@@ -3,6 +3,7 @@ package com.starbucksorder.another_back.service;
 import com.starbucksorder.another_back.dto.admin.request.category.ReqAdminCategoryDto;
 import com.starbucksorder.another_back.dto.admin.request.category.ReqAdminIncludeMenuByCategoryDto;
 import com.starbucksorder.another_back.dto.admin.response.category.RespAdminCategoryDto;
+import com.starbucksorder.another_back.dto.admin.response.category.RespAdminOneItems;
 import com.starbucksorder.another_back.dto.user.response.category.RespCategoryDto;
 import com.starbucksorder.another_back.dto.user.response.menu.RespOnlyMenuIdAdnName;
 import com.starbucksorder.another_back.entity.Category;
@@ -86,12 +87,8 @@ public class CategoryService {
     }
 
     // 카테고리id에 해당하는 메뉴 조회
-    public RespOnlyMenuIdAdnName getCategoryById(Long categoryId) {
-//        return menuCategoryMapper.findAllByCategoryId(categoryId);
-        return null;
+    public RespAdminOneItems getCategoryById(Long categoryId) {
+        Category category = menuCategoryMapper.findAllByCategoryId(categoryId);
+        return new RespAdminOneItems(category.toCategories(), category.getMenuList().stream().map(Menu::toRespOnlyIdAndNameDto).collect(Collectors.toList()));
     }
-
-    public void getusUserIdByPhoneNumber(String phoneNumber){
-    }
-
 }
