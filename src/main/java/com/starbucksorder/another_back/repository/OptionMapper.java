@@ -21,6 +21,9 @@ public interface OptionMapper {
     // 전체 불러오기
     List<Option> getAll();
 
+    // 옵션 아이디에 해당하는 정보 불러오기 (디테일까지)
+    Option findByOptionId(Long optionId);
+
     // 옵션아이디에 해당하는 메뉴 전체 불러오기
     List<Menu> getAllByOptionId(List<Long> optionIds);
 

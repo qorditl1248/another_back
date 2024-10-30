@@ -2,6 +2,7 @@ package com.starbucksorder.another_back.controller;
 
 import com.starbucksorder.another_back.aspect.annotation.Log;
 import com.starbucksorder.another_back.dto.admin.request.option.ReqAdminOptionDto;
+import com.starbucksorder.another_back.service.MenuService;
 import com.starbucksorder.another_back.service.OptionService;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.http.ResponseEntity;
@@ -13,6 +14,8 @@ import java.util.List;
 public class OptionController {
     @Autowired
     private OptionService optionService;
+    @Autowired
+    private MenuService menuService;
 
     // 옵션 추가
     @Log
@@ -26,6 +29,12 @@ public class OptionController {
     @GetMapping("/admin/option")
     public ResponseEntity<?> getAll() {
         return ResponseEntity.ok().body(optionService.getAll());
+    }
+
+    // 옵션 단 건 조회
+    @GetMapping("/admin/option/{optionId}")
+    public ResponseEntity<?> getById(@PathVariable Long optionId) {
+        return ResponseEntity.ok().body(optionService.getById(optionId));
     }
 
     // 옵션에 속한 메뉴들 전체 불러오기
