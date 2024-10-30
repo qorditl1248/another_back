@@ -13,8 +13,14 @@
             (DEFAULT, #{optionName}, #{optionStatus}, NOW(), NOW())
     </insert>
 
-    <insert id="detailSave">
+    <!--<insert id="detailSave">
         INSERT INTO option_detail_tb (option_detail_id, option_id, option_detail_value, option_detail_price )
+        VALUES
+            (DEFAULT, #{optionId}, #{optionDetailValue}, #{optionDetailPrice})
+    </insert>-->
+    <insert id="detailSave">
+        INSERT INTO
+            option_detail_tb
         VALUES
             (DEFAULT, #{optionId}, #{optionDetailValue}, #{optionDetailPrice})
     </insert>

@@ -33,10 +33,15 @@ public class OptionService {
 
         try {
             optionMapper.save(option);
-            for (Map.Entry<String, Integer> entry : dto.getOptionDetail().entrySet()) {
-//                optionMapper.detailSave(OptionDetail.builder().optionId(option.getOptionId()).optionDetailValue(entry.getKey()).optionDetailPrice(entry.getValue()).build());
-                optionMapper.detailSave(dto.toDetailEntity(option.getOptionId(),entry.getKey(),entry.getValue()));
+            for (OptionDetail detail : dto.getOptionDetail()) {
+                detail.setOptionId(option.getOptionId());
+                optionMapper.detailSave(detail);
             }
+
+//            for (Map.Entry<String, Integer> entry : dto.getOptionDetail().entrySet()) {
+////                optionMapper.detailSave(OptionDetail.builder().optionId(option.getOptionId()).optionDetailValue(entry.getKey()).optionDetailPrice(entry.getValue()).build());
+//                optionMapper.detailSave(dto.toDetailEntity(option.getOptionId(),entry.getKey(),entry.getValue()));
+//            }
         } catch (DataIntegrityViolationException e) {
             throw new RuntimeException("데이터베이스 요청 오류" + e.getMessage());
         }
@@ -71,9 +76,13 @@ public class OptionService {
         Option option = dto.toEntity();
         optionMapper.update(option);
         optionMapper.deleteDetailById(option.getOptionId());
-        for (Map.Entry<String, Integer> entry : dto.getOptionDetail().entrySet()) {
-            optionMapper.detailSave(dto.toDetailEntity(option.getOptionId(),entry.getKey(),entry.getValue()));
+        for (OptionDetail detail : dto.getOptionDetail()) {
+            detail.setOptionId(option.getOptionId());
+            optionMapper.detailSave(detail);
         }
+        /*for (Map.Entry<String, Integer> entry : dto.getOptionDetail().entrySet()) {
+            optionMapper.detailSave(dto.toDetailEntity(option.getOptionId(),entry.getKey(),entry.getValue()));
+        }*/
         return true;
     }
 

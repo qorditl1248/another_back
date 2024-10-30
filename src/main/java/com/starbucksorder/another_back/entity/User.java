@@ -1,5 +1,6 @@
 package com.starbucksorder.another_back.entity;
 
+import com.starbucksorder.another_back.dto.admin.response.user.RespAdminDto;
 import com.starbucksorder.another_back.dto.user.response.point.RespUserDto;
 import lombok.AllArgsConstructor;
 import lombok.Builder;
@@ -31,6 +32,15 @@ public class User {
                 .phoneNumber(phoneNumber)
                 .starCount(starCount)
                 .Coupons(coupons.stream().map(Coupon::toCouponDto).collect(Collectors.toList()))
+                .build();
+    }
+
+    public RespAdminDto toRespAdminDto() {
+        return RespAdminDto.builder()
+                .userId(userId)
+                .phoneNumber(phoneNumber)
+                .memo(memo)
+                .starCount(starCount)
                 .build();
     }
 

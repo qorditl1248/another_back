@@ -7,7 +7,7 @@
     <insert id="saveUser" useGeneratedKeys="true" keyProperty="userId">
         insert into
             user_tb
-        values(DEFAULT, #{phoneNumber}, NULL, #{starCount}, now(), now())
+        values(DEFAULT, #{phoneNumber}, #{memo}, #{starCount}, now(), now())
     </insert>
 
     <update id="updateStar">
@@ -72,5 +72,16 @@
         where
             user_id = #{userId}
 
+    </select>
+    <select id="getUserAll" resultType="com.starbucksorder.another_back.entity.User">
+        SELECT
+            user_id AS userId,
+            phone_number AS phoneNumber,
+            memo,
+            star_count AS starCount
+        FROM
+            user_tb
+        WHERE
+            1 = 1
     </select>
 </mapper>
