@@ -5,6 +5,7 @@ import com.starbucksorder.another_back.entity.OptionDetail;
 import lombok.Data;
 
 import java.util.HashMap;
+import java.util.List;
 import java.util.Map;
 
 @Data
@@ -12,7 +13,8 @@ public class ReqAdminOptionDto {
     private Long optionId;
     private String optionName;
     private Long optionStatus;
-    private HashMap<String, Integer> optionDetail;
+    //    private HashMap<String, Integer> optionDetail;
+    private List<OptionDetail> optionDetail;
 
     public Option toEntity() {
         return Option.builder()
@@ -22,12 +24,18 @@ public class ReqAdminOptionDto {
                 .build();
     }
 
-    public OptionDetail toDetailEntity(Long optionId,String value, int price) {
+    /*public OptionDetail toDetailEntity(Long optionId, String value, int price) {
+        return OptionDetail.builder()
+                .optionId(optionId)
+                .optionDetailValue(value)
+                .optionDetailPrice(price)
+                .build();
+    }*/
+    public OptionDetail toDetailEntity(Long optionId, String value, int price) {
         return OptionDetail.builder()
                 .optionId(optionId)
                 .optionDetailValue(value)
                 .optionDetailPrice(price)
                 .build();
     }
-
 }

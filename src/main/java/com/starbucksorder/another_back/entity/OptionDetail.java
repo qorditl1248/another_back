@@ -18,6 +18,7 @@ public class OptionDetail {
     private String optionDetailValue;
     private int optionDetailPrice;
 
+
     public RespAdminOptionDto.RespOptionDetail toDetail() {
         return RespAdminOptionDto.RespOptionDetail.builder()
                 .optionDetailId(optionDetailId)
@@ -25,6 +26,8 @@ public class OptionDetail {
                 .optionDetailPrice(optionDetailPrice)
                 .build();
     }
+
+
 
 
 }
