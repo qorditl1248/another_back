@@ -4,6 +4,7 @@ import com.starbucksorder.another_back.aspect.annotation.Log;
 import com.starbucksorder.another_back.aspect.annotation.ValidAop;
 import com.starbucksorder.another_back.dto.admin.request.ReqSigninDto;
 import com.starbucksorder.another_back.service.AuthService;
+import io.swagger.annotations.ApiOperation;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.http.ResponseEntity;
 import org.springframework.validation.BindingResult;
@@ -18,6 +19,7 @@ public class AuthController {
 
     // 로그인
     @ValidAop
+    @ApiOperation(value = "로그인을 위한 메소드")
     @PostMapping("/auth/signin")
     public ResponseEntity<?> signIn(@Valid @RequestBody ReqSigninDto dto, BindingResult bindingResult){
         System.out.println("실행됨");

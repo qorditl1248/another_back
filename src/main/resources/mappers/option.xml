@@ -8,20 +8,20 @@
 
     <insert id="save" useGeneratedKeys="true" keyProperty="optionId">
         INSERT INTO
-            option_tb (option_id, option_name, create_date, update_date)
+            option_tb (option_id, option_name, option_status, create_date, update_date)
         VALUES
-            (DEFAULT, #{optionName}, NOW(), NOW())
+            (DEFAULT, #{optionName}, #{optionStatus}, NOW(), NOW())
     </insert>
 
     <insert id="detailSave">
-        INSERT INTO
-            option_detail_tb
+        INSERT INTO option_detail_tb (option_detail_id, option_id, option_detail_value, option_detail_price )
         VALUES
-            <foreach collection="values" item="entry" separator=",">
-                (DEFAULT, #{optionId}, #{entry.key}, #{entry.value})
-            </foreach>
+        <foreach collection="values" item="entry" separator=",">
+            (DEFAULT, #{optionId}, #{entry.key}, #{entry.value})
+        </foreach>
 
     </insert>
+
 
     <update id="updateStatus">
         UPDATE

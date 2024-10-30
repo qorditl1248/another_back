@@ -9,12 +9,14 @@ import java.util.Map;
 public class ReqAdminOptionDto {
     private Long optionId;
     private String optionName;
-    private Map<String, Integer> value;
+    private Long optionStatus;
+    private Map<String, Integer> values;
 
     public Option toEntity() {
         return Option.builder()
                 .optionId(optionId)
                 .optionName(optionName)
+                .optionStatus(optionStatus)
                 .build();
     }
 
