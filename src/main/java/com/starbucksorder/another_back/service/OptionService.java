@@ -52,6 +52,11 @@ public class OptionService {
         return optionMapper.getAllByOptionId(ids).stream().map(Menu::toRespOnlyIdAndNameDto).collect(Collectors.toList());
     }
 
+    // 옵션 단 건 조회
+    public Option getById(Long optionId) {
+        return optionMapper.findByOptionId(optionId);
+    }
+
     // 옵션 삭제만
     public boolean delete(Long optionId) {
         return optionMapper.deleteByOptionId(optionId) > 0;
