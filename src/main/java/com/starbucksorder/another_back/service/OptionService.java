@@ -35,7 +35,7 @@ public class OptionService {
             optionMapper.save(option);
             for (Map.Entry<String, Integer> entry : dto.getOptionDetail().entrySet()) {
 //                optionMapper.detailSave(OptionDetail.builder().optionId(option.getOptionId()).optionDetailValue(entry.getKey()).optionDetailPrice(entry.getValue()).build());
-                optionMapper.detailSave(dto.toDetailEntity(entry.getKey(),entry.getValue()));
+                optionMapper.detailSave(dto.toDetailEntity(option.getOptionId(),entry.getKey(),entry.getValue()));
             }
         } catch (DataIntegrityViolationException e) {
             throw new RuntimeException("데이터베이스 요청 오류" + e.getMessage());
@@ -72,7 +72,7 @@ public class OptionService {
         optionMapper.update(option);
         optionMapper.deleteDetailById(option.getOptionId());
         for (Map.Entry<String, Integer> entry : dto.getOptionDetail().entrySet()) {
-            optionMapper.detailSave(dto.toDetailEntity(entry.getKey(),entry.getValue()));
+            optionMapper.detailSave(dto.toDetailEntity(option.getOptionId(),entry.getKey(),entry.getValue()));
         }
         return true;
     }
