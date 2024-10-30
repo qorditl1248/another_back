@@ -10,6 +10,8 @@ import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.http.ResponseEntity;
 import org.springframework.web.bind.annotation.*;
 
+import java.util.List;
+
 @RestController
 // HACK: 매핑명 변경 /points -> point
 public class UserController {
@@ -29,6 +31,7 @@ public class UserController {
     }
 
     // NOTE: 관리자 회원관리
+
     @ApiOperation(value = "사용자 등록")
     @PostMapping("/admin/user")
     public ResponseEntity<?> addUser(@RequestBody ReqAdminUserDto dto) {
@@ -40,11 +43,22 @@ public class UserController {
     public ResponseEntity<?> getUserAll() {
         return ResponseEntity.ok().body(userService.getUserAll());
     }
-
+    @ApiOperation(value = "사용자 단 건 조회 상세보기")
     @GetMapping("/admin/user/{userId}")
     public ResponseEntity<?> getUserById(@PathVariable Long userId) {
         userService.getUserById(userId);
         return ResponseEntity.ok().body(null);
     }
 
+    @ApiOperation(value = "회원 삭제")
+    @DeleteMapping
+    @Log
+    public ResponseEntity<?> deleteUser(@RequestParam List<Long> userIds) {
+        return ResponseEntity.ok().body(null);
+    }
+    @ApiOperation(value = "회원 수정")
+    @PatchMapping
+    public ResponseEntity<?> updateUser(@RequestBody ReqAdminUserDto dto) {
+        return ResponseEntity.ok().body(null);
+    }
 }
