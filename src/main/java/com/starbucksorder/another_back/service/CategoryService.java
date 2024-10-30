@@ -15,6 +15,7 @@ import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.dao.DataIntegrityViolationException;
 import org.springframework.stereotype.Service;
 
+import java.util.ArrayList;
 import java.util.List;
 import java.util.stream.Collectors;
 
@@ -89,6 +90,11 @@ public class CategoryService {
     // 카테고리id에 해당하는 메뉴 조회
     public RespAdminOneItems getCategoryById(Long categoryId) {
         Category category = menuCategoryMapper.findAllByCategoryId(categoryId);
-        return new RespAdminOneItems(category.toCategories(), category.getMenuList().stream().map(Menu::toRespOnlyIdAndNameDto).collect(Collectors.toList()));
+        List<RespOnlyMenuIdAdnName> menus = new ArrayList<>();
+        if (!category.getMenuList().isEmpty()) {
+            menus = category.getMenuList().stream().map(Menu::toRespOnlyIdAndNameDto).collect(Collectors.toList());
+        }
+        return new RespAdminOneItems(category.toCategories(), menus);
     }
+
 }

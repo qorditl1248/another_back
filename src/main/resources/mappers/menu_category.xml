@@ -44,8 +44,8 @@
             mt.menu_id,
             mt.menu_name
         FROM
-            menu_category_tb mct
-            LEFT OUTER JOIN category_tb ct on (ct.category_id = mct.category_id)
+            category_tb ct
+            LEFT OUTER JOIN menu_category_tb mct on (mct.category_id = ct.category_id)
             LEFT OUTER JOIN menu_tb mt on (mt.menu_id = mct.menu_id)
         WHERE
             ct.category_id = #{categoryId}
