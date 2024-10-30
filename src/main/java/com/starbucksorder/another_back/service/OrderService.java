@@ -20,48 +20,42 @@ public class OrderService {
     @Autowired
     private UserMapper userMapper;
 
+
     // 주문목록 저장
     @Transactional(rollbackFor = RuntimeException.class)
-    public void saveOrder(ReqOrderDto dto) {
-        // 번호가 없다면 적립요청이 아닌 것
+    public boolean saveOrder(ReqOrderDto dto) {
+        // 적립요청이 아닌 것 == 번호자체가 없음
         if (dto.getCustomer().getPhoneNumber().length() == 4) {
-            Order order = dto.toOrderEntity(null);
-            orderMapper.save(order);
-            orderDetailMapper.save(order.getOrderDetails(), order.getOrderId());
+            save(dto, null);
+            // 요청 데이터에 번호가 있는데 회원이 없는 경우 등록해주고 id 받아야함
         } else {
-
             User user = findUser(dto.getCustomer().getPhoneNumber());
-            // 번호조회 먼저
             if (user == null) {
-                // 사용자가 없다면 저장
-                user = dto.getCustomer().toUser();
                 // 번호등록
+                user = user.builder().phoneNumber(dto.getCustomer().getPhoneNumber()).build();
                 userMapper.saveUser(user);
-                // 진행 후 아이디 담기
-                user.setUserId(user.getUserId());
             }
-            Order order = dto.toOrderEntity(user.getUserId());
-            // 주문등록
-            orderMapper.save(order);
-            // 주문 상세 등록
-            orderDetailMapper.save(order.getOrderDetails(), order.getOrderId());
+            save(dto, user.getUserId());
             // 적립
-            user = User.builder()
-                    .userId(order.getUserId())
-                    .starCount(order.getTotalQuantity())
-                    .build();
-
             userMapper.updateStar(user.builder()
-                    .userId(order.getUserId())
-                    .starCount(order.getTotalQuantity())
+                    .userId(user.getUserId())
+                    .starCount(dto.getTotalQuantity())
                     .build());
         }
-        System.out.println("성공");
+        return true;
     }
 
     public User findUser(String phoneNumber) {
         User user = userMapper.findUserByPhoneNumber(phoneNumber);
-        return user;
+        return user == null ? null : user;
+    }
+
+    // 저장
+    private void save(ReqOrderDto dto, Long userId) {
+        Order order = dto.toOrderEntity(userId);
+        orderMapper.save(order);
+        // 주문 상세 등록
+        orderDetailMapper.save(order.getOrderDetails(), order.getOrderId());
     }
 
 }
