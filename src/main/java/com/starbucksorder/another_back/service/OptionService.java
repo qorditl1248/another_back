@@ -31,8 +31,9 @@ public class OptionService {
         Option option = dto.toEntity();
 
         try {
+            System.out.println(option);
             optionMapper.save(option);
-            optionMapper.detailSave(option.getOptionId(), dto.getValue());
+            optionMapper.detailSave(option.getOptionId(), dto.getValues());
         } catch (DataIntegrityViolationException e) {
             throw new RuntimeException("데이터베이스 요청 오류" + e.getMessage());
         }
