@@ -22,7 +22,7 @@ public class ReqAdminOptionDto {
                 .build();
     }
 
-    public OptionDetail toDetailEntity(String value, int price) {
+    public OptionDetail toDetailEntity(Long optionId,String value, int price) {
         return OptionDetail.builder()
                 .optionId(optionId)
                 .optionDetailValue(value)
