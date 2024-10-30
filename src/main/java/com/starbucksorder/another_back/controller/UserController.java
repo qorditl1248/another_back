@@ -18,7 +18,6 @@ public class UserController {
     private PointService pointService;
 
     // HACK: 응답 데이터 확인
-
     // 포인트 사용을 위한 조회요청
     @Log
     @GetMapping("/user/reward")

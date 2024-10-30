@@ -14,14 +14,11 @@ public class OrderController {
     @Autowired
     private OrderService orderService;
 
-    // 주문목록 저장 ( 적립 안하는 사람은 userId = null )
-    // HACK: 포트원 도입 전 데이터 요청 확인
-    // HACK: ReqOrderPortOneDto -> ReqOrderDto 변경
+    // 주문목록 저장 ( 적립 안하는 사람은 phoneNumber = "010-" )
     @Log
     @PostMapping()
     public ResponseEntity<?> add(@RequestBody ReqOrderDto order){
-        orderService.saveOrder(order);
-        return ResponseEntity.ok().body(order);
+        return ResponseEntity.ok().body(orderService.saveOrder(order));
     }
 
 
