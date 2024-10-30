@@ -16,12 +16,8 @@
     <insert id="detailSave">
         INSERT INTO option_detail_tb (option_detail_id, option_id, option_detail_value, option_detail_price )
         VALUES
-        <foreach collection="values" item="entry" separator=",">
-            (DEFAULT, #{optionId}, #{entry.key}, #{entry.value})
-        </foreach>
-
+            (DEFAULT, #{optionId}, #{optionDetailValue}, #{optionDetailPrice})
     </insert>
-
 
     <update id="updateStatus">
         UPDATE
@@ -31,11 +27,28 @@
         WHERE
             option_id = #{optionId}
     </update>
+    <update id="update">
+        UPDATE
+            `option_tb`
+        SET
+            `option_name` = #{optionName},
+            `option_status` = #{optionStatus},
+            update_date = NOW()
+        WHERE
+            `option_id` = #{optionId}
+    </update>
 
     <delete id="deleteByOptionId">
         DELETE
         FROM
             option_tb
+        WHERE
+            option_id = #{optionId}
+    </delete>
+    <delete id="deleteDetailById">
+        DELETE
+        FROM
+            option_detail_tb
         WHERE
             option_id = #{optionId}
     </delete>

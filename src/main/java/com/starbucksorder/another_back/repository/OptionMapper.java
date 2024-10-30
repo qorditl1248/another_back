@@ -2,10 +2,14 @@ package com.starbucksorder.another_back.repository;
 
 import com.starbucksorder.another_back.entity.Menu;
 import com.starbucksorder.another_back.entity.Option;
+import com.starbucksorder.another_back.entity.OptionDetail;
 import org.apache.ibatis.annotations.Mapper;
+import org.apache.ibatis.annotations.Param;
 
+import java.util.HashMap;
 import java.util.List;
 import java.util.Map;
+import java.util.Objects;
 
 @Mapper
 public interface OptionMapper {
@@ -16,7 +20,7 @@ public interface OptionMapper {
     int save(Option option);
 
     // 부가옵션 추가
-    int detailSave(Long optionId, Map<String, Integer> values);
+    int detailSave(OptionDetail optionDetail);
 
     // 전체 불러오기
     List<Option> getAll();
@@ -30,5 +34,12 @@ public interface OptionMapper {
     // 옵션 삭제
     int deleteByOptionId(Long optionId);
 
+    // 옵션 수정
+    int update(Option option);
+
+    // 옵션 수정에 대한 디테일 삭제
+    int deleteDetailById(Long optionId);
+
+    // 상태수정
     int updateStatus(Long optionId);
 }
