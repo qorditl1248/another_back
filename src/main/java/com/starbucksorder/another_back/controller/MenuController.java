@@ -23,8 +23,9 @@ public class MenuController {
     private DuplicateService duplicateService;
 
     // 카테고리별 메뉴리스트 종류 -> 12개씩
+    @Log
     @GetMapping("/home/category/menus")
-    public ResponseEntity<?> getMenuList(@RequestParam ReqMenuListDto dto) {
+    public ResponseEntity<?> getMenuList(ReqMenuListDto dto) {
         return ResponseEntity.ok().body(menuService.getMenuList(dto));
     }
 

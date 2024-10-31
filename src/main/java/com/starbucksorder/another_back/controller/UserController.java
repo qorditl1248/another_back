@@ -40,9 +40,9 @@ public class UserController {
     }
 
     @ApiOperation(value = "사용자 전체 조회")
+    // HACK: 요청 데이터
     @GetMapping("/admin/user")
     // 페이지번호, 검색어
-    // dto
     public ResponseEntity<?> getUserAll(ReqAdminSearchDto dto) {
         return ResponseEntity.ok().body(userService.getUserAll(dto));
     }

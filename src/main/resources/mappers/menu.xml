@@ -116,7 +116,7 @@
             mt.menu_status as status,
             mt.create_date as createDate,
             mt.update_date as updateDate,
-            mt.img_url as imgurl
+            mt.img_url as imgUrl
         from
             menu_tb as mt
         left outer join menu_category_tb mct on (mt.menu_id = mct.menu_id)
