@@ -2,7 +2,7 @@ package com.starbucksorder.another_back.controller;
 
 import com.starbucksorder.another_back.aspect.annotation.Log;
 import com.starbucksorder.another_back.dto.admin.request.ReqAdminUserDto;
-import com.starbucksorder.another_back.entity.User;
+import com.starbucksorder.another_back.dto.admin.request.user.ReqAdminSearchDto;
 import com.starbucksorder.another_back.service.PointService;
 import com.starbucksorder.another_back.service.UserService;
 import io.swagger.annotations.ApiOperation;
@@ -41,8 +41,10 @@ public class UserController {
 
     @ApiOperation(value = "사용자 전체 조회")
     @GetMapping("/admin/user")
-    public ResponseEntity<?> getUserAll() {
-        return ResponseEntity.ok().body(userService.getUserAll());
+    // 페이지번호, 검색어
+    // dto
+    public ResponseEntity<?> getUserAll(ReqAdminSearchDto dto) {
+        return ResponseEntity.ok().body(userService.getUserAll(dto));
     }
 
     @ApiOperation(value = "사용자 단 건 조회 상세보기")
@@ -62,7 +64,13 @@ public class UserController {
     @ApiOperation(value = "회원 수정")
     @PatchMapping("/admin/modify/{userId}")
     public ResponseEntity<?> updateUser(@PathVariable Long userId, @RequestBody ReqAdminUserDto dto) {
-        userService.
-        return ResponseEntity.ok().body(null);
+        return ResponseEntity.ok().body(userService.updateUser(dto));
+    }
+
+    // TEST: count 테스트
+    @Log
+    @GetMapping("/admin/user/test")
+    public ResponseEntity<?> test(@RequestParam String searchName) {
+        return ResponseEntity.ok().body(userService.searchCount(searchName));
     }
 }

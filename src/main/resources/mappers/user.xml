@@ -10,11 +10,14 @@
         values(DEFAULT, #{phoneNumber}, #{memo}, #{starCount}, now(), now())
     </insert>
 
-    <update id="updateStar">
+    <update id="update">
         UPDATE
             user_tb
         SET
-            star_count = star_count + #{starCount}
+            phone_number = #{phoneNumber}
+            memo = #{memo}
+            star_count = #{starCount}
+            update_date = NOW()
         WHERE
             user_id = #{userId}
     </update>
@@ -77,6 +80,20 @@
             user_id = #{userId}
 
     </select>
+
+    <select id="count" resultType="int">
+        SELECT
+            COUNT(*)
+        FROM
+            user_tb
+        <where>
+            <if test="searchName != null and searchName != ''">
+                (phone_number LIKE CONCAT('%', #{searchName}, '%') OR
+                memo LIKE CONCAT('%', #{searchName}, '%'))
+            </if>
+        </where>
+    </select>
+
     <select id="getUserAll" resultType="com.starbucksorder.another_back.entity.User">
         SELECT
             user_id AS userId,
@@ -86,6 +103,11 @@
         FROM
             user_tb
         WHERE
-            1 = 1
+            phone_number LIKE CONCAT('%', #{searchName}, '%')
+        OR memo LIKE CONCAT ('%', #{searchName}, '%')
+        ORDER BY
+            user_id
+        LIMIT
+            #{startIndex}, 13
     </select>
 </mapper>
