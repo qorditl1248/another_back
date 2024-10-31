@@ -2,6 +2,7 @@ package com.starbucksorder.another_back.repository;
 
 import com.starbucksorder.another_back.entity.User;
 import org.apache.ibatis.annotations.Mapper;
+import org.apache.ibatis.annotations.Param;
 
 import java.util.List;
 
@@ -13,7 +14,12 @@ public interface UserMapper {
 
     int saveUser(User user);
 
-    int updateStar(User user);
+    int update(User user);
 
-    List<User> getUserAll();
+    void updateStar();
+
+    List<User> getUserAll(@Param("searchName") String searchName, @Param("startIndex") Long startIndex);
+
+    int count(String searchName);
+
 }

@@ -1,0 +1,9 @@
+package com.starbucksorder.another_back.dto.admin.request.user;
+
+import lombok.Data;
+
+@Data
+public class ReqAdminSearchDto {
+    private Long page;
+    private String searchName;
+}

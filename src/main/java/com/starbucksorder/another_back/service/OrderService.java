@@ -37,10 +37,7 @@ public class OrderService {
             }
             save(dto, user.getUserId());
             // 적립
-            userMapper.updateStar(user.builder()
-                    .userId(user.getUserId())
-                    .starCount(dto.getTotalQuantity())
-                    .build());
+            userMapper.updateStar();
         }
         return true;
     }
