@@ -22,4 +22,6 @@ public interface UserMapper {
 
     int count(String searchName);
 
+    int deleteByIds(List<Long> userIds);
+
 }
