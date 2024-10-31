@@ -13,7 +13,7 @@ public interface UserMapper {
 
     int saveUser(User user);
 
-    int updateStar(User user);
+    void updateStar(User user);
 
     List<User> getUserAll();
 }

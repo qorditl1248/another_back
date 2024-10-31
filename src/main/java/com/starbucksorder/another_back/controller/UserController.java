@@ -25,6 +25,7 @@ public class UserController {
     // HACK: 응답 데이터 확인
     // 포인트 사용을 위한 조회요청
     @Log
+    @ApiOperation(value = "포인트 사용을 위한 조회요청")
     @GetMapping("/point/user/reward")
     public ResponseEntity<?> getRewardPoint(@RequestParam String phoneNumber) {
         return ResponseEntity.ok().body(pointService.getUserIdByPhoneNumber(phoneNumber));
@@ -43,6 +44,7 @@ public class UserController {
     public ResponseEntity<?> getUserAll() {
         return ResponseEntity.ok().body(userService.getUserAll());
     }
+
     @ApiOperation(value = "사용자 단 건 조회 상세보기")
     @GetMapping("/admin/user/{userId}")
     public ResponseEntity<?> getUserById(@PathVariable Long userId) {
@@ -56,9 +58,11 @@ public class UserController {
     public ResponseEntity<?> deleteUser(@RequestParam List<Long> userIds) {
         return ResponseEntity.ok().body(null);
     }
+
     @ApiOperation(value = "회원 수정")
-    @PatchMapping
-    public ResponseEntity<?> updateUser(@RequestBody ReqAdminUserDto dto) {
+    @PatchMapping("/admin/modify/{userId}")
+    public ResponseEntity<?> updateUser(@PathVariable Long userId, @RequestBody ReqAdminUserDto dto) {
+        userService.
         return ResponseEntity.ok().body(null);
     }
 }

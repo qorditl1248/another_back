@@ -18,6 +18,10 @@
         WHERE
             user_id = #{userId}
     </update>
+    <select id="updateStar" statementType="CALLABLE" parameterType="com.starbucksorder.another_back.entity.User">
+        call ps_generate_coupon(#{userId, mode=IN}, #{starCount, mode=IN})
+    </select>
+
 
     <resultMap id="userResultMap" type="com.starbucksorder.another_back.entity.User">
         <id property="userId" column="user_id"/>
