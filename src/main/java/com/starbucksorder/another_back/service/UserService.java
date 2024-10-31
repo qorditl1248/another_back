@@ -1,6 +1,7 @@
 package com.starbucksorder.another_back.service;
 
 import com.starbucksorder.another_back.dto.admin.request.ReqAdminUserDto;
+import com.starbucksorder.another_back.dto.admin.request.user.ReqAdminDeleteDto;
 import com.starbucksorder.another_back.dto.admin.request.user.ReqAdminSearchDto;
 import com.starbucksorder.another_back.dto.admin.response.menu.CMRespAdminDto;
 import com.starbucksorder.another_back.dto.admin.response.user.RespAdminDto;
@@ -45,5 +46,10 @@ public class UserService {
 
     public int searchCount(String searchName) {
         return userMapper.count(searchName);
+    }
+
+    // 회원 리스트 삭제
+    public boolean deleteUserByIds(ReqAdminDeleteDto dto) {
+        return userMapper.deleteByIds(dto.getUserIds()) > 0;
     }
 }
