@@ -41,6 +41,7 @@ public class User {
                 .phoneNumber(phoneNumber)
                 .memo(memo)
                 .starCount(starCount)
+                .registerDate(registerDate)
                 .build();
     }
 

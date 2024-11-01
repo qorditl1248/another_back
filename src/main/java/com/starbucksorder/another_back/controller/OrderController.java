@@ -30,6 +30,7 @@ public class OrderController {
     @Log
     @GetMapping("/product/items")
     public ResponseEntity<?> getProductItem(ReqOrderItem dto) {
+        System.out.println(dto);
         return ResponseEntity.ok().body(menuService.findByIds(dto));
     }
 
