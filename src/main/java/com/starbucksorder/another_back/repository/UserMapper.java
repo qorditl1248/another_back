@@ -16,9 +16,9 @@ public interface UserMapper {
 
     int update(User user);
 
-    void updateStar();
+    void updateStar(@Param("userId") Long userId, @Param("starCount") Integer starCount);
 
-    List<User> getUserAll(@Param("searchName") String searchName, @Param("startIndex") Long startIndex);
+    List<User> getUserAll(@Param("searchName") String searchName, @Param("startIndex") Long startIndex, @Param("limit") Long limit);
 
     int count(String searchName);
 

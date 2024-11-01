@@ -27,8 +27,8 @@ public class UserService {
 
     // 전체조회
     public CMRespAdminDto getUserAll(ReqAdminSearchDto dto) {
-        Long startIndex = (dto.getPage() - 1) * 13;
-        return new CMRespAdminDto(searchCount(dto.getSearchName()), userMapper.getUserAll(dto.getSearchName(), startIndex).stream().map(User::toRespAdminDto).collect(Collectors.toList()));
+        Long startIndex = (dto.getPage() - 1) * dto.getLimit();
+        return new CMRespAdminDto(searchCount(dto.getSearchName()), userMapper.getUserAll(dto.getSearchName(), startIndex,dto.getLimit()).stream().map(User::toRespAdminDto).collect(Collectors.toList()));
     }
 
     // 검색
