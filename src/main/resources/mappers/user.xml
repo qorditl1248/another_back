@@ -118,6 +118,6 @@
         ORDER BY
             user_id
         LIMIT
-            #{startIndex}, 13
+            #{startIndex}, #{limit}
     </select>
 </mapper>
