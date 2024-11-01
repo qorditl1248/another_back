@@ -37,7 +37,7 @@ public class OrderService {
             }
             save(dto, user.getUserId());
             // 적립
-            userMapper.updateStar(user.getUserId(),dto.getTotalQuantity());
+            userMapper.updateStar(user);
             //userId, totalQuantity
         }
         return true;
@@ -55,5 +55,6 @@ public class OrderService {
         // 주문 상세 등록
         orderDetailMapper.save(order.getOrderDetails(), order.getOrderId());
     }
+
 
 }
