@@ -14,13 +14,14 @@
         UPDATE
             user_tb
         SET
-            phone_number = #{phoneNumber}
-            memo = #{memo}
-            star_count = #{starCount}
+            phone_number = #{phoneNumber},
+            memo = #{memo},
+            star_count = #{starCount},
             update_date = NOW()
         WHERE
             user_id = #{userId}
     </update>
+
     <delete id="deleteByIds">
         DELETE
         FROM
