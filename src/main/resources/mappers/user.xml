@@ -14,13 +14,14 @@
         UPDATE
             user_tb
         SET
-            phone_number = #{phoneNumber}
-            memo = #{memo}
-            star_count = #{starCount}
+            phone_number = #{phoneNumber},
+            memo = #{memo},
+            star_count = #{starCount},
             update_date = NOW()
         WHERE
             user_id = #{userId}
     </update>
+
     <delete id="deleteByIds">
         DELETE
         FROM
@@ -78,17 +79,17 @@
     </select>
 
     <select id="findUserByUserId" resultType="com.starbucksorder.another_back.entity.User">
-        select
+        SELECT
             user_id as userId,
             phone_number as phoneNumber,
-            memo as memo,
-            register_date as RegisterDate,
+            memo,
+            star_count AS starCount,
+            register_date as registerDate,
             update_date as updateDate
-        from
+        FROM
             user_tb
-        where
+        WHERE
             user_id = #{userId}
-
     </select>
 
     <select id="count" resultType="int">

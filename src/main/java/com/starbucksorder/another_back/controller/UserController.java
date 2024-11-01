@@ -61,7 +61,7 @@ public class UserController {
     }
 
     @ApiOperation(value = "회원 수정")
-    @PatchMapping("/admin/modify/{userId}")
+    @PatchMapping("/admin/user/modify/{userId}")
     public ResponseEntity<?> updateUser(@PathVariable Long userId, @RequestBody ReqAdminUserDto dto) {
         return ResponseEntity.ok().body(userService.updateUser(dto));
     }

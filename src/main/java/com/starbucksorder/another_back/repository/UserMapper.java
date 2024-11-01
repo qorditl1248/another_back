@@ -10,7 +10,7 @@ import java.util.List;
 public interface UserMapper {
     User findUserByPhoneNumber(String phoneNumber);
 
-    User findUserByUserId(Long userId);
+    User findUserByUserId(@Param("userId") Long userId);
 
     int saveUser(User user);
 
