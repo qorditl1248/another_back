@@ -49,14 +49,14 @@ public class UserController {
     @ApiOperation(value = "사용자 단 건 조회 상세보기")
     @GetMapping("/admin/user/{userId}")
     public ResponseEntity<?> getUserById(@PathVariable Long userId) {
-        userService.getUserById(userId);
-        return ResponseEntity.ok().body(null);
+        return ResponseEntity.ok().body(userService.getUserById(userId));
     }
 
     @Log
     @ApiOperation(value = "회원 삭제")
-    @DeleteMapping("/admin/user")
+    @DeleteMapping("/admin/user/{userId}")
     public ResponseEntity<?> deleteUser(ReqAdminDeleteDto dto) {
+        // {params: userIds:[1,2,3]}
         return ResponseEntity.ok().body(userService.deleteUserByIds(dto));
     }
 
