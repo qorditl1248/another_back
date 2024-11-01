@@ -6,8 +6,10 @@ import com.starbucksorder.another_back.dto.admin.request.menu.ReqAdminMenuDto;
 import com.starbucksorder.another_back.dto.admin.request.menu.ReqAdminMenuListDtoAll;
 import com.starbucksorder.another_back.dto.admin.request.menu.ReqAdminModifyDto;
 import com.starbucksorder.another_back.dto.admin.response.menu.*;
+import com.starbucksorder.another_back.dto.user.request.Order.ReqOrderItem;
 import com.starbucksorder.another_back.dto.user.request.menu.ReqMenuListDto;
 import com.starbucksorder.another_back.dto.user.response.menu.RespMenuDto;
+import com.starbucksorder.another_back.dto.user.response.menu.RespMenuImgListDto;
 import com.starbucksorder.another_back.dto.user.response.menu.RespOnlyMenuIdAdnName;
 import com.starbucksorder.another_back.dto.user.response.menu.RespMenuListByCategoryIdDto;
 import com.starbucksorder.another_back.entity.Category;
@@ -24,6 +26,7 @@ import org.springframework.stereotype.Service;
 import org.springframework.transaction.annotation.Transactional;
 
 import java.util.List;
+import java.util.Objects;
 import java.util.stream.Collectors;
 
 @Service
@@ -179,5 +182,9 @@ public class MenuService {
     // 메뉴 상태 변경
     public boolean updateMenuStatus(Long menuId) {
         return menuMapper.updateMenuStatus(menuId) > 0;
+    }
+
+    public List<RespMenuImgListDto> findByIds(ReqOrderItem dto){
+        return menuMapper.findByMenuIds(dto.getItems()).stream().map(Menu::toMenuImgListDto).collect(Collectors.toList());
     }
 }

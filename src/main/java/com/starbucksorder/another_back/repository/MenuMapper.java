@@ -53,5 +53,7 @@ public interface MenuMapper {
     // 메뉴 상태 수정
     int updateMenuStatus(Long menuId);
 
+    List<Menu> findByMenuIds(List<Long> menuIds);
+
 
 }

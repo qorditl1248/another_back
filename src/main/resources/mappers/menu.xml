@@ -271,6 +271,20 @@
         WHERE
             1 = 1
     </select>
+    <select id="findByMenuIds" resultType="com.starbucksorder.another_back.entity.Menu">
+        SELECT
+            menu_id AS menuId,
+            menu_name AS menuName,
+            img_url AS imgUrl
+        FROM
+            menu_tb
+        WHERE
+            menu_id IN
+        <foreach collection="menuIds" item="menuId" separator=","  open="(" close=")">
+            #{menuId}
+        </foreach>
+
+    </select>
     <update id="update">
         UPDATE
             menu_tb
