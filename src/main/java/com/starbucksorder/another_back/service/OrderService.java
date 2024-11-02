@@ -1,5 +1,6 @@
 package com.starbucksorder.another_back.service;
 
+import com.starbucksorder.another_back.dto.admin.request.order.ReqAdminOrderDto;
 import com.starbucksorder.another_back.dto.user.request.Order.ReqOrderDto;
 import com.starbucksorder.another_back.entity.Order;
 import com.starbucksorder.another_back.entity.User;
@@ -37,20 +38,31 @@ public class OrderService {
             }
             save(dto, user.getUserId());
             // 적립
+            System.out.println(user);
+            user.setStarCount(dto.getTotalQuantity());
             userMapper.updateStar(user);
             //userId, totalQuantity
         }
         return true;
     }
 
-    public User findUser(String phoneNumber) {
+    public void findByDate(ReqAdminOrderDto dto) {
+        System.out.println(dto.toLocalDateTime());
+//        orderMapper.findByDate(dto.toLocalDateTime());
+    }
+
+    private User findUser(String phoneNumber) {
         User user = userMapper.findUserByPhoneNumber(phoneNumber);
         return user == null ? null : user;
     }
 
+
     // 저장
     private void save(ReqOrderDto dto, Long userId) {
+        System.out.println(dto);
+        System.out.println(userId);
         Order order = dto.toOrderEntity(userId);
+        System.out.println(order);
         orderMapper.save(order);
         // 주문 상세 등록
         orderDetailMapper.save(order.getOrderDetails(), order.getOrderId());

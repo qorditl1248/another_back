@@ -17,11 +17,13 @@ public class ReqOrderDto {
     //uuid
     private String paymentId;
     // 전체 총 금액
-    private int totalAmount;
+    private Integer totalAmount;
     // takeout : 1, eat-in : 2
     private Long orderType;
     private customer customer;
-    private int totalQuantity;
+    private Integer totalQuantity;
+    // FIXME: 결제유형 추가 됨 1 : 카드 2 : 복합결제(쿠폰 사용)
+    private Integer paymentType;
     // 상품들
     private List<Product> products;
 
@@ -80,6 +82,8 @@ public class ReqOrderDto {
                 .totalQuantity(totalQuantity)
                 .orderAmount(totalAmount)
                 .orderDetails(orderDetails)
+                //FIXME: 결제유형 추가 됩니다
+                .paymentType(paymentType)
                 .build();
     }
 
