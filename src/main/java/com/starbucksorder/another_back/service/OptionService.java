@@ -13,6 +13,7 @@ import org.springframework.stereotype.Service;
 import org.springframework.transaction.annotation.Transactional;
 
 import java.sql.SQLException;
+import java.util.HashMap;
 import java.util.List;
 import java.util.Map;
 import java.util.stream.Collectors;
@@ -67,7 +68,11 @@ public class OptionService {
 
     // 옵션 삭제만
     public boolean delete(Long optionId) {
-        return optionMapper.deleteByOptionId(optionId) > 0;
+        Map<String, Object> map = new HashMap<>();
+        map.put("optionId", optionId);
+        map.put("successCount", 0);
+        optionMapper.deleteByOptionId(map);
+        return (Integer) map.get("successCount") > 0;
     }
 
     // 옵션 수정

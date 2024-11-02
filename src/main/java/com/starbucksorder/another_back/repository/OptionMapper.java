@@ -32,7 +32,7 @@ public interface OptionMapper {
     List<Menu> getAllByOptionId(List<Long> optionIds);
 
     // 옵션 삭제
-    int deleteByOptionId(Long optionId);
+    int deleteByOptionId(Map<String,Object> map);
 
     // 옵션 수정
     int update(Option option);

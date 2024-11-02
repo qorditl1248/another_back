@@ -1,6 +1,7 @@
 package com.starbucksorder.another_back.service;
 
 
+import com.starbucksorder.another_back.dto.admin.ReqAdminDeleteDto;
 import com.starbucksorder.another_back.dto.admin.request.menu.ReqAdminDto;
 import com.starbucksorder.another_back.dto.admin.request.menu.ReqAdminMenuDto;
 import com.starbucksorder.another_back.dto.admin.request.menu.ReqAdminMenuListDtoAll;
@@ -25,8 +26,9 @@ import org.springframework.dao.DataIntegrityViolationException;
 import org.springframework.stereotype.Service;
 import org.springframework.transaction.annotation.Transactional;
 
+import java.util.HashMap;
 import java.util.List;
-import java.util.Objects;
+import java.util.Map;
 import java.util.stream.Collectors;
 
 @Service
@@ -131,7 +133,9 @@ public class MenuService {
         menuMapper.save(menu);
         // 옵션 추가
         menuDetailMapper.save(menu.getMenuId(), dto.getOptionIds());
-        categoryMapper.saveByMenuId(menu.getMenuId(), dto.getCategories());
+        if (dto.getCategories() != null) {
+            categoryMapper.saveByMenuId(menu.getMenuId(), dto.getCategories());
+        }
         return true;
     }
 
@@ -152,7 +156,7 @@ public class MenuService {
         // 기존 옵션 삭제 후, 다시 추가하기
         menuDetailMapper.deleteByMenuId(dto.getMenuId());
         // 기존 카테고리 삭제 후 다시 추가하기
-        categoryMapper.deleteCategoryById(dto.getMenuId());
+        categoryMapper.deleteCategoryMenuByMenuId(dto.getMenuId());
 
         if (dto.getOptionIds() != null && !dto.getOptionIds().isEmpty()) {
             menuDetailMapper.save(dto.getMenuId(), dto.getOptionIds());
@@ -173,10 +177,15 @@ public class MenuService {
     }
 
     // 메뉴 삭제
-    public boolean deleteMenu(Long menuId) {
+    public boolean deleteMenu(ReqAdminDeleteDto dto) {
         // 메뉴 카테고리 삭제
         // 메뉴 디테일 삭제
-        return menuMapper.deleteByMenuId(menuId) > 0;
+        String ids = dto.getIds().stream().map(String::valueOf).collect(Collectors.joining(","));
+        Map<String, Object> map = new HashMap<>();
+        map.put("menuIds", ids);
+        map.put("successCount", 0);
+        menuMapper.deleteByMenuIds(map);
+        return (Integer) map.get("successCount") > 0; // 프로시저 요청
     }
 
     // 메뉴 상태 변경
@@ -184,7 +193,7 @@ public class MenuService {
         return menuMapper.updateMenuStatus(menuId) > 0;
     }
 
-    public List<RespMenuImgListDto> findByIds(ReqOrderItem dto){
+    public List<RespMenuImgListDto> findByIds(ReqOrderItem dto) {
         return menuMapper.findByMenuIds(dto.getItems()).stream().map(Menu::toMenuImgListDto).collect(Collectors.toList());
     }
 }

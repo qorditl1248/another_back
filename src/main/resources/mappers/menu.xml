@@ -14,12 +14,8 @@
     </insert>
 
     <!-- 메뉴삭제    -->
-    <delete id="deleteByMenuId">
-        DELETE
-        FROM
-            menu_tb
-        WHERE
-            menu_id = #{menuId}
+    <delete id="deleteByMenuIds" statementType="CALLABLE" parameterType="java.util.Map">
+        CALL ps_delete_menu(#{menuIds, mode=IN}, #{successCount, mode=OUT, jdbcType=INTEGER})
     </delete>
 
     <!-- 메뉴 상태 수정    -->

@@ -1,8 +1,8 @@
 package com.starbucksorder.another_back.controller;
 
 import com.starbucksorder.another_back.aspect.annotation.Log;
+import com.starbucksorder.another_back.dto.admin.ReqAdminDeleteDto;
 import com.starbucksorder.another_back.dto.admin.request.ReqAdminUserDto;
-import com.starbucksorder.another_back.dto.admin.request.user.ReqAdminDeleteDto;
 import com.starbucksorder.another_back.dto.admin.request.user.ReqAdminSearchDto;
 import com.starbucksorder.another_back.service.PointService;
 import com.starbucksorder.another_back.service.UserService;
@@ -10,6 +10,8 @@ import io.swagger.annotations.ApiOperation;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.http.ResponseEntity;
 import org.springframework.web.bind.annotation.*;
+
+import java.util.List;
 
 @RestController
 // HACK: 매핑명 변경 /points -> point
@@ -54,7 +56,7 @@ public class UserController {
 
     @Log
     @ApiOperation(value = "회원 삭제")
-    @DeleteMapping("/admin/user/{userId}")
+    @DeleteMapping("/admin/user")
     public ResponseEntity<?> deleteUser(ReqAdminDeleteDto dto) {
         // {params: userIds:[1,2,3]}
         return ResponseEntity.ok().body(userService.deleteUserByIds(dto));

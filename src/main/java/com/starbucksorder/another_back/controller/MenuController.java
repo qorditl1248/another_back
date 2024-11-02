@@ -1,6 +1,7 @@
 package com.starbucksorder.another_back.controller;
 
 import com.starbucksorder.another_back.aspect.annotation.Log;
+import com.starbucksorder.another_back.dto.admin.ReqAdminDeleteDto;
 import com.starbucksorder.another_back.dto.admin.request.menu.ReqAdminDto;
 import com.starbucksorder.another_back.dto.admin.request.menu.ReqAdminMenuListDtoAll;
 import com.starbucksorder.another_back.dto.admin.request.menu.ReqAdminMenuDto;
@@ -71,9 +72,9 @@ public class MenuController {
     }
 
     // 메뉴 삭제
-    @DeleteMapping("/admin/menu/{menuId}")
-    public ResponseEntity<?> deleteMenu(@PathVariable Long menuId) {
-        return ResponseEntity.ok().body(menuService.deleteMenu(menuId));
+    @DeleteMapping("/admin/menu")
+    public ResponseEntity<?> deleteMenu(ReqAdminDeleteDto dto) {
+        return ResponseEntity.ok().body(menuService.deleteMenu(dto));
     }
 
     // 메뉴수정

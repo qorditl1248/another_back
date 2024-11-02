@@ -6,6 +6,7 @@ import org.apache.ibatis.annotations.Mapper;
 import org.apache.ibatis.annotations.Param;
 
 import java.util.List;
+import java.util.Map;
 
 @Mapper
 public interface MenuMapper {
@@ -48,7 +49,7 @@ public interface MenuMapper {
     Menu menuDetailByMenuId(Long menuId);
 
     // 메뉴 삭제
-    int deleteByMenuId(Long menuId);
+    void deleteByMenuIds(Map<String, Object> map);
 
     // 메뉴 상태 수정
     int updateMenuStatus(Long menuId);

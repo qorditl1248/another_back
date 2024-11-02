@@ -4,6 +4,7 @@ import com.starbucksorder.another_back.entity.Category;
 import org.apache.ibatis.annotations.Mapper;
 
 import java.util.List;
+import java.util.Map;
 
 @Mapper
 public interface CategoryMapper {
@@ -12,10 +13,15 @@ public interface CategoryMapper {
 
     // 카테고리 추가
     int save(Category category);
+
     // 카테고리 삭제
-    int delete(Long categoryId);
+    void deleteById(Map<String, Object> map);
+
+    int deleteCategoryMenuByMenuId(Long menuId);
+
     // 카테고리 수정
     int update(Category category);
+
     //카테고리 상태 수정
     int updateStatus(Long categoryId);
 
@@ -25,7 +31,6 @@ public interface CategoryMapper {
     // 상태코드와 상관없이 전부 다 가지고오는 것
     List<Category> FindAll();
 
-    int deleteCategoryById(Long menuId);
 
     Category findByCategoryName(String categoryName);
 }

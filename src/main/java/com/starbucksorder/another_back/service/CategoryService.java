@@ -16,7 +16,9 @@ import org.springframework.dao.DataIntegrityViolationException;
 import org.springframework.stereotype.Service;
 
 import java.util.ArrayList;
+import java.util.HashMap;
 import java.util.List;
+import java.util.Map;
 import java.util.stream.Collectors;
 
 @Service
@@ -63,8 +65,12 @@ public class CategoryService {
     }
 
     // 카테고리 삭제
-    public boolean delete(Long id) {
-        return categoryMapper.delete(id) > 0;
+    public boolean delete(Long categoryId) {
+        Map<String, Object> map = new HashMap<>();
+        map.put("categoryId", categoryId);
+        map.put("successCount", 0);
+        categoryMapper.deleteById(map);
+        return (Integer) map.get("successCount") > 0;
     }
 
     // 카테고리 수정
