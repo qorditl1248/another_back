@@ -4,6 +4,7 @@ import com.starbucksorder.another_back.dto.admin.request.order.ReqAdminOrderDto;
 import com.starbucksorder.another_back.dto.user.request.Order.ReqOrderDto;
 import com.starbucksorder.another_back.entity.Order;
 import com.starbucksorder.another_back.entity.User;
+import com.starbucksorder.another_back.repository.CouponMapper;
 import com.starbucksorder.another_back.repository.OrderDetailMapper;
 import com.starbucksorder.another_back.repository.OrderMapper;
 import com.starbucksorder.another_back.repository.UserMapper;
@@ -20,6 +21,8 @@ public class OrderService {
     private OrderDetailMapper orderDetailMapper;
     @Autowired
     private UserMapper userMapper;
+    @Autowired
+    private CouponMapper couponMapper;
 
 
     // 주문목록 저장
@@ -39,9 +42,13 @@ public class OrderService {
             save(dto, user.getUserId());
             // 적립
             System.out.println(user);
-            user.setStarCount(dto.getTotalQuantity());
-            userMapper.updateStar(user);
-            //userId, totalQuantity
+            System.out.println(dto.getCustomer().getUsedCoupon());
+            if (dto.getCustomer().getUsedCoupon().size() == 0) {
+                user.setStarCount(dto.getTotalQuantity());
+                userMapper.updateStar(user);
+            } else {
+                couponMapper.updateUseDateById(dto.getCustomer().getUsedCoupon());
+            }
         }
         return true;
     }

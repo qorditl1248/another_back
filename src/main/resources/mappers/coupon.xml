@@ -6,13 +6,16 @@
 <mapper namespace="com.starbucksorder.another_back.repository.CouponMapper">
 
 
-    <update id="updateUseDateById">
+    <update id="updateUseDateById" parameterType="java.util.List">
         UPDATE
             coupon_tb
         SET
-            use_date = NOW();
+            use_date = NOW()
         WHERE
-            coupon_id = #{couponId}
+            coupon_id IN
+        <foreach collection="ids" item="id" open="(" separator="," close=")">
+            #{id}
+        </foreach>
     </update>
 
 </mapper>

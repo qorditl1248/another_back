@@ -48,6 +48,7 @@ public class ReqOrderDto {
         private Long userId;
         private String phoneNumber;
         private List<coupon> coupons;
+        private List<Long> usedCoupon;
 
         public User toUser() {
             return User.builder()
