@@ -6,6 +6,7 @@ import com.starbucksorder.another_back.dto.admin.request.menu.ReqAdminDto;
 import com.starbucksorder.another_back.dto.admin.request.menu.ReqAdminMenuListDtoAll;
 import com.starbucksorder.another_back.dto.admin.request.menu.ReqAdminMenuDto;
 import com.starbucksorder.another_back.dto.admin.request.menu.ReqAdminModifyDto;
+import com.starbucksorder.another_back.dto.user.request.Order.ReqOrderItem;
 import com.starbucksorder.another_back.dto.user.request.menu.ReqMenuListDto;
 import com.starbucksorder.another_back.service.DuplicateService;
 import com.starbucksorder.another_back.service.MenuService;
@@ -97,6 +98,14 @@ public class MenuController {
     public ResponseEntity<?> modifyMenu(@RequestBody List<ReqAdminMenuListDtoAll> menuList) {
         menuService.modifyMenu(menuList);
         return ResponseEntity.ok().body(null);
+    }
+
+    // 쿠폰결제시에 적용될 메뉴들 불러오기
+    @Log
+    @GetMapping("/product/items")
+    public ResponseEntity<?> getProductItem(ReqOrderItem dto) {
+        System.out.println(dto);
+        return ResponseEntity.ok().body(menuService.findByIds(dto));
     }
 
 }
