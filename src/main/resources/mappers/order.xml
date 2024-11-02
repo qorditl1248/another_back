@@ -44,7 +44,7 @@
         FROM
             order_tb
         WHERE
-            create_date BETWEEN #{startDate} AND  #{endDate}
+            DATE(create_date) BETWEEN #{startDate} AND  #{endDate}
     </select>
 
 </mapper>
