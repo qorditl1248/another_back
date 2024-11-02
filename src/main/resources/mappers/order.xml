@@ -31,7 +31,20 @@
     </select>
 
     <select id="findByDate" resultType="com.starbucksorder.another_back.entity.Order">
-
+        SELECT
+            order_id AS orderId,
+            user_id AS userId,
+            payment_id AS paymentId,
+            payment_type AS paymentType,
+            order_type AS orderType,
+            order_amount AS orderAmount,
+            order_state AS orderState,
+            create_date AS createDate,
+            update_date AS updateDate
+        FROM
+            order_tb
+        WHERE
+            create_date BETWEEN #{startDate} AND  #{endDate}
     </select>
 
 </mapper>

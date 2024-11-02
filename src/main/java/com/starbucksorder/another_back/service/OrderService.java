@@ -1,6 +1,7 @@
 package com.starbucksorder.another_back.service;
 
 import com.starbucksorder.another_back.dto.admin.request.order.ReqAdminOrderDto;
+import com.starbucksorder.another_back.dto.admin.response.order.RespOrderListDto;
 import com.starbucksorder.another_back.dto.user.request.Order.ReqOrderDto;
 import com.starbucksorder.another_back.entity.Order;
 import com.starbucksorder.another_back.entity.User;
@@ -11,6 +12,9 @@ import com.starbucksorder.another_back.repository.UserMapper;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
 import org.springframework.transaction.annotation.Transactional;
+
+import java.util.List;
+import java.util.stream.Collectors;
 
 @Service
 public class OrderService {
@@ -53,9 +57,8 @@ public class OrderService {
         return true;
     }
 
-    public void findByDate(ReqAdminOrderDto dto) {
-        System.out.println(dto.toLocalDateTime());
-//        orderMapper.findByDate(dto.toLocalDateTime());
+    public List<RespOrderListDto> findByDate(ReqAdminOrderDto dto) {
+        return orderMapper.findByDate(dto.toLocalDateTime()).stream().map(Order::toRespOrderListDto).collect(Collectors.toList());
     }
 
     private User findUser(String phoneNumber) {
