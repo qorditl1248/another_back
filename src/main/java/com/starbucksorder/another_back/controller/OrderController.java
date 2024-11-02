@@ -1,18 +1,15 @@
 package com.starbucksorder.another_back.controller;
 
 import com.starbucksorder.another_back.aspect.annotation.Log;
+import com.starbucksorder.another_back.dto.admin.request.order.ReqAdminOrderDto;
 import com.starbucksorder.another_back.dto.user.request.Order.ReqOrderDto;
-import com.starbucksorder.another_back.service.MenuService;
 import com.starbucksorder.another_back.service.OrderService;
+import io.swagger.annotations.ApiOperation;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.http.ResponseEntity;
-import org.springframework.web.bind.annotation.PostMapping;
-import org.springframework.web.bind.annotation.RequestBody;
-import org.springframework.web.bind.annotation.RequestMapping;
-import org.springframework.web.bind.annotation.RestController;
+import org.springframework.web.bind.annotation.*;
 
 @RestController
-@RequestMapping("/order")
 public class OrderController {
 
     @Autowired
@@ -20,7 +17,8 @@ public class OrderController {
 
     // 주문목록 저장 ( 적립 안하는 사람은 phoneNumber = "010-" )
     @Log
-    @PostMapping()
+    @ApiOperation(value = "주문저장")
+    @PostMapping("/order")
     public ResponseEntity<?> add(@RequestBody ReqOrderDto order) {
         return ResponseEntity.ok().body(orderService.saveOrder(order));
     }
@@ -28,5 +26,12 @@ public class OrderController {
 
     // NOTE: 관리자 주문관리
 
+    @ApiOperation(value = "관리자 주문관리 전체 조회")
+    @GetMapping("/admin/order")
+    public ResponseEntity<?> getOrders(ReqAdminOrderDto dto) {
+        // 조회일자 기본 일주일로 잡아주기
+        orderService.findByDate(dto);
+        return ResponseEntity.ok().body(null);
+    }
 
 }

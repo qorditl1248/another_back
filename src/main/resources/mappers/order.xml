@@ -30,4 +30,8 @@
 
     </select>
 
+    <select id="findByDate" resultType="com.starbucksorder.another_back.entity.Order">
+
+    </select>
+
 </mapper>
