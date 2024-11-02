@@ -41,6 +41,9 @@ public class UserService {
     }
 
     public boolean updateUser(ReqAdminUserDto dto) {
+        if (userMapper.findUserByPhoneNumber(dto.getPhoneNumber()) != null) {
+            throw new DuplicateNameException("phone number already exist");
+        }
         return userMapper.update(dto.toEntity()) > 0;
     }
 
