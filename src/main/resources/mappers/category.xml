@@ -86,19 +86,15 @@
             (DEFAULT, #{categoryName}, COALESCE(#{categoryStatus}, 1), NOW(), NOW(), COALESCE(#{categorySeq}, 0))
     </insert>
 
-    <delete id="deleteCategoryById">
+    <delete id="deleteCategoryMenuByMenuId">
         DELETE
         FROM
             menu_category_tb
         WHERE
             menu_id = #{menuId}
     </delete>
-    <delete id="delete">
-        DELETE
-        FROM
-            category_tb
-        WHERE
-            category_id = #{categoryId}
+    <delete id="deleteById" statementType="CALLABLE" parameterType="java.util.Map">
+        CALL ps_delete_category(#{categoryId, mode=IN}, #{successCount, mode=OUT, jdbcType=INTEGER})
     </delete>
 
 </mapper>

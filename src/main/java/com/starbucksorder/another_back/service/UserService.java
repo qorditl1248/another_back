@@ -1,7 +1,7 @@
 package com.starbucksorder.another_back.service;
 
+import com.starbucksorder.another_back.dto.admin.ReqAdminDeleteDto;
 import com.starbucksorder.another_back.dto.admin.request.ReqAdminUserDto;
-import com.starbucksorder.another_back.dto.admin.request.user.ReqAdminDeleteDto;
 import com.starbucksorder.another_back.dto.admin.request.user.ReqAdminSearchDto;
 import com.starbucksorder.another_back.dto.admin.response.menu.CMRespAdminDto;
 import com.starbucksorder.another_back.dto.admin.response.user.RespAdminDto;
@@ -41,6 +41,9 @@ public class UserService {
     }
 
     public boolean updateUser(ReqAdminUserDto dto) {
+        if (userMapper.findUserByPhoneNumber(dto.getPhoneNumber()) != null) {
+            throw new DuplicateNameException("phone number already exist");
+        }
         return userMapper.update(dto.toEntity()) > 0;
     }
 
@@ -50,6 +53,6 @@ public class UserService {
 
     // 회원 리스트 삭제
     public boolean deleteUserByIds(ReqAdminDeleteDto dto) {
-        return userMapper.deleteByIds(dto.getUserIds()) > 0;
+        return userMapper.deleteByIds(dto.getIds()) > 0;
     }
 }

@@ -44,12 +44,8 @@
             `option_id` = #{optionId}
     </update>
 
-    <delete id="deleteByOptionId">
-        DELETE
-        FROM
-            option_tb
-        WHERE
-            option_id = #{optionId}
+    <delete id="deleteByOptionId" statementType="CALLABLE" parameterType="java.util.Map">
+        CALL ps_delete_option(#{optionId, mode=IN}, #{successCount, mode=OUT, jdbcType=INTEGER})
     </delete>
     <delete id="deleteDetailById">
         DELETE
