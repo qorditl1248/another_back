@@ -1,5 +1,6 @@
 package com.starbucksorder.another_back.entity;
 
+import com.starbucksorder.another_back.dto.admin.response.order.RespOrderDetailDto;
 import com.starbucksorder.another_back.dto.admin.response.order.RespOrderListDto;
 import lombok.AllArgsConstructor;
 import lombok.Builder;
@@ -22,10 +23,11 @@ public class Order {
     private Integer paymentType;
     private Long orderType;
     private Integer orderAmount; // 전체 주문 금액
-    private Integer totalQuantity;
     private Long orderState; // 결제 완료 or 취소
     private LocalDateTime createDate;
     private LocalDateTime updateDate;
+    private Integer totalQuantity;
+    private OrderDetail orderDetail;
     private List<OrderDetail> orderDetails;
     // FIXME: 결제유형 추가 됨 1 : 카드 2 : 복합결제(쿠폰 사용)
 
@@ -42,5 +44,18 @@ public class Order {
     }
 
 
-
+    public RespOrderDetailDto toRespOrderDetailDto() {
+        return RespOrderDetailDto.builder()
+                .orderId(orderId)
+                .userId(userId)
+                .paymentId(paymentId)
+                .paymentType(paymentType)
+                .orderType(orderType)
+                .orderAmount(orderAmount)
+                .orderState(orderState)
+                .createDate(createDate)
+                .updateDate(updateDate)
+                .orderDetail(orderDetail.toDetail())
+                .build();
+    }
 }

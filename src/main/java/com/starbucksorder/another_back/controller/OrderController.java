@@ -42,8 +42,7 @@ public class OrderController {
     @ApiOperation(value = "주문 상세보기 단 건 조회")
     @GetMapping("/admin/order/{orderId}")
     public ResponseEntity<?> getOrder(@PathVariable Long orderId) {
-        orderService.getOrder(orderId);
-        return ResponseEntity.ok().body(null);
+        return ResponseEntity.ok().body(orderService.getOrder(orderId));
     }
 
 }
