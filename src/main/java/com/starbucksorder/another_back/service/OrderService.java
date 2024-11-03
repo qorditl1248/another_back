@@ -2,7 +2,9 @@ package com.starbucksorder.another_back.service;
 
 import com.starbucksorder.another_back.aspect.LogAspect;
 import com.starbucksorder.another_back.aspect.annotation.Log;
+import com.starbucksorder.another_back.dto.admin.request.order.ReqAdminOrderCancelDto;
 import com.starbucksorder.another_back.dto.admin.request.order.ReqAdminOrderDto;
+import com.starbucksorder.another_back.dto.admin.response.menu.CMRespAdminDto;
 import com.starbucksorder.another_back.dto.admin.response.order.RespOrderListDto;
 import com.starbucksorder.another_back.dto.user.request.Order.ReqOrderDto;
 import com.starbucksorder.another_back.entity.Order;
@@ -60,8 +62,11 @@ public class OrderService {
         }
         return true;
     }
-    public List<RespOrderListDto> findByDate(ReqAdminOrderDto dto) {
-        return orderMapper.findByDate(dto.toLocalDateTime()).stream().map(Order::toRespOrderListDto).collect(Collectors.toList());
+
+    public CMRespAdminDto findByDate(ReqAdminOrderDto dto) {
+        int totalCount = orderMapper.countByDate(dto.toLocalDateTime());
+        List<RespOrderListDto> respOrderListDto = orderMapper.findByDate(dto.toLocalDateTime()).stream().map(Order::toRespOrderListDto).collect(Collectors.toList());
+        return new CMRespAdminDto(totalCount, respOrderListDto);
     }
 
     private User findUser(String phoneNumber) {
@@ -82,4 +87,12 @@ public class OrderService {
     }
 
 
+    public boolean updateStatus(ReqAdminOrderCancelDto dto) {
+        return orderMapper.updateStatus(dto.toEntity()) > 0;
+    }
+
+    public Order getOrder(Long orderId) {
+        orderMapper.findOrderById();
+        return null;
+    }
 }

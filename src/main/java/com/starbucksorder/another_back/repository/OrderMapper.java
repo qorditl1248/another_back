@@ -3,7 +3,6 @@ package com.starbucksorder.another_back.repository;
 import com.starbucksorder.another_back.entity.Order;
 import org.apache.ibatis.annotations.Mapper;
 
-import java.time.LocalDateTime;
 import java.util.List;
 import java.util.Map;
 
@@ -11,9 +10,13 @@ import java.util.Map;
 public interface OrderMapper {
     int save(Order order);
 
-    int update(Long orderId);
+    int updateStatus(Order order);
 
     Long findOrderIdByUserId(Long userId);
 
-    List<Order> findByDate(Map<String, LocalDateTime> map);
+    List<Order> findByDate(Map<String, Object> map);
+
+    int countByDate(Map<String, Object> map);
+
+    Order findOrderById(Long orderId);
 }
