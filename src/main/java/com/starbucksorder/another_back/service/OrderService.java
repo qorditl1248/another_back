@@ -5,6 +5,7 @@ import com.starbucksorder.another_back.aspect.annotation.Log;
 import com.starbucksorder.another_back.dto.admin.request.order.ReqAdminOrderCancelDto;
 import com.starbucksorder.another_back.dto.admin.request.order.ReqAdminOrderDto;
 import com.starbucksorder.another_back.dto.admin.response.menu.CMRespAdminDto;
+import com.starbucksorder.another_back.dto.admin.response.order.RespOrderDetailDto;
 import com.starbucksorder.another_back.dto.admin.response.order.RespOrderListDto;
 import com.starbucksorder.another_back.dto.user.request.Order.ReqOrderDto;
 import com.starbucksorder.another_back.entity.Order;
@@ -91,8 +92,7 @@ public class OrderService {
         return orderMapper.updateStatus(dto.toEntity()) > 0;
     }
 
-    public Order getOrder(Long orderId) {
-        orderMapper.findOrderById();
-        return null;
+    public RespOrderDetailDto getOrder(Long orderId) {
+        return orderMapper.findOrderById(orderId).toRespOrderDetailDto();
     }
 }
