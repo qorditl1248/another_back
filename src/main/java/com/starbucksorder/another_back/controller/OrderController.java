@@ -30,8 +30,6 @@ public class OrderController {
     @GetMapping("/admin/order")
     public ResponseEntity<?> getOrders(ReqAdminOrderDto dto) {
         // 조회일자 기본 일주일로 잡아주기
-        orderService.findByDate(dto);
-        return ResponseEntity.ok().body(null);
+        return ResponseEntity.ok().body(orderService.findByDate(dto));
     }
-
 }

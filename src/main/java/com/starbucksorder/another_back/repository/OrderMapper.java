@@ -4,6 +4,7 @@ import com.starbucksorder.another_back.entity.Order;
 import org.apache.ibatis.annotations.Mapper;
 
 import java.time.LocalDateTime;
+import java.util.List;
 import java.util.Map;
 
 @Mapper
@@ -14,5 +15,5 @@ public interface OrderMapper {
 
     Long findOrderIdByUserId(Long userId);
 
-    Order findByDate(Map<String, LocalDateTime> map);
+    List<Order> findByDate(Map<String, LocalDateTime> map);
 }
