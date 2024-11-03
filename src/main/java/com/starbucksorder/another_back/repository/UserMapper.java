@@ -1,5 +1,6 @@
 package com.starbucksorder.another_back.repository;
 
+import com.starbucksorder.another_back.dto.user.response.point.RespUserDto;
 import com.starbucksorder.another_back.entity.User;
 import org.apache.ibatis.annotations.Mapper;
 import org.apache.ibatis.annotations.Param;
@@ -9,7 +10,7 @@ import java.util.List;
 @Mapper
 public interface UserMapper {
     User findUserByPhoneNumber(String phoneNumber);
-
+    User findCouponsById(Long userId);
     User findUserByUserId(@Param("userId") Long userId);
 
     int saveUser(User user);

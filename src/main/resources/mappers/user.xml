@@ -76,7 +76,27 @@
             LEFT OUTER JOIN coupon_tb ct on (ct.user_id = ut.user_id)
         WHERE
             ut.phone_number = #{phoneNumber}
-        AND ct.use_date is NULL
+    </select>
+    <select id="findCouponsById" resultMap="userResultMap">
+        SELECT
+            ut.user_id,
+            ut.phone_number,
+            ut.memo,
+            ut.star_count,
+            ut.register_date,
+            ut.update_date,
+
+            ct.coupon_id,
+            ct.user_id,
+            ct.coupon_name,
+            ct.register_date AS ct_register_date,
+            ct.use_date
+        FROM
+            user_tb ut
+            LEFT OUTER JOIN coupon_tb ct on (ct.user_id = ut.user_id)
+        WHERE
+            ut.user_id = #{userId}
+            AND ct.use_date IS NULL
     </select>
 
     <select id="findUserByUserId" resultType="com.starbucksorder.another_back.entity.User">
@@ -122,4 +142,5 @@
         LIMIT
             #{startIndex}, #{limit}
     </select>
+
 </mapper>

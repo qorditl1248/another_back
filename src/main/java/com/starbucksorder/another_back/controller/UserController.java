@@ -28,7 +28,7 @@ public class UserController {
     @Log
     @ApiOperation(value = "포인트 사용을 위한 조회요청")
     @GetMapping("/point/user/reward")
-    public ResponseEntity<?> getRewardPoint(@RequestParam String phoneNumber) {
+    public ResponseEntity<?> getRewardPoint(@RequestParam String phoneNumber){
         return ResponseEntity.ok().body(pointService.getUserIdByPhoneNumber(phoneNumber));
     }
 

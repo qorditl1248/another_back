@@ -1,5 +1,7 @@
 package com.starbucksorder.another_back.service;
 
+import com.starbucksorder.another_back.aspect.LogAspect;
+import com.starbucksorder.another_back.aspect.annotation.Log;
 import com.starbucksorder.another_back.dto.admin.request.order.ReqAdminOrderDto;
 import com.starbucksorder.another_back.dto.admin.response.order.RespOrderListDto;
 import com.starbucksorder.another_back.dto.user.request.Order.ReqOrderDto;
@@ -27,6 +29,8 @@ public class OrderService {
     private UserMapper userMapper;
     @Autowired
     private CouponMapper couponMapper;
+    @Autowired
+    private LogAspect logAspect;
 
 
     // 주문목록 저장
@@ -56,7 +60,6 @@ public class OrderService {
         }
         return true;
     }
-
     public List<RespOrderListDto> findByDate(ReqAdminOrderDto dto) {
         return orderMapper.findByDate(dto.toLocalDateTime()).stream().map(Order::toRespOrderListDto).collect(Collectors.toList());
     }
