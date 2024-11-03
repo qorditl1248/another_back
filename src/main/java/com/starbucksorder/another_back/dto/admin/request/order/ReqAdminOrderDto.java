@@ -13,9 +13,23 @@ public class ReqAdminOrderDto {
 
     public Map<String, LocalDateTime> toLocalDateTime() {
         DateTimeFormatter formatter = DateTimeFormatter.ofPattern("yyyy-MM-dd HH:mm:ss");
-        LocalDateTime trStartDateTime = LocalDateTime.parse(startDate, formatter);
-        LocalDateTime trEndDateTime = LocalDateTime.parse(endDate, formatter);
-        System.out.println(trStartDateTime);
-        return Map.of("startDate", trStartDateTime, "endDate", trEndDateTime);
+        DateTimeFormatter monthFormatter = DateTimeFormatter.ofPattern("yyyy-MM");
+
+        LocalDateTime trStartDate;
+        LocalDateTime trEndDate;
+
+        if (startDate == null || startDate.isEmpty()) {
+            trStartDate = LocalDateTime.now().minusDays(7);
+            trEndDate = LocalDateTime.now();
+        }
+//        if (startDate.)
+        else {
+            trStartDate = LocalDateTime.parse(startDate, formatter);
+            trEndDate = LocalDateTime.parse(endDate, formatter);
+        }
+        System.out.println(trStartDate);
+        System.out.println(trEndDate);
+        System.out.println(trStartDate);
+        return Map.of("startDate", trStartDate, "endDate", trEndDate);
     }
 }
