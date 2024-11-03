@@ -1,6 +1,7 @@
 package com.starbucksorder.another_back.controller;
 
 import com.starbucksorder.another_back.aspect.annotation.Log;
+import com.starbucksorder.another_back.dto.admin.request.order.ReqAdminOrderCancelDto;
 import com.starbucksorder.another_back.dto.admin.request.order.ReqAdminOrderDto;
 import com.starbucksorder.another_back.dto.user.request.Order.ReqOrderDto;
 import com.starbucksorder.another_back.service.OrderService;
@@ -34,8 +35,14 @@ public class OrderController {
 
     @ApiOperation(value = "결제 취소에 대한 상태 업데이트 요청")
     @PatchMapping("/admin/order/cancellation")
-    public ResponseEntity<?> cancel(@RequestBody ReqAdminOrderDto dto) {
+    public ResponseEntity<?> cancel(@RequestBody ReqAdminOrderCancelDto dto) {
+        return ResponseEntity.ok().body(orderService.updateStatus(dto));
+    }
 
+    @ApiOperation(value = "주문 상세보기 단 건 조회")
+    @GetMapping("/admin/order/{orderId}")
+    public ResponseEntity<?> getOrder(@PathVariable Long orderId) {
+        orderService.getOrder(orderId);
         return ResponseEntity.ok().body(null);
     }
 
