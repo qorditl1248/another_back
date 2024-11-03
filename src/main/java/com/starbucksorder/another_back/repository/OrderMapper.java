@@ -15,5 +15,7 @@ public interface OrderMapper {
 
     Long findOrderIdByUserId(Long userId);
 
-    List<Order> findByDate(Map<String, LocalDateTime> map);
+    List<Order> findByDate(Map<String, Object> map);
+
+    int countByDate(Map<String, Object> map);
 }

@@ -25,11 +25,18 @@ public class OrderController {
     // FIXME: @GetMapping("/product/items") MenuController 로 이동됨
 
     // NOTE: 관리자 주문관리
-
     @ApiOperation(value = "관리자 주문관리 전체 조회")
     @GetMapping("/admin/order")
     public ResponseEntity<?> getOrders(ReqAdminOrderDto dto) {
         // 조회일자 기본 일주일로 잡아주기
         return ResponseEntity.ok().body(orderService.findByDate(dto));
     }
+
+    @ApiOperation(value = "결제 취소에 대한 상태 업데이트 요청")
+    @PatchMapping("/admin/order/cancellation")
+    public ResponseEntity<?> cancel(@RequestBody ReqAdminOrderDto dto) {
+
+        return ResponseEntity.ok().body(null);
+    }
+
 }

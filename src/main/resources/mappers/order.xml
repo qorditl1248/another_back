@@ -44,7 +44,19 @@
         FROM
             order_tb
         WHERE
-            DATE(create_date) BETWEEN #{startDate} AND #{endDate}
+            DATE(create_date) BETWEEN DATE(#{startDate}) AND DATE(#{endDate})
+        ORDER BY
+            create_date DESC
+        LIMIT
+            #{startIndex}, #{limit}
+    </select>
+    <select id="countByDate" resultType="int">
+        SELECT
+            COUNT(order_id)
+        FROM
+            order_tb
+        WHERE
+            DATE(create_date) BETWEEN DATE(#{startDate}) AND DATE(#{endDate})
     </select>
 
 </mapper>
