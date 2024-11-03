@@ -24,7 +24,6 @@ public class PointService {
         if (user == null) {
             throw new UsernameNotFoundException("사용가능한 쿠폰이 없습니다");
         }
-
         return user.toRespUserDto();
     }
 

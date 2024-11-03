@@ -93,7 +93,7 @@
             ct.use_date
         FROM
             user_tb ut
-            LEFT OUTER JOIN coupon_tb ct on (ct.user_id = ut.user_id)
+            INNER JOIN coupon_tb ct on (ct.user_id = ut.user_id)
         WHERE
             ut.user_id = #{userId}
             AND ct.use_date IS NULL
