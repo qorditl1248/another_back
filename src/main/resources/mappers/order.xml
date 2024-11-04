@@ -8,7 +8,7 @@
     <insert id="save" useGeneratedKeys="true" keyProperty="orderId">
         INSERT INTO
             order_tb
-        VALUES(DEFAULT, #{userId}, #{paymentId}, #{paymentType}, #{orderType}, #{orderAmount}, 1, now(), now())
+        VALUES(DEFAULT, #{userId}, #{paymentId}, #{paymentType}, #{orderType}, IFNULL(#{orderAmount}, 0), 1, now(), now())
     </insert>
 
     <update id="updateStatus">
@@ -43,12 +43,15 @@
         FROM
             order_tb
         WHERE
-            DATE(create_date) BETWEEN DATE(#{startDate}) AND DATE(#{endDate})
+            (#{dateType} = 0 AND DATE(create_date) BETWEEN #{startDate} AND #{endDate})
+        OR
+            (#{dateType} = 1 AND MONTH(create_date) BETWEEN #{startDate} AND #{endDate})
         ORDER BY
             create_date DESC
         LIMIT
             #{startIndex}, #{limit}
     </select>
+
     <select id="countByDate" resultType="int">
         SELECT
             COUNT(order_id)
@@ -97,5 +100,17 @@
         WHERE
             ot.order_id = #{orderId}
     </select>
-
+    <select id="findByDateForSale" resultType="com.starbucksorder.another_back.dto.admin.response.Sales.RespSaleDto">
+        SELECT
+            SUM(IF(order_state = 1, order_amount, 0))                                             AS totalAmount,
+            COUNT(DISTINCT IF(order_state = 1, order_id, NULL))                                   AS orderCount,
+            SUM(IF(order_state = 2, order_amount, 0))                                             AS refundAmount,
+            COUNT(DISTINCT IF(order_state = 2, order_id, NULL))                                   AS refundCount,
+            SUM(IF(order_state = 1 AND date(create_date) = curdate(), order_amount, 0))           AS todayTotalAmount,
+            COUNT(DISTINCT IF(order_state = 1 AND date(create_date) = curdate(), order_id, NULL)) AS todayOrderCount,
+            SUM(IF(order_state = 2 AND date(create_date) = curdate(), order_amount, 0))           AS todayRefundAmount,
+            COUNT(DISTINCT IF(order_state = 2 AND date(create_date) = curdate(), order_id, NULL)) AS todayRefundCount
+        FROM
+            order_tb;
+    </select>
 </mapper>
