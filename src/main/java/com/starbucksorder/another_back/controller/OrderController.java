@@ -32,7 +32,6 @@ public class OrderController {
         // 조회일자 기본 일주일로 잡아주기
         return ResponseEntity.ok().body(orderService.findByDate(dto));
     }
-    // 매출통계
 
     @ApiOperation(value = "결제 취소에 대한 상태 업데이트 요청")
     @PatchMapping("/admin/order/cancellation")

@@ -3,7 +3,7 @@ package com.starbucksorder.another_back.service;
 import com.starbucksorder.another_back.dto.admin.ReqAdminDeleteDto;
 import com.starbucksorder.another_back.dto.admin.request.ReqAdminUserDto;
 import com.starbucksorder.another_back.dto.admin.request.user.ReqAdminSearchDto;
-import com.starbucksorder.another_back.dto.admin.response.menu.CMRespAdminDto;
+import com.starbucksorder.another_back.dto.admin.response.CMRespAdminDto;
 import com.starbucksorder.another_back.dto.admin.response.user.RespAdminDto;
 import com.starbucksorder.another_back.entity.User;
 import com.starbucksorder.another_back.exception.DuplicateNameException;
