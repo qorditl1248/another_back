@@ -10,6 +10,7 @@ import lombok.NoArgsConstructor;
 import java.time.LocalDateTime;
 import java.util.Date;
 import java.util.List;
+import java.util.stream.Collectors;
 
 
 @Builder
@@ -27,7 +28,7 @@ public class Order {
     private LocalDateTime createDate;
     private LocalDateTime updateDate;
     private Integer totalQuantity;
-    private OrderDetail orderDetail;
+//    private OrderDetail orderDetail;
     private List<OrderDetail> orderDetails;
     // FIXME: 결제유형 추가 됨 1 : 카드 2 : 복합결제(쿠폰 사용)
 
@@ -55,7 +56,7 @@ public class Order {
                 .orderState(orderState)
                 .createDate(createDate)
                 .updateDate(updateDate)
-                .orderDetail(orderDetail.toDetail())
+                .orderDetail(orderDetails.stream().map(OrderDetail::toDetail).collect(Collectors.toList()))
                 .build();
     }
 }

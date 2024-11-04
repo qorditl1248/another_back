@@ -4,6 +4,7 @@ import lombok.Builder;
 import lombok.Data;
 
 import java.time.LocalDateTime;
+import java.util.List;
 
 @Data
 @Builder
@@ -17,7 +18,7 @@ public class RespOrderDetailDto {
     private Long orderState; // 결제 완료 or 취소
     private LocalDateTime createDate;
     private LocalDateTime updateDate;
-    private RespOrderDetail orderDetail;
+    private List<RespOrderDetail> orderDetail;
 
     @Builder
     @Data

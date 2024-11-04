@@ -67,7 +67,7 @@
         <result property="orderState" column="order_state"/>
         <result property="createDate" column="create_date"/>
         <result property="updateDate" column="update_date"/>
-        <association property="orderDetail" resultMap="orderDetailResultMap"/>
+        <association property="orderDetails" resultMap="orderDetailResultMap"/>
     </resultMap>
 
     <resultMap id="orderDetailResultMap" type="com.starbucksorder.another_back.entity.OrderDetail">
