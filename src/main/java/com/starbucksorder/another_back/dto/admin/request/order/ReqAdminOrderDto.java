@@ -2,6 +2,7 @@ package com.starbucksorder.another_back.dto.admin.request.order;
 
 import lombok.Data;
 
+import java.time.LocalDate;
 import java.time.LocalDateTime;
 import java.time.format.DateTimeFormatter;
 import java.util.Map;
@@ -15,17 +16,18 @@ public class ReqAdminOrderDto {
 
     public Map<String, Object> toLocalDateTime() {
         Long startIndex = (page - 1) * limit;
-        DateTimeFormatter formatter = DateTimeFormatter.ofPattern("yyyy-MM-dd HH:mm:ss");
-//        DateTimeFormatter monthFormatter = DateTimeFormatter.ofPattern("yyyy-MM");
+//        DateTimeFormatter formatter = DateTimeFormatter.ofPattern("yyyy-MM-dd HH:mm:ss");
+        DateTimeFormatter formatter = DateTimeFormatter.ofPattern("yyyy-MM-dd");
+        DateTimeFormatter monthFormatter = DateTimeFormatter.ofPattern("yyyy-MM");
 
-        LocalDateTime trStartDate;
-        LocalDateTime trEndDate;
+        LocalDate trStartDate;
+        LocalDate trEndDate;
         if (startDate == null || startDate.isEmpty()) {
-            trStartDate = LocalDateTime.now().minusDays(7);
-            trEndDate = LocalDateTime.now();
+            trStartDate = LocalDate.now().minusDays(7);
+            trEndDate = LocalDate.now();
         } else {
-            trStartDate = LocalDateTime.parse(startDate, formatter);
-            trEndDate = LocalDateTime.parse(endDate, formatter);
+            trStartDate = LocalDate.parse(startDate, formatter);
+            trEndDate = LocalDate.parse(endDate, formatter);
         }
         return Map.of("startDate", trStartDate, "endDate", trEndDate, "startIndex", startIndex, "limit", limit);
     }
