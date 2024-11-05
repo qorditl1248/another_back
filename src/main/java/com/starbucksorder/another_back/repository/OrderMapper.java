@@ -23,17 +23,22 @@ public interface OrderMapper {
     // 날짜를 기준으로 order 전체 들고오기
     List<Order> findByDate(Map<String, Object> map);
 
+    // 총 매출
+    RespSaleDto findByDateForSale();
+
     // 대시보드 월별 조회
+    List<RespAdminDashBoard.RespMonthly> monthlyRevenue();
 
     // 대시보드 최다 품목 판매 순위
+    List<RespAdminDashBoard.RespMostMenu> mostMenus();
 
-    RespSaleDto findByDateForSale();
+    // 관리자 매출관리 조회
+    Order getSale();
 
     int countByDate(Map<String, Object> map);
 
     Order findOrderById(Long orderId);
 
-    List<RespAdminDashBoard.RespMonthly> monthlyRevenue();
 
-    List<RespAdminDashBoard.RespMostMenu> mostMenus();
+
 }

@@ -2,6 +2,7 @@ package com.starbucksorder.another_back.service;
 
 import com.starbucksorder.another_back.dto.admin.response.Sales.RespAdminDashBoard;
 import com.starbucksorder.another_back.dto.admin.response.Sales.RespSaleDto;
+import com.starbucksorder.another_back.entity.Order;
 import com.starbucksorder.another_back.repository.OrderMapper;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
@@ -27,7 +28,9 @@ public class SalesService {
         return new RespAdminDashBoard(resp, monthly, mostMenus);
     }
 
-    public void getSales() {
-//        orderMapper.
+    // 매출관리
+    public Order getSales() {
+        orderMapper.getSale();
+        return null;
     }
 }
