@@ -131,11 +131,15 @@
             SELECT 10 UNION ALL
             SELECT 11 UNION ALL
             SELECT 12) AS months
-        LEFT OUTER JOIN order_tb ON MONTH(create_date) = months.month
+        LEFT OUTER JOIN
+            order_tb ON MONTH(create_date) = months.month
+        WHERE
+            YEAR(create_date) =YEAR(curdate())
+<!--           YEAR(create_date) = curDate();-->
         GROUP BY
             months.month
         ORDER BY
-            months.month;
+            months.month
     </select>
 
     <select id="mostMenus" resultType="com.starbucksorder.another_back.dto.admin.response.Sales.RespAdminDashBoard$RespMostMenu">
@@ -152,5 +156,19 @@
             `rank` desc
         limit
             0,5;
+    </select>
+    <select id="getSale" resultType="com.starbucksorder.another_back.entity.Order">
+        SELECT
+            order_id,
+            user_id,
+            payment_id,
+            payment_type,
+            order_type,
+            order_amount,
+            order_state,
+            create_date,
+            update_date
+        FROM
+            order_tb
     </select>
 </mapper>

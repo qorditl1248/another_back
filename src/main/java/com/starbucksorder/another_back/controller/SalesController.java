@@ -18,7 +18,6 @@ public class SalesController {
 
 
     // NOTE: 매출 관련 컨트롤러
-
     @ApiOperation(value = "매출관리에서 사용 되는 getAll")
     @GetMapping()
     public ResponseEntity<?> getSales() {

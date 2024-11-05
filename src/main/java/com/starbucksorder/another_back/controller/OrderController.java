@@ -26,6 +26,7 @@ public class OrderController {
     // FIXME: @GetMapping("/product/items") MenuController 로 이동됨
 
     // NOTE: 관리자 주문관리
+    @Log
     @ApiOperation(value = "관리자 주문관리 전체 조회")
     @GetMapping("/admin/order")
     public ResponseEntity<?> getOrders(ReqAdminOrderDto dto) {

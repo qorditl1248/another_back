@@ -44,6 +44,8 @@ public class ReqAdminOrderDto {
 
         int dateType = 0;
         // 공백(시간)을 기준으로 날짜만 추출하는 로직
+        System.out.println(startDate);
+        System.out.println(endDate);
         String refineStartDate = (startDate != null) ? startDate.split(" ")[0] : null;
         String refineEndDate = (endDate != null) ? endDate.split(" ")[0] : null;
 
@@ -56,13 +58,13 @@ public class ReqAdminOrderDto {
         } else if (refineStartDate.length() == 7) {
             trStartDate = LocalDate.parse(refineStartDate, monthFormatter);
             trEndDate = LocalDate.parse(refineEndDate, monthFormatter);
+            dateType = 1;
 
             // 날짜가 월,일 까지 있는 경우 일별 조회로 간주
         } else {
             trStartDate = LocalDate.parse(refineStartDate, formatter);
             trEndDate = LocalDate.parse(refineEndDate, formatter);
 
-            dateType = 2;
         }
         return Map.of(
                 "startDate", trStartDate,
