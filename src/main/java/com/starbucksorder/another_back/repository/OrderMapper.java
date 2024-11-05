@@ -1,8 +1,10 @@
 package com.starbucksorder.another_back.repository;
 
+import com.starbucksorder.another_back.dto.admin.response.Sales.RespAdminDashBoard;
 import com.starbucksorder.another_back.dto.admin.response.Sales.RespSaleDto;
 import com.starbucksorder.another_back.entity.Order;
 import org.apache.ibatis.annotations.Mapper;
+import org.apache.ibatis.annotations.Param;
 
 import java.util.List;
 import java.util.Map;
@@ -21,9 +23,17 @@ public interface OrderMapper {
     // 날짜를 기준으로 order 전체 들고오기
     List<Order> findByDate(Map<String, Object> map);
 
+    // 대시보드 월별 조회
+
+    // 대시보드 최다 품목 판매 순위
+
     RespSaleDto findByDateForSale();
 
     int countByDate(Map<String, Object> map);
 
     Order findOrderById(Long orderId);
+
+    List<RespAdminDashBoard.RespMonthly> monthlyRevenue();
+
+    List<RespAdminDashBoard.RespMostMenu> mostMenus();
 }
