@@ -111,15 +111,17 @@
             SUM(IF(order_state = 2 AND date(create_date) = curdate(), order_amount, 0))           AS todayRefundAmount,
             COUNT(DISTINCT IF(order_state = 2 AND date(create_date) = curdate(), order_id, NULL)) AS todayRefundCount
         FROM
-            order_tb;
+            order_tb
+        WHERE
+            YEAR(create_date) = YEAR(COALESCE(#{selectDate}, CURDATE()))
     </select>
 
     <select id="monthlyRevenue" resultType="com.starbucksorder.another_back.dto.admin.response.Sales.RespAdminDashBoard$RespMonthly">
         SELECT
-            months.month AS month,
-            COALESCE(SUM(order_tb.order_amount), 0) AS totalSales
+            months.month AS `month`,
+            SUM(CASE WHEN YEAR(order_tb.create_date) = #{selectYear} AND order_tb.order_amount > 0 THEN order_tb.order_amount ELSE 0 END) AS totalSales
         FROM
-            (SELECT 1 AS month UNION ALL
+            (SELECT 1 AS `month` UNION ALL
             SELECT 2 UNION ALL
             SELECT 3 UNION ALL
             SELECT 4 UNION ALL
@@ -130,16 +132,14 @@
             SELECT 9 UNION ALL
             SELECT 10 UNION ALL
             SELECT 11 UNION ALL
-            SELECT 12) AS months
+            SELECT 12) AS `months`
         LEFT OUTER JOIN
-            order_tb ON MONTH(create_date) = months.month
-        WHERE
-            YEAR(create_date) =YEAR(curdate())
-<!--           YEAR(create_date) = curDate();-->
+            order_tb ON MONTH(order_tb.create_date) = months.month
+        AND YEAR(order_tb.create_date) = #{selectYear}
         GROUP BY
             months.month
         ORDER BY
-            months.month
+            months.month;
     </select>
 
     <select id="mostMenus" resultType="com.starbucksorder.another_back.dto.admin.response.Sales.RespAdminDashBoard$RespMostMenu">
@@ -150,12 +150,14 @@
         from
             order_detail_tb odt
             inner join menu_tb mt on (mt.menu_id = odt.menu_id)
+<!--        WHERE-->
+<!--            YEAR(create_date) = YEAR(COALESCE(#{selectDate}, CURDATE()))-->
         group by
             odt.menu_id
         order by
             `rank` desc
         limit
-            0,5;
+            0,5
     </select>
     <select id="getSale" resultType="com.starbucksorder.another_back.dto.admin.response.Sales.RespAdminSaleListDto">
         SELECT
