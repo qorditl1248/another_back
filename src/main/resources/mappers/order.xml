@@ -45,7 +45,7 @@
         WHERE
             (#{dateType} = 0 AND DATE(create_date) BETWEEN #{startDate} AND #{endDate})
         OR
-            (#{dateType} = 1 AND MONTH(create_date) BETWEEN #{startDate} AND #{endDate})
+            (#{dateType} = 1 AND DATE(create_date) BETWEEN (#{startDate}) AND #{endDate})
         ORDER BY
             create_date DESC
         LIMIT
@@ -168,7 +168,7 @@
         WHERE
             (#{dateType} = 0 AND DATE(create_date) BETWEEN #{startDate} AND #{endDate})
         OR
-            (#{dateType} = 1 AND MONTH(create_date) BETWEEN #{startDate} AND #{endDate})
+            (#{dateType} = 1 AND (create_date) BETWEEN #{startDate} AND #{endDate})
         OR
             (#{dateType} = 2 AND YEAR(create_date) = #{startDate})
         ORDER BY
