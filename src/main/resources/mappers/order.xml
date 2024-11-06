@@ -113,7 +113,7 @@
         FROM
             order_tb
         WHERE
-            YEAR(create_date) = YEAR(COALESCE(#{selectDate}, CURDATE()))
+            YEAR(create_date) = #{selectDate}
     </select>
 
     <select id="monthlyRevenue" resultType="com.starbucksorder.another_back.dto.admin.response.Sales.RespAdminDashBoard$RespMonthly">
