@@ -3,6 +3,7 @@ package com.starbucksorder.another_back.dto.admin.request.order;
 import lombok.Data;
 
 import java.time.LocalDate;
+import java.time.YearMonth;
 import java.time.format.DateTimeFormatter;
 import java.util.Map;
 
@@ -13,7 +14,6 @@ public class ReqAdminOrderDto {
     private String startDate;
     private String endDate;
 
-    // FIXME: type 도입 전 로직 나중에 삭제 될 예정
     public Map<String, Object> toLocalDateTime() {
         Long startIndex = (page - 1) * limit;
 
@@ -23,6 +23,8 @@ public class ReqAdminOrderDto {
 
         LocalDate trStartDate = null;
         LocalDate trEndDate = null;
+
+
 
         // 0번이 일별, 1 : 월별, 2:연별
         int dateType = 0;
@@ -39,14 +41,20 @@ public class ReqAdminOrderDto {
 
             // 날짜가 있지만 월 까지 있는 경우 월별 조회로 간주
         } else if (refineStartDate.length() == 7) {
-            trStartDate = LocalDate.parse(refineStartDate, monthFormatter);
-            trEndDate = LocalDate.parse(refineEndDate, monthFormatter);
+            /*trStartDate = LocalDate.parse(refineStartDate, monthFormatter);
+            trEndDate = LocalDate.parse(refineEndDate, monthFormatter);*/
+
+            YearMonth startMonth = YearMonth.parse(refineStartDate, monthFormatter);
+            YearMonth endMonth = YearMonth.parse(refineEndDate, monthFormatter);
+            trStartDate = startMonth.atDay(1); // 월의 첫째 날로 설정
+            trEndDate = endMonth.atEndOfMonth(); // 월의 마지막 날로 설정
             dateType = 1;
+            System.out.println(trEndDate);
             // 날짜가 월,일 까지 있는 경우 일별 조회로 간주
         } else if (refineEndDate.length() > 7) {
             trStartDate = LocalDate.parse(refineStartDate, dayFormatter);
             trEndDate = LocalDate.parse(refineEndDate, dayFormatter);
-
+            dateType = 0;
             // 날짜가 연별로 간주
         } else {
             trStartDate = LocalDate.parse(refineStartDate, yearFormatter);
