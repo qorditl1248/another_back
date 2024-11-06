@@ -150,8 +150,8 @@
         from
             order_detail_tb odt
             inner join menu_tb mt on (mt.menu_id = odt.menu_id)
-<!--        WHERE-->
-<!--            YEAR(create_date) = YEAR(COALESCE(#{selectDate}, CURDATE()))-->
+        WHERE
+            YEAR(create_date) = #{selectYear}
         group by
             odt.menu_id
         order by
