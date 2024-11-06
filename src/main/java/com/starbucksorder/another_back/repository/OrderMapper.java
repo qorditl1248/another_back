@@ -33,7 +33,7 @@ public interface OrderMapper {
     List<RespAdminDashBoard.RespMostMenu> mostMenus();
 
     // 관리자 매출관리 조회
-    Order getSale();
+    List<RespSaleDto> getSale(Map<String, Object> map);
 
     int countByDate(Map<String, Object> map);
 

@@ -157,18 +157,24 @@
         limit
             0,5;
     </select>
-    <select id="getSale" resultType="com.starbucksorder.another_back.entity.Order">
+    <select id="getSale" resultType="com.starbucksorder.another_back.dto.admin.response.Sales.RespSaleDto">
         SELECT
-            order_id,
-            user_id,
-            payment_id,
-            payment_type,
-            order_type,
-            order_amount,
-            order_state,
-            create_date,
-            update_date
+            SUM(IF(order_state = 1, order_amount, 0))                                             AS totalAmount,
+            COUNT(DISTINCT IF(order_state = 1, order_id, NULL))                                   AS orderCount,
+            SUM(IF(order_state = 2, order_amount, 0))                                             AS refundAmount,
+            COUNT(DISTINCT IF(order_state = 2, order_id, NULL))                                   AS refundCount
         FROM
             order_tb
+        WHERE
+            (#{dateType} = 0 AND DATE(create_date) BETWEEN #{startDate} AND #{endDate})
+        OR
+            (#{dateType} = 1 AND MONTH(create_date) BETWEEN #{startDate} AND #{endDate})
+        OR
+            (#{dateType} = 2 AND YEAR(create_date) = #{startDate})
+        ORDER BY
+            create_date DESC
+        LIMIT
+            #{startIndex}, #{limit}
     </select>
+
 </mapper>

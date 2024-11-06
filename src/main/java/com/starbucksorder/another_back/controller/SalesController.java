@@ -1,6 +1,7 @@
 package com.starbucksorder.another_back.controller;
 
 import com.starbucksorder.another_back.aspect.annotation.Log;
+import com.starbucksorder.another_back.dto.admin.request.order.ReqAdminOrderDto;
 import com.starbucksorder.another_back.service.SalesService;
 import io.swagger.annotations.ApiOperation;
 import org.springframework.beans.factory.annotation.Autowired;
@@ -18,11 +19,11 @@ public class SalesController {
 
 
     // NOTE: 매출 관련 컨트롤러
+    @Log
     @ApiOperation(value = "매출관리에서 사용 되는 getAll")
     @GetMapping()
-    public ResponseEntity<?> getSales() {
-        salesService.getSales();
-        return ResponseEntity.ok().body(null);
+    public ResponseEntity<?> getSales(ReqAdminOrderDto dto) {
+        return ResponseEntity.ok().body(salesService.getSales(dto));
     }
 
     @ApiOperation(value = "관리자페이지 접속시 나올 대시보드")

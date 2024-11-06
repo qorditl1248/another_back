@@ -1,5 +1,6 @@
 package com.starbucksorder.another_back.service;
 
+import com.starbucksorder.another_back.dto.admin.request.order.ReqAdminOrderDto;
 import com.starbucksorder.another_back.dto.admin.response.Sales.RespAdminDashBoard;
 import com.starbucksorder.another_back.dto.admin.response.Sales.RespSaleDto;
 import com.starbucksorder.another_back.entity.Order;
@@ -29,8 +30,8 @@ public class SalesService {
     }
 
     // 매출관리
-    public Order getSales() {
-        orderMapper.getSale();
-        return null;
+    public List<RespSaleDto> getSales(ReqAdminOrderDto dto) {
+        List<RespSaleDto> respSaleDtos = orderMapper.getSale(dto.toLocalDateTime());
+        return respSaleDtos;
     }
 }
