@@ -15,7 +15,7 @@ public interface OrderMapper {
     int save(Order order);
 
     // 주문취소(주문상태바꾸기)
-    int updateStatus(Order order);
+    int updateStatus(Long orderId);
 
     // FIXME: 사용되지 않는 로직인 거 같은데 확인 후 삭제하기
 //    Long findOrderIdByUserId(Long userId);

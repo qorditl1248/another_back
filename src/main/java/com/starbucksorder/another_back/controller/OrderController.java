@@ -35,9 +35,9 @@ public class OrderController {
     }
 
     @ApiOperation(value = "결제 취소에 대한 상태 업데이트 요청")
-    @PatchMapping("/admin/order/cancellation")
-    public ResponseEntity<?> cancel(@RequestBody ReqAdminOrderCancelDto dto) {
-        return ResponseEntity.ok().body(orderService.updateStatus(dto));
+    @PatchMapping("/admin/order/{orderId}/cancellation")
+    public ResponseEntity<?> cancel(@PathVariable Long orderId) {
+        return ResponseEntity.ok().body(orderService.updateStatus(orderId));
     }
 
     @ApiOperation(value = "주문 상세보기 단 건 조회")

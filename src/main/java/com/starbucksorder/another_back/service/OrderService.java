@@ -90,8 +90,8 @@ public class OrderService {
     }
 
 
-    public boolean updateStatus(ReqAdminOrderCancelDto dto) {
-        return orderMapper.updateStatus(dto.toEntity()) > 0;
+    public boolean updateStatus(Long orderId) {
+        return orderMapper.updateStatus(orderId) > 0;
     }
 
     public RespOrderDetailDto getOrder(Long orderId) {
