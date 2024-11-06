@@ -157,12 +157,13 @@
         limit
             0,5;
     </select>
-    <select id="getSale" resultType="com.starbucksorder.another_back.dto.admin.response.Sales.RespSaleDto">
+    <select id="getSale" resultType="com.starbucksorder.another_back.dto.admin.response.Sales.RespAdminSaleListDto">
         SELECT
-            SUM(IF(order_state = 1, order_amount, 0))                                             AS totalAmount,
-            COUNT(DISTINCT IF(order_state = 1, order_id, NULL))                                   AS orderCount,
-            SUM(IF(order_state = 2, order_amount, 0))                                             AS refundAmount,
-            COUNT(DISTINCT IF(order_state = 2, order_id, NULL))                                   AS refundCount
+            create_date                                               AS createDate,
+            SUM(IF(order_state = 1, order_amount, 0))                 AS totalAmount,
+            COUNT(DISTINCT IF(order_state = 1, order_id, NULL))       AS orderCount,
+            SUM(IF(order_state = 2, order_amount, 0))                 AS refundAmount,
+            COUNT(DISTINCT IF(order_state = 2, order_id, NULL))       AS refundCount
         FROM
             order_tb
         WHERE
@@ -175,6 +176,16 @@
             create_date DESC
         LIMIT
             #{startIndex}, #{limit}
+    </select>
+    <select id="getYearCount" resultType="java.lang.Integer">
+        SELECT
+            EXTRACT(YEAR FROM create_date) AS yearCount
+        FROM
+            order_tb
+        GROUP BY
+            yearCount
+        ORDER BY
+            yearCount
     </select>
 
 </mapper>

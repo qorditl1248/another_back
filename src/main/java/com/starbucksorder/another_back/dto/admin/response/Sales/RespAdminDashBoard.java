@@ -12,6 +12,7 @@ import java.util.List;
 @NoArgsConstructor
 @AllArgsConstructor
 public class RespAdminDashBoard {
+    private List<Integer> yearCount;
     private RespSaleDto respSaleDto;
     private List<RespMonthly> monthly;
     private List<RespMostMenu> mostMenus;
