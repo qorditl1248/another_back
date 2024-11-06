@@ -19,10 +19,12 @@ public class SalesService {
 
     public RespAdminDashBoard getStatistics(String selectYear) {
         Year currentYear = null;
-
-        if (selectYear == null | selectYear.isBlank() | selectYear.equals("undefined")) {
+        if (selectYear == null || selectYear.isBlank() || selectYear.equals("undefined")) {
             currentYear = Year.now();
+        }else{
+            currentYear = Year.parse(selectYear);
         }
+        System.out.println(currentYear);
         // 있는 연도 표시
         List<Integer> yearCount = orderMapper.getYearCount();
 
