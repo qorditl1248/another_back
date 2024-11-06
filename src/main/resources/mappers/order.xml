@@ -15,7 +15,7 @@
         update
             order_tb
         set
-            order_state = #{orderState}
+            order_state = 2
         where
             order_id = #{orderId}
     </update>
