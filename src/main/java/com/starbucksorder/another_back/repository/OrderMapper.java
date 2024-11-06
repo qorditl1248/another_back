@@ -7,6 +7,7 @@ import com.starbucksorder.another_back.entity.Order;
 import org.apache.ibatis.annotations.Mapper;
 import org.apache.ibatis.annotations.Param;
 
+import java.time.Year;
 import java.util.List;
 import java.util.Map;
 
@@ -25,13 +26,13 @@ public interface OrderMapper {
     List<Order> findByDate(Map<String, Object> map);
 
     // 총 매출
-    RespSaleDto findByDateForSale();
+    RespSaleDto findByDateForSale(Year selectYear);
 
     // 대시보드 월별 조회
-    List<RespAdminDashBoard.RespMonthly> monthlyRevenue();
+    List<RespAdminDashBoard.RespMonthly> monthlyRevenue(Year selectYear);
 
     // 대시보드 최다 품목 판매 순위
-    List<RespAdminDashBoard.RespMostMenu> mostMenus();
+    List<RespAdminDashBoard.RespMostMenu> mostMenus(Year selectYear);
 
     // 관리자 매출관리 조회
     List<RespAdminSaleListDto> getSale(Map<String, Object> map);
