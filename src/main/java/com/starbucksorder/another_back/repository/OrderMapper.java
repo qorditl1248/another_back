@@ -1,6 +1,7 @@
 package com.starbucksorder.another_back.repository;
 
 import com.starbucksorder.another_back.dto.admin.response.Sales.RespAdminDashBoard;
+import com.starbucksorder.another_back.dto.admin.response.Sales.RespAdminSaleListDto;
 import com.starbucksorder.another_back.dto.admin.response.Sales.RespSaleDto;
 import com.starbucksorder.another_back.entity.Order;
 import org.apache.ibatis.annotations.Mapper;
@@ -33,12 +34,11 @@ public interface OrderMapper {
     List<RespAdminDashBoard.RespMostMenu> mostMenus();
 
     // 관리자 매출관리 조회
-    List<RespSaleDto> getSale(Map<String, Object> map);
+    List<RespAdminSaleListDto> getSale(Map<String, Object> map);
 
     int countByDate(Map<String, Object> map);
 
     Order findOrderById(Long orderId);
 
-
-
+    List<Integer> getYearCount();
 }

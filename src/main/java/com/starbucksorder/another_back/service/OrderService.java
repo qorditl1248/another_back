@@ -65,10 +65,7 @@ public class OrderService {
 
     public CMRespAdminDto findByDate(ReqAdminOrderDto dto) {
         int totalCount = orderMapper.countByDate(dto.toLocalDateTime());
-//        List<RespOrderListDto> respOrderListDto = orderMapper.findByDate(dto.toLocalDateTime()).stream().map(Order::toRespOrderListDto).collect(Collectors.toList());
-        List<Order> respOrderListDto = orderMapper.findByDate(dto.toLocalDateTime());
-        System.out.println(respOrderListDto);
-//                .stream().map(Order::toRespOrderListDto).collect(Collectors.toList());
+        List<RespOrderListDto> respOrderListDto = orderMapper.findByDate(dto.toLocalDateTime()).stream().map(Order::toRespOrderListDto).collect(Collectors.toList());
         return new CMRespAdminDto(totalCount, respOrderListDto);
     }
 
