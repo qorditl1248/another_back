@@ -20,17 +20,14 @@ public class SalesController {
     @Autowired
     private SalesService salesService;
 
-
     // NOTE: 매출 관련 컨트롤러
-    @Log
-    @ApiOperation(value = "매출관리에서 사용 되는 getAll")
+    @ApiOperation(value = "매출관리에서의 전체조회")
     @GetMapping()
     public ResponseEntity<?> getSales(ReqAdminOrderDto dto) {
         return ResponseEntity.ok().body(salesService.getSales(dto));
     }
 
-    @ApiOperation(value = "관리자페이지 접속시 나올 대시보드")
-    @Log
+    @ApiOperation(value = "관리자페이지 접속시 나올 대시보드 매출에관한 전체조회")
     @GetMapping("/manage/{selectYear}/dashboard")
     public ResponseEntity<?> getStatistics(@PathVariable(required = false) String selectYear) {
         return ResponseEntity.ok().body(salesService.getStatistics(selectYear));

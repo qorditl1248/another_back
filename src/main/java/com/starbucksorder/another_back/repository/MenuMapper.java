@@ -34,10 +34,6 @@ public interface MenuMapper {
 
     List<Option> getOptionList();
 
-
-    // 메뉴 자소 분리 로직
-    int updateMenuName(Long menuId, @Param("menuName") String menuName);
-
     // 메뉴 추가
     int save(Menu menu);
 
