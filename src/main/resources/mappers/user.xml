@@ -136,7 +136,7 @@
             user_tb
         WHERE
             phone_number LIKE CONCAT('%', #{searchName}, '%')
-        OR memo LIKE CONCAT ('%', #{searchName}, '%')
+            OR memo LIKE CONCAT ('%', #{searchName}, '%')
         ORDER BY
             user_id
         LIMIT

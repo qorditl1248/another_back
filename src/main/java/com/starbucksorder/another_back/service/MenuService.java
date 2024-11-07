@@ -168,15 +168,6 @@ public class MenuService {
         return true;
     }
 
-    // 자소분리현상 처리 로직
-    @Transactional(rollbackFor = Exception.class)
-    public void modifyMenu(List<ReqAdminMenuListDtoAll> menuList) {
-        for (ReqAdminMenuListDtoAll data : menuList) {
-            menuMapper.updateMenuName(data.getMenuId(), data.getMenuName());
-        }
-        System.out.println("완료");
-    }
-
     // 메뉴 삭제
     public boolean deleteMenu(ReqAdminDeleteDto dto) {
         // 메뉴 카테고리 삭제

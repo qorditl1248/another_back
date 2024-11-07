@@ -17,18 +17,17 @@ public class AuthController {
     @Autowired
     private AuthService authService;
 
-    // 로그인
     @ValidAop
     @ApiOperation(value = "로그인을 위한 메소드")
     @PostMapping("/auth/signin")
-    public ResponseEntity<?> signIn(@Valid @RequestBody ReqSigninDto dto, BindingResult bindingResult){
+    public ResponseEntity<?> signIn(@Valid @RequestBody ReqSigninDto dto, BindingResult bindingResult) {
         System.out.println("실행됨");
         return ResponseEntity.ok().body(authService.signin(dto));
     }
-    // 토큰 확인
-    @Log
+
+    @ApiOperation(value = "토큰 확인")
     @GetMapping("/admin/auth/access")
-    public ResponseEntity<?> access(String accessToken){
+    public ResponseEntity<?> access(String accessToken) {
         return ResponseEntity.ok().body(authService.isValidAccessToken(accessToken));
     }
 }

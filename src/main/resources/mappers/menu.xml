@@ -61,16 +61,6 @@
         <result property="optionDetailPrice" column="option_detail_price" />
     </resultMap>
 
-    <update id="updateMenuName">
-        update
-            menu_tb
-        set
-            menu_name = #{menuName}
-        where
-            menu_id = #{menuId}
-    </update>
-
-
     <select id="findByMenuId" resultMap="menuResultMap">
         SELECT
             mt.menu_id,

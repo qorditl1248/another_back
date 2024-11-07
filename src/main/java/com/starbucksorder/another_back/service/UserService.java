@@ -28,7 +28,7 @@ public class UserService {
     // 전체조회
     public CMRespAdminDto getUserAll(ReqAdminSearchDto dto) {
         Long startIndex = (dto.getPage() - 1) * dto.getLimit();
-        return new CMRespAdminDto(searchCount(dto.getSearchName()), userMapper.getUserAll(dto.getSearchName(), startIndex,dto.getLimit()).stream().map(User::toRespAdminDto).collect(Collectors.toList()));
+        return new CMRespAdminDto(searchCount(dto.getSearchName()), userMapper.getUserAll(dto.getSearchName(), startIndex, dto.getLimit()).stream().map(User::toRespAdminDto).collect(Collectors.toList()));
     }
 
     // 검색
@@ -47,7 +47,8 @@ public class UserService {
         return userMapper.update(dto.toEntity()) > 0;
     }
 
-    public int searchCount(String searchName) {
+    // 검색어에 참조 갯수 불러오기
+    private int searchCount(String searchName) {
         return userMapper.count(searchName);
     }
 
