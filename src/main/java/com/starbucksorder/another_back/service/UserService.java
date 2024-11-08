@@ -9,6 +9,7 @@ import com.starbucksorder.another_back.entity.User;
 import com.starbucksorder.another_back.exception.DuplicateNameException;
 import com.starbucksorder.another_back.repository.UserMapper;
 import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.dao.DataIntegrityViolationException;
 import org.springframework.stereotype.Service;
 
 import java.util.stream.Collectors;
@@ -41,10 +42,16 @@ public class UserService {
     }
 
     public boolean updateUser(ReqAdminUserDto dto) {
-        if (userMapper.findUserByPhoneNumber(dto.getPhoneNumber()) != null) {
+        boolean result = false;
+
+        try {
+            userMapper.update(dto.toEntity());
+            result = true;
+        } catch (DataIntegrityViolationException e) {
             throw new DuplicateNameException("phone number already exist");
         }
-        return userMapper.update(dto.toEntity()) > 0;
+
+        return result;
     }
 
     // 검색어에 참조 갯수 불러오기
