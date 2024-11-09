@@ -37,9 +37,15 @@ public interface OrderMapper {
     // 관리자 매출관리 조회
     List<RespAdminSaleListDto> getSale(Map<String, Object> map);
 
+    // 날짜에 해당되는 갯수 다 들고오기
     int countByDate(Map<String, Object> map);
+
+    // 매출관리에서 사용될 totalCount
+    int totalSaleCount(Map<String, Object> map);
 
     Order findOrderById(Long orderId);
 
     List<Integer> getYearCount();
+
+
 }

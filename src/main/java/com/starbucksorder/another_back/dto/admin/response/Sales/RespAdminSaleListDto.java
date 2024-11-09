@@ -12,8 +12,10 @@ import java.time.LocalDate;
 @AllArgsConstructor
 @NoArgsConstructor
 public class RespAdminSaleListDto {
-    private LocalDate createDate;
+    private int totalCount;
+    private String date;
     private int totalAmount;
     private int totalOrderCount;
+    private int refundAmount;
     private int totalRefundCount;
 }
