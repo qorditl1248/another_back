@@ -8,7 +8,6 @@ import lombok.NoArgsConstructor;
 @Data
 @Builder
 @AllArgsConstructor
-@NoArgsConstructor
 public class CMRespAdminDto<T> {
     private int totalCount;
     private T data;

@@ -1,10 +1,10 @@
 package com.starbucksorder.another_back.service;
 
-import com.starbucksorder.another_back.dto.admin.request.order.ReqAdminOrderDto;
+import com.starbucksorder.another_back.dto.admin.request.ReqAdminSalePageDateDto;
+import com.starbucksorder.another_back.dto.admin.response.CMRespAdminDto;
 import com.starbucksorder.another_back.dto.admin.response.Sales.RespAdminDashBoard;
 import com.starbucksorder.another_back.dto.admin.response.Sales.RespAdminSaleListDto;
 import com.starbucksorder.another_back.dto.admin.response.Sales.RespSaleDto;
-import com.starbucksorder.another_back.entity.Order;
 import com.starbucksorder.another_back.repository.OrderMapper;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
@@ -21,7 +21,7 @@ public class SalesService {
         Year currentYear = null;
         if (selectYear == null || selectYear.isBlank() || selectYear.equals("undefined")) {
             currentYear = Year.now();
-        }else{
+        } else {
             currentYear = Year.parse(selectYear);
         }
         System.out.println(currentYear);
@@ -41,8 +41,8 @@ public class SalesService {
     }
 
     // 매출관리
-    public List<RespAdminSaleListDto> getSales(ReqAdminOrderDto dto) {
+    public CMRespAdminDto getSales(ReqAdminSalePageDateDto dto) {
         List<RespAdminSaleListDto> respSaleDtos = orderMapper.getSale(dto.toLocalDateTime());
-        return respSaleDtos;
+        return new CMRespAdminDto(orderMapper.totalSaleCount(dto.toLocalDateTime()),respSaleDtos);
     }
 }

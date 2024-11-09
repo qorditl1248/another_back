@@ -1,7 +1,7 @@
 package com.starbucksorder.another_back.controller;
 
 import com.starbucksorder.another_back.aspect.annotation.Log;
-import com.starbucksorder.another_back.dto.admin.request.order.ReqAdminOrderDto;
+import com.starbucksorder.another_back.dto.admin.request.ReqAdminSalePageDateDto;
 import com.starbucksorder.another_back.service.SalesService;
 import io.swagger.annotations.ApiOperation;
 import org.springframework.beans.factory.annotation.Autowired;
@@ -11,8 +11,6 @@ import org.springframework.web.bind.annotation.PathVariable;
 import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RestController;
 
-import java.time.Year;
-
 @RestController
 @RequestMapping("/admin/sales")
 public class SalesController {
@@ -21,9 +19,10 @@ public class SalesController {
     private SalesService salesService;
 
     // NOTE: 매출 관련 컨트롤러
+    @Log
     @ApiOperation(value = "매출관리에서의 전체조회")
     @GetMapping()
-    public ResponseEntity<?> getSales(ReqAdminOrderDto dto) {
+    public ResponseEntity<?> getSales(ReqAdminSalePageDateDto dto) {
         return ResponseEntity.ok().body(salesService.getSales(dto));
     }
 
