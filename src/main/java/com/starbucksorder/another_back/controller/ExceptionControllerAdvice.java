@@ -34,7 +34,7 @@ public class ExceptionControllerAdvice {
     // 유효성검사 관리자 로그인시 사용
     @ExceptionHandler(ValidException.class)
     public ResponseEntity<?> validException(ValidException e) {
-        return ResponseEntity.status(401).body(e.getFieldErrors().get(0).getDefaultMessage());
+        return ResponseEntity.status(401).body(e.getFieldErrors());
     }
 
     // 중복된 이름 예외처리 메뉴, 옵션, 카테고리 등록시에 사용
@@ -42,5 +42,4 @@ public class ExceptionControllerAdvice {
     public ResponseEntity<?> duplicateNameException(DuplicateNameException e) {
         return ResponseEntity.status(400).body(e.getMessage());
     }
-
 }

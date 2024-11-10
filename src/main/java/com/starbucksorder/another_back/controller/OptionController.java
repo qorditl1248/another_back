@@ -1,14 +1,17 @@
 package com.starbucksorder.another_back.controller;
 
 import com.starbucksorder.another_back.aspect.annotation.Log;
+import com.starbucksorder.another_back.aspect.annotation.ValidAop;
 import com.starbucksorder.another_back.dto.admin.request.option.ReqAdminOptionDto;
 import com.starbucksorder.another_back.service.MenuService;
 import com.starbucksorder.another_back.service.OptionService;
 import io.swagger.annotations.ApiOperation;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.http.ResponseEntity;
+import org.springframework.validation.BindingResult;
 import org.springframework.web.bind.annotation.*;
 
+import javax.validation.Valid;
 import java.util.List;
 
 @RestController
@@ -20,7 +23,8 @@ public class OptionController {
 
     @ApiOperation(value = "옵션 추가 요청")
     @PostMapping("/admin/option")
-    public ResponseEntity<?> add(@RequestBody ReqAdminOptionDto dto) {
+    @ValidAop
+    public ResponseEntity<?> add(@RequestBody @Valid ReqAdminOptionDto dto, BindingResult bindingResult) {
         return ResponseEntity.ok().body(optionService.add(dto));
     }
 
@@ -51,7 +55,8 @@ public class OptionController {
 
     @ApiOperation(value = "옵션id에 해당하는 수정요청")
     @PatchMapping("/admin/option/{optionId}")
-    public ResponseEntity<?> update(@PathVariable Long optionId, @RequestBody ReqAdminOptionDto dto) {
+    @ValidAop
+    public ResponseEntity<?> update(@PathVariable Long optionId, @RequestBody @Valid ReqAdminOptionDto dto, BindingResult bindingResult) {
         return ResponseEntity.ok().body(optionService.update(dto));
     }
 
