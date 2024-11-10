@@ -1,6 +1,7 @@
 package com.starbucksorder.another_back.controller;
 
 import com.starbucksorder.another_back.aspect.annotation.Log;
+import com.starbucksorder.another_back.aspect.annotation.ValidAop;
 import com.starbucksorder.another_back.dto.admin.ReqAdminDeleteDto;
 import com.starbucksorder.another_back.dto.admin.request.ReqAdminUserDto;
 import com.starbucksorder.another_back.dto.admin.request.user.ReqAdminSearchDto;
@@ -9,8 +10,11 @@ import com.starbucksorder.another_back.service.UserService;
 import io.swagger.annotations.ApiOperation;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.http.ResponseEntity;
+import org.springframework.validation.BindingResult;
 import org.springframework.web.bind.annotation.*;
 
+import javax.validation.Valid;
+import java.text.Bidi;
 import java.util.List;
 
 @RestController
@@ -33,7 +37,8 @@ public class UserController {
 
     @ApiOperation(value = "사용자 등록")
     @PostMapping("/admin/user")
-    public ResponseEntity<?> addUser(@RequestBody ReqAdminUserDto dto) {
+    @ValidAop
+    public ResponseEntity<?> addUser(@RequestBody @Valid ReqAdminUserDto dto, BindingResult bindingResult) {
         return ResponseEntity.ok().body(userService.addUser(dto));
     }
 
@@ -59,7 +64,8 @@ public class UserController {
 
     @ApiOperation(value = "사용자id를 참조 회원 수정")
     @PatchMapping("/admin/user/modify/{userId}")
-    public ResponseEntity<?> updateUser(@PathVariable Long userId, @RequestBody ReqAdminUserDto dto) {
+    @ValidAop
+    public ResponseEntity<?> updateUser(@PathVariable Long userId, @RequestBody @Valid ReqAdminUserDto dto, BindingResult bindingResult) {
         return ResponseEntity.ok().body(userService.updateUser(dto));
     }
 }

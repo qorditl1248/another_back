@@ -47,7 +47,6 @@ public class ValidAspect {
         if (bindingResult.hasErrors()) {
             throw new ValidException("유효성 검사 오류", bindingResult.getFieldErrors());
         }
-
         return proceedingJoinPoint.proceed();
     }
 }

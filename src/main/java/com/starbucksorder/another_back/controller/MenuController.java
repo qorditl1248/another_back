@@ -1,6 +1,7 @@
 package com.starbucksorder.another_back.controller;
 
 import com.starbucksorder.another_back.aspect.annotation.Log;
+import com.starbucksorder.another_back.aspect.annotation.ValidAop;
 import com.starbucksorder.another_back.dto.admin.ReqAdminDeleteDto;
 import com.starbucksorder.another_back.dto.admin.request.menu.ReqAdminDto;
 import com.starbucksorder.another_back.dto.admin.request.menu.ReqAdminMenuListDtoAll;
@@ -13,8 +14,10 @@ import com.starbucksorder.another_back.service.MenuService;
 import io.swagger.annotations.ApiOperation;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.http.ResponseEntity;
+import org.springframework.validation.BindingResult;
 import org.springframework.web.bind.annotation.*;
 
+import javax.validation.Valid;
 import java.util.List;
 
 @RestController
@@ -38,7 +41,6 @@ public class MenuController {
     }
 
     /* NOTE: --------------관리자 메뉴추가를 위한 로직-------------- */
-
     @GetMapping("/admin/menu/values")
     @ApiOperation(value = "메뉴추가를 하기위한 전체 옵션, 카테고리 불러오기")
     public ResponseEntity<?> getNames() {
@@ -60,7 +62,8 @@ public class MenuController {
 
     @PostMapping("/admin/menu")
     @ApiOperation(value = "메뉴 추가")
-    public ResponseEntity<?> addMenu(@RequestBody ReqAdminDto dto) {
+    @ValidAop
+    public ResponseEntity<?> addMenu(@RequestBody @Valid ReqAdminDto dto, BindingResult bindingResult) {
         return ResponseEntity.ok().body(menuService.addMenu(dto));
     }
 
@@ -78,7 +81,8 @@ public class MenuController {
 
     @PatchMapping("/admin/modify/{menuId}")
     @ApiOperation(value = "해당id로 수정요청")
-    public ResponseEntity<?> modifyMenu(@PathVariable Long menuId, @RequestBody ReqAdminModifyDto dto) {
+    @ValidAop
+    public ResponseEntity<?> modifyMenu(@PathVariable Long menuId, @RequestBody @Valid ReqAdminModifyDto dto, BindingResult bindingResult) {
         return ResponseEntity.ok().body(menuService.modifyMenu(dto));
     }
 

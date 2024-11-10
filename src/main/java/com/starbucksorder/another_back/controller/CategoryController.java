@@ -32,7 +32,8 @@ public class CategoryController {
 
     @ApiOperation(value = "카테고리 등록")
     @PostMapping("/admin/category")
-    public ResponseEntity<?> add(@RequestBody ReqAdminCategoryDto dto) {
+    @ValidAop
+    public ResponseEntity<?> add(@RequestBody @Valid ReqAdminCategoryDto dto, BindingResult bindingResult) {
         return ResponseEntity.ok().body(categoryService.add(dto));
     }
 
