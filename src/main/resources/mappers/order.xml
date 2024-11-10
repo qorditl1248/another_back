@@ -170,9 +170,8 @@
         FROM
             order_tb
         WHERE
-            (#{dateType} = 0 AND DATE(create_date) BETWEEN #{startDate} AND #{endDate})
-        OR
-            (#{dateType} = 1 AND DATE(create_date) BETWEEN #{startDate} AND #{endDate})
+            YEAR(create_date) = #{startDate}
+            AND create_date BETWEEN #{startDate} AND #{endDate}
         GROUP BY
             date
         ORDER BY
@@ -193,11 +192,19 @@
     </select>
     <select id="totalSaleCount" resultType="java.lang.Integer">
         SELECT
-            COUNT(IF(#{dateMode}=0, create_date, date_format(create_date,'%Y-%m'))) AS totalCount
+            COUNT(*) AS totalCount
         FROM
-            order_tb
-        WHERE
-            DATE(create_date) BETWEEN #{startDate} AND #{endDate}
+        (
+            SELECT
+                IF(#{dateMode} = 0, create_date, DATE_FORMAT(create_date, '%Y-%m')) as date
+            FROM
+                order_tb
+            WHERE
+                YEAR(create_date) = #{startDate}
+                AND create_date BETWEEN #{startDate} AND #{endDate}
+            GROUP BY
+                date
+        ) AS subquery;
     </select>
 
 </mapper>

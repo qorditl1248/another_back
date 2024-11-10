@@ -1,5 +1,6 @@
 package com.starbucksorder.another_back.controller;
 
+import com.starbucksorder.another_back.aspect.annotation.ValidAop;
 import com.starbucksorder.another_back.dto.admin.ReqAdminDeleteDto;
 import com.starbucksorder.another_back.dto.admin.request.category.ReqAdminCategoryDto;
 import com.starbucksorder.another_back.dto.admin.request.category.ReqAdminIncludeMenuByCategoryDto;
@@ -7,7 +8,10 @@ import com.starbucksorder.another_back.service.CategoryService;
 import io.swagger.annotations.ApiOperation;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.http.ResponseEntity;
+import org.springframework.validation.BindingResult;
 import org.springframework.web.bind.annotation.*;
+
+import javax.validation.Valid;
 
 @RestController
 @CrossOrigin
@@ -59,7 +63,8 @@ public class CategoryController {
 
     @ApiOperation(value = "해당id로 카테고리 수정")
     @PatchMapping("/admin/category/{categoryId}")
-    public ResponseEntity<?> update(@PathVariable Long categoryId, @RequestBody ReqAdminCategoryDto dto) {
+    @ValidAop
+    public ResponseEntity<?> update(@PathVariable Long categoryId, @Valid @RequestBody ReqAdminCategoryDto dto, BindingResult bindingResult) {
         return ResponseEntity.ok().body(categoryService.update(dto));
     }
 

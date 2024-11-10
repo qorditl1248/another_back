@@ -42,7 +42,6 @@ public class ValidAspect {
                 break;
             case "modifyMenu":
                 break;
-
         }
 
         if (bindingResult.hasErrors()) {
