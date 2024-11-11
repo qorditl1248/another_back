@@ -3,12 +3,17 @@ package com.starbucksorder.another_back.dto.admin.request.menu;
 import com.starbucksorder.another_back.entity.Menu;
 import lombok.Data;
 
+import javax.validation.constraints.Min;
+import javax.validation.constraints.NotBlank;
 import java.util.List;
 
 // save
 @Data
 public class ReqAdminDto {
+    @NotBlank(message = "빈값일 수 없습니다")
     private String menuName;
+    @NotBlank(message = "가격은 빈값일 수 없습니다")
+    @Min(value = 0,message = "0원 보다 낮을 수 없습니다")
     private int menuPrice;
     private String comment;
     private Long menuStatus;
