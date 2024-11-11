@@ -1,5 +1,7 @@
 package com.starbucksorder.another_back.controller;
 
+import com.starbucksorder.another_back.aspect.LogAspect;
+import com.starbucksorder.another_back.aspect.annotation.Log;
 import com.starbucksorder.another_back.aspect.annotation.ValidAop;
 import com.starbucksorder.another_back.dto.admin.ReqAdminDeleteDto;
 import com.starbucksorder.another_back.dto.admin.ReqAdminPageAndLimitDto;
@@ -20,6 +22,8 @@ public class CategoryController {
 
     @Autowired
     private CategoryService categoryService;
+    @Autowired
+    private LogAspect logAspect;
 
     // 전체 카테고리 조회
     @ApiOperation(value = "전체카테고리조회")
@@ -31,6 +35,7 @@ public class CategoryController {
 
     /* NOTE: ---------------------------------ADMIN 관련----------------------------------------*/
 
+    @Log
     @ApiOperation(value = "카테고리 등록")
     @PostMapping("/admin/category")
     @ValidAop

@@ -11,7 +11,7 @@ public class RespAdminOptionDto {
     private Long optionId;
     private String optionName;
     private Long optionStatus;
-    private List<RespOptionDetail> optionDetail; // optionDetail : option = many : 1
+//    private List<RespOptionDetail> optionDetail; // optionDetail : option = many : 1
 
     @Builder
     @Data
