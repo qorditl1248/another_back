@@ -18,7 +18,7 @@ public class PointService {
         User user = null;
         user = findUserByPhoneNumber(phoneNumber);
         if (user == null) {
-            throw new UsernameNotFoundException("User not found");
+            throw new UsernameNotFoundException("사용자를 찾을 수 없습니다.");
         }
         user = userMapper.findCouponsById(user.getUserId());
         if (user == null) {
