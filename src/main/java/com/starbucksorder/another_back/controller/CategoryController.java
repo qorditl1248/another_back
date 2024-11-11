@@ -2,6 +2,7 @@ package com.starbucksorder.another_back.controller;
 
 import com.starbucksorder.another_back.aspect.annotation.ValidAop;
 import com.starbucksorder.another_back.dto.admin.ReqAdminDeleteDto;
+import com.starbucksorder.another_back.dto.admin.ReqAdminPageAndLimitDto;
 import com.starbucksorder.another_back.dto.admin.request.category.ReqAdminCategoryDto;
 import com.starbucksorder.another_back.dto.admin.request.category.ReqAdminIncludeMenuByCategoryDto;
 import com.starbucksorder.another_back.service.CategoryService;
@@ -45,8 +46,9 @@ public class CategoryController {
 
     @ApiOperation(value = "카테고리 전체조회")
     @GetMapping("/admin/category")
-    public ResponseEntity<?> getAllCategories() {
-        return ResponseEntity.ok().body(categoryService.getAllCategories());
+    public ResponseEntity<?> getAllCategories(ReqAdminPageAndLimitDto dto) {
+
+        return ResponseEntity.ok().body(categoryService.getAllCategories(dto));
     }
 
     @ApiOperation(value = "카테고리 id로 상세보기 및 해당 메뉴 불러오기")

@@ -29,7 +29,7 @@ public class SalesController {
     @ApiOperation(value = "날짜로 조회")
     @GetMapping("/sale")
     public ResponseEntity<?> getSales(String date) {
-        return ResponseEntity.ok().body(null);
+        return ResponseEntity.ok().body(salesService.getDetail(date));
     }
 
 

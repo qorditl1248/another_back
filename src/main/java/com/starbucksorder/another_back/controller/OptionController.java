@@ -2,6 +2,7 @@ package com.starbucksorder.another_back.controller;
 
 import com.starbucksorder.another_back.aspect.annotation.Log;
 import com.starbucksorder.another_back.aspect.annotation.ValidAop;
+import com.starbucksorder.another_back.dto.admin.ReqAdminPageAndLimitDto;
 import com.starbucksorder.another_back.dto.admin.request.option.ReqAdminOptionDto;
 import com.starbucksorder.another_back.service.MenuService;
 import com.starbucksorder.another_back.service.OptionService;
@@ -31,8 +32,8 @@ public class OptionController {
     // FIXME: 페이징처리 안함 -> 검토 필요
     @ApiOperation(value = "옵션 전체조회")
     @GetMapping("/admin/option")
-    public ResponseEntity<?> getAll() {
-        return ResponseEntity.ok().body(optionService.getAll());
+    public ResponseEntity<?> getAll(ReqAdminPageAndLimitDto dto) {
+        return ResponseEntity.ok().body(optionService.getAll(dto));
     }
 
     @ApiOperation(value = "옵션id에 해당하는 옵션 상세보기 조회요청")

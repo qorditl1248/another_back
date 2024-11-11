@@ -70,6 +70,26 @@
         ORDER BY
             category_seq
     </select>
+    <select id="getAllLimit" resultType="com.starbucksorder.another_back.entity.Category">
+        SELECT
+            category_id as categoryId,
+            category_name as categoryName,
+            category_status as categoryStatus,
+            category_seq as categorySeq
+        FROM
+            category_tb
+        ORDER BY
+            category_seq
+        LIMIT
+            #{startIndex}, #{limit}
+    </select>
+    <select id="getCount" resultType="java.lang.Integer">
+        SELECT
+            COUNT(*)
+        FROM
+            category_tb
+    </select>
+
 
     <insert id="saveByMenuId">
         INSERT INTO

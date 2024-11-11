@@ -2,6 +2,7 @@ package com.starbucksorder.another_back.repository;
 
 import com.starbucksorder.another_back.entity.Category;
 import org.apache.ibatis.annotations.Mapper;
+import org.apache.ibatis.annotations.Param;
 
 import java.util.List;
 import java.util.Map;
@@ -30,6 +31,11 @@ public interface CategoryMapper {
 
     // 상태코드와 상관없이 전부 다 가지고오는 것
     List<Category> FindAll();
+
+    List<Category> getAllLimit(@Param("startIndex") Long startIndex, @Param("limit") Long limit);
+
+    // 전체 카운트
+    int getCount();
 
 
     Category findByCategoryName(String categoryName);

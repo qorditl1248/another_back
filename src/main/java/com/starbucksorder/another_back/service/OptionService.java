@@ -1,6 +1,8 @@
 package com.starbucksorder.another_back.service;
 
+import com.starbucksorder.another_back.dto.admin.ReqAdminPageAndLimitDto;
 import com.starbucksorder.another_back.dto.admin.request.option.ReqAdminOptionDto;
+import com.starbucksorder.another_back.dto.admin.response.CMRespAdminDto;
 import com.starbucksorder.another_back.dto.admin.response.option.RespAdminOptionDto;
 import com.starbucksorder.another_back.dto.user.response.menu.RespOnlyMenuIdAdnName;
 import com.starbucksorder.another_back.entity.Menu;
@@ -50,8 +52,10 @@ public class OptionService {
     }
 
     // 옵션 전체 불러오기
-    public List<RespAdminOptionDto> getAll() {
-        return optionMapper.getAll().stream().map(Option::toOptionAllDto).collect(Collectors.toList());
+    public CMRespAdminDto getAll(ReqAdminPageAndLimitDto dto) {
+        Long startIndex = (dto.getPage()-1) * dto.getLimit();
+        List<RespAdminOptionDto> respAdminOptionDtos = optionMapper.getAll(startIndex,dto.getLimit()).stream().map(Option::toOptionAllDto).collect(Collectors.toList());
+        return new CMRespAdminDto(optionMapper.getCount(), respAdminOptionDtos);
     }
 
     // 옵션에 해당하는 메뉴들 불러오기

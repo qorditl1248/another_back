@@ -23,7 +23,9 @@ public interface OptionMapper {
     int detailSave(OptionDetail optionDetail);
 
     // 전체 불러오기
-    List<Option> getAll();
+    List<Option> getAll(@Param("startIndex") Long startIndex, @Param("limit") Long limit);
+    // 전체 갯수 불러오기
+    int getCount();
 
     // 옵션 아이디에 해당하는 정보 불러오기 (디테일까지)
     Option findByOptionId(Long optionId);
