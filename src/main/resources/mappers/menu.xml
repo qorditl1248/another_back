@@ -105,11 +105,13 @@
             mt.img_url as imgUrl
         from
             menu_tb as mt
-        left outer join menu_category_tb mct on (mt.menu_id = mct.menu_id)
-        left outer join category_tb ct on (mct.category_id = ct.category_id)
+            left outer join menu_category_tb mct on (mt.menu_id = mct.menu_id)
+            left outer join category_tb ct on (mct.category_id = ct.category_id)
         where
-        mct.category_id = #{categoryId}
-        and mt.menu_status =1
+            mct.category_id = #{categoryId}
+            and mt.menu_status =1
+        order by
+            mt.menu_id
         limit #{startIndex}, #{limit}
     </select>
 
@@ -231,8 +233,8 @@
             GROUP_CONCAT(DISTINCT ct.category_name ORDER BY ct.category_name SEPARATOR ', ') AS categories,
             GROUP_CONCAT(DISTINCT ot.option_name ORDER BY ot.option_name SEPARATOR ', ') AS options
         FROM
-            menu_category_tb mct
-            LEFT OUTER JOIN menu_tb mt on (mt.menu_id = mct.menu_id)
+            menu_tb mt
+            LEFT OUTER JOIN menu_category_tb mct on (mct.menu_id = mt.menu_id)
             LEFT OUTER JOIN category_tb ct on(ct.category_id = mct.category_id)
             LEFT OUTER JOIN menu_detail_tb mdt on(mdt.menu_id = mct.menu_id)
             LEFT OUTER JOIN option_tb ot on(ot.option_id = mdt.option_id)
