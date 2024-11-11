@@ -162,7 +162,7 @@
     </select>
     <select id="getSale" resultType="com.starbucksorder.another_back.dto.admin.response.Sales.RespAdminSaleListDto">
         SELECT
-            IF(#{dateMode}=0, create_date, date_format(create_date,'%Y-%m')) AS date,
+            IF(#{dateMode}=0, DATE(create_date), date_format(create_date,'%Y-%m')) AS date,
             sum(order_state=1) AS totalOrderCount,
             sum(IF(order_state = 1, order_amount,0)) AS totalAmount,
             sum(IF(order_state = 2, order_amount,0)) AS refundAmount,
@@ -171,9 +171,10 @@
             order_tb
         WHERE
             YEAR(create_date) = #{startDate}
-            AND create_date BETWEEN #{startDate} AND #{endDate}
+            AND
+            IF(#{dateType} = 3, DATE(create_date) = DATE(#{startDate}), create_date BETWEEN DATE(#{startDate}) AND DATE(#{endDate}))
         GROUP BY
-            date
+            IF(#{dateMode} = 0, DATE(create_date), DATE_FORMAT(create_date, '%Y-%m'))
         ORDER BY
             date
         LIMIT
@@ -201,9 +202,10 @@
                 order_tb
             WHERE
                 YEAR(create_date) = #{startDate}
-                AND create_date BETWEEN #{startDate} AND #{endDate}
+                AND
+                IF(#{dateType} = 3, DATE(create_date) = DATE(#{startDate}), create_date BETWEEN DATE(#{startDate}) AND DATE(#{endDate}))
             GROUP BY
-                date
+                IF(#{dateMode} = 0, DATE(create_date), DATE_FORMAT(create_date, '%Y-%m'))
         ) AS subquery;
     </select>
 

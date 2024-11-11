@@ -12,7 +12,6 @@ import java.time.LocalDate;
 @AllArgsConstructor
 @NoArgsConstructor
 public class RespAdminSaleListDto {
-    private int totalCount;
     private String date;
     private int totalAmount;
     private int totalOrderCount;

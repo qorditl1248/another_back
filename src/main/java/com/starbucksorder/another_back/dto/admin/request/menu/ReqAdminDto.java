@@ -5,6 +5,7 @@ import lombok.Data;
 
 import javax.validation.constraints.Min;
 import javax.validation.constraints.NotBlank;
+import javax.validation.constraints.NotNull;
 import java.util.List;
 
 // save
@@ -12,7 +13,7 @@ import java.util.List;
 public class ReqAdminDto {
     @NotBlank(message = "빈값일 수 없습니다")
     private String menuName;
-    @NotBlank(message = "가격은 빈값일 수 없습니다")
+    @NotNull(message = "가격은 빈값일 수 없습니다")
     @Min(value = 0,message = "0원 보다 낮을 수 없습니다")
     private int menuPrice;
     private String comment;

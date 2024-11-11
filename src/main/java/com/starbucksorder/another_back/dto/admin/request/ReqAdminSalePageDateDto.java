@@ -29,7 +29,7 @@ public class ReqAdminSalePageDateDto {
 
         // 월 단위(month), 일 단위(day)
 
-        // 0번이 일별, 1 : 월별, 2:연별
+        // 0번이 일별, 1 : 월별, 2:연별 / 3 : 일자가 같은 경우
         int dateType = 0;
         // 공백(시간)을 기준으로 날짜만 추출하는 로직
         String refineStartDate = (startDate != null) ? startDate.split(" ")[0] : null;
@@ -55,6 +55,9 @@ public class ReqAdminSalePageDateDto {
             trStartDate = LocalDate.parse(refineStartDate, dayFormatter);
             trEndDate = LocalDate.parse(refineEndDate, dayFormatter);
             dateType = 0;
+            if(trStartDate.equals(trEndDate)){
+                dateType = 3;
+            }
 
             // 날짜가 연별로 간주
         } else {

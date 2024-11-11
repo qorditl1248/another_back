@@ -26,6 +26,13 @@ public class SalesController {
         return ResponseEntity.ok().body(salesService.getSales(dto));
     }
 
+    @ApiOperation(value = "날짜로 조회")
+    @GetMapping("/sale")
+    public ResponseEntity<?> getSales(String date) {
+        return ResponseEntity.ok().body(null);
+    }
+
+
     @ApiOperation(value = "관리자페이지 접속시 나올 대시보드 매출에관한 전체조회")
     @GetMapping("/manage/{selectYear}/dashboard")
     public ResponseEntity<?> getStatistics(@PathVariable(required = false) String selectYear) {
