@@ -23,7 +23,8 @@ public interface OptionMapper {
     int detailSave(OptionDetail optionDetail);
 
     // 전체 불러오기
-    List<Option> getAll(@Param("startIndex") Long startIndex, @Param("limit") Long limit);
+    List<Option> getAll(Long startIndex, Long limit);
+
     // 전체 갯수 불러오기
     int getCount();
 
@@ -34,7 +35,7 @@ public interface OptionMapper {
     List<Menu> getAllByOptionId(List<Long> optionIds);
 
     // 옵션 삭제
-    int deleteByOptionId(Map<String,Object> map);
+    int deleteByOptionId(Map<String, Object> map);
 
     // 옵션 수정
     int update(Option option);

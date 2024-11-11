@@ -133,7 +133,9 @@ public class MenuService {
         // 메뉴 추가 순차적실행
         menuMapper.save(menu);
         // 옵션 추가
-        menuDetailMapper.save(menu.getMenuId(), dto.getOptionIds());
+        if (dto.getOptionIds().size() > 0) {
+            menuDetailMapper.save(menu.getMenuId(), dto.getOptionIds());
+        }
         if (dto.getCategories() != null) {
             categoryMapper.saveByMenuId(menu.getMenuId(), dto.getCategories());
         }

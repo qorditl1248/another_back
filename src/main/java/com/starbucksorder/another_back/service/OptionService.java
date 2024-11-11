@@ -53,8 +53,8 @@ public class OptionService {
 
     // 옵션 전체 불러오기
     public CMRespAdminDto getAll(ReqAdminPageAndLimitDto dto) {
-        Long startIndex = (dto.getPage()-1) * dto.getLimit();
-        List<RespAdminOptionDto> respAdminOptionDtos = optionMapper.getAll(startIndex,dto.getLimit()).stream().map(Option::toOptionAllDto).collect(Collectors.toList());
+        Long startIndex = (dto.getPage() - 1) * dto.getLimit();
+        List<RespAdminOptionDto> respAdminOptionDtos = optionMapper.getAll(startIndex, dto.getLimit()).stream().map(Option::toOptionAllDto).collect(Collectors.toList());
         return new CMRespAdminDto(optionMapper.getCount(), respAdminOptionDtos);
     }
 

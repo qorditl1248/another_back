@@ -40,7 +40,7 @@ public class Option {
                 .optionId(optionId)
                 .optionName(optionName)
                 .optionStatus(optionStatus)
-                .optionDetail(optionDetail.stream().map(OptionDetail::toDetail).collect(Collectors.toList()))
+//                .optionDetail(optionDetail.stream().map(OptionDetail::toDetail).collect(Collectors.toList()))
                 .build();
     }
 }
