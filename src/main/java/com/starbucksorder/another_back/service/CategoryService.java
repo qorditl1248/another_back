@@ -1,7 +1,10 @@
 package com.starbucksorder.another_back.service;
 
+import com.mysql.cj.x.protobuf.MysqlxCrud;
+import com.starbucksorder.another_back.dto.admin.ReqAdminPageAndLimitDto;
 import com.starbucksorder.another_back.dto.admin.request.category.ReqAdminCategoryDto;
 import com.starbucksorder.another_back.dto.admin.request.category.ReqAdminIncludeMenuByCategoryDto;
+import com.starbucksorder.another_back.dto.admin.response.CMRespAdminDto;
 import com.starbucksorder.another_back.dto.admin.response.category.RespAdminCategoryDto;
 import com.starbucksorder.another_back.dto.admin.response.category.RespAdminOneItems;
 import com.starbucksorder.another_back.dto.user.response.category.RespCategoryDto;
@@ -89,8 +92,10 @@ public class CategoryService {
     }
 
     // 카테고리 전체조회
-    public List<RespAdminCategoryDto> getAllCategories() {
-        return categoryMapper.FindAll().stream().map(Category::toCategories).collect(Collectors.toList());
+    public CMRespAdminDto getAllCategories(ReqAdminPageAndLimitDto dto) {
+        Long startIndex = (dto.getPage() - 1) * dto.getLimit();
+        List<RespAdminCategoryDto> respAdminCategoryDtos = categoryMapper.getAllLimit(startIndex, dto.getLimit()).stream().map(Category::toCategories).collect(Collectors.toList());
+        return new CMRespAdminDto(categoryMapper.getCount(), respAdminCategoryDtos);
     }
 
     // 카테고리id에 해당하는 메뉴 조회

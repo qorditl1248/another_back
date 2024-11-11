@@ -45,4 +45,8 @@ public class SalesService {
         List<RespAdminSaleListDto> respSaleDtos = orderMapper.getSale(dto.toLocalDateTime());
         return new CMRespAdminDto(orderMapper.totalSaleCount(dto.toLocalDateTime()),respSaleDtos);
     }
+
+    public Object getDetail(String date) {
+        return null;
+    }
 }
