@@ -56,7 +56,6 @@ public class MenuController {
     @GetMapping("/admin/menus")
     @ApiOperation(value = "메뉴이름 또는 카테고리에 대한 전체조회, 페이징처리 및 해당하는 전체 갯수보여주기")
     public ResponseEntity<?> getAllMenus(ReqAdminMenuDto dto) {
-        System.out.println("동작됨");
         return ResponseEntity.ok().body(menuService.getAllMenus(dto));
     }
 
