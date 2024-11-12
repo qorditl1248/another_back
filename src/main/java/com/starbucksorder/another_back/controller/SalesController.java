@@ -1,6 +1,5 @@
 package com.starbucksorder.another_back.controller;
 
-import com.starbucksorder.another_back.aspect.annotation.Log;
 import com.starbucksorder.another_back.dto.admin.request.ReqAdminSalePageDateDto;
 import com.starbucksorder.another_back.service.SalesService;
 import io.swagger.annotations.ApiOperation;
@@ -31,11 +30,9 @@ public class SalesController {
         return ResponseEntity.ok().body(salesService.getDetail(date));
     }
 
-
     @ApiOperation(value = "관리자페이지 접속시 나올 대시보드 매출에관한 전체조회")
     @GetMapping("/sales/manage/{selectYear}/dashboard")
     public ResponseEntity<?> getStatistics(@PathVariable(required = false) String selectYear) {
         return ResponseEntity.ok().body(salesService.getStatistics(selectYear));
     }
-
 }
