@@ -1,6 +1,7 @@
 package com.starbucksorder.another_back.repository;
 
 import com.starbucksorder.another_back.dto.admin.response.Sales.RespAdminDashBoard;
+import com.starbucksorder.another_back.dto.admin.response.Sales.RespAdminSaleAndMenusDto;
 import com.starbucksorder.another_back.dto.admin.response.Sales.RespAdminSaleListDto;
 import com.starbucksorder.another_back.dto.admin.response.Sales.RespSaleDto;
 import com.starbucksorder.another_back.entity.Order;
@@ -20,7 +21,7 @@ public interface OrderMapper {
     int updateStatus(Long orderId);
 
     // FIXME: 사용되지 않는 로직인 거 같은데 확인 후 삭제하기
-//    Long findOrderIdByUserId(Long userId);
+    // Long findOrderIdByUserId(Long userId);
 
     // 날짜를 기준으로 order 전체 들고오기
     List<Order> findByDate(Map<String, Object> map);
@@ -46,6 +47,8 @@ public interface OrderMapper {
     Order findOrderById(Long orderId);
 
     List<Integer> getYearCount();
+    // 관리자 총 매출 상세보기
+    List<RespAdminSaleAndMenusDto.wtf> getByDate(Map<String,Object> map);
 
-
+    List<RespAdminSaleAndMenusDto.Menus> getMostMenus(Map<String,Object> map);
 }

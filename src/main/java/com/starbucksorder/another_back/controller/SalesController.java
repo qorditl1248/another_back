@@ -12,16 +12,15 @@ import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RestController;
 
 @RestController
-@RequestMapping("/admin/sales")
+@RequestMapping("/admin")
 public class SalesController {
 
     @Autowired
     private SalesService salesService;
 
     // NOTE: 매출 관련 컨트롤러
-    @Log
     @ApiOperation(value = "매출관리에서의 전체조회")
-    @GetMapping()
+    @GetMapping("/sales")
     public ResponseEntity<?> getSales(ReqAdminSalePageDateDto dto) {
         return ResponseEntity.ok().body(salesService.getSales(dto));
     }
@@ -34,7 +33,7 @@ public class SalesController {
 
 
     @ApiOperation(value = "관리자페이지 접속시 나올 대시보드 매출에관한 전체조회")
-    @GetMapping("/manage/{selectYear}/dashboard")
+    @GetMapping("/sales/manage/{selectYear}/dashboard")
     public ResponseEntity<?> getStatistics(@PathVariable(required = false) String selectYear) {
         return ResponseEntity.ok().body(salesService.getStatistics(selectYear));
     }

@@ -208,5 +208,85 @@
                 IF(#{dateMode} = 0, DATE(create_date), DATE_FORMAT(create_date, '%Y-%m'))
         ) AS subquery;
     </select>
+    <select id="getByDate" resultType="com.starbucksorder.another_back.dto.admin.response.Sales.RespAdminSaleAndMenusDto$wtf">
+<!--        dateType = 0 월별 1 일별-->
+        SELECT
+            'totalAmount' as type,
+            sum(order_amount) AS totalAmount
+        FROM
+            order_tb
+        WHERE
+            order_state = 1
+            AND YEAR(create_date) = YEAR(#{criteriaDate})
+            AND(
+            (#{dateType} = 0 AND MONTH(create_date) = MONTH(#{criteriaDate}))
+            OR
+            (#{dateType} = 1 AND DATE(create_date) = DATE(#{criteriaDate}))
+            )
+            UNION ALL
+        SELECT
+            'cardTotalAmount' AS type,
+            sum(order_amount) AS totalAmount
+        FROM
+            order_tb
+        WHERE
+            payment_type = 1
+            AND order_state = 1
+            AND YEAR(create_date) = YEAR(#{criteriaDate})
+            AND(
+            (#{dateType} = 0 AND MONTH(create_date) = MONTH(#{criteriaDate}))
+            OR
+            (#{dateType} = 1 AND DATE(create_date) = DATE(#{criteriaDate}))
+            )
+            UNION ALL
+        SELECT
+            'complexTotalAmount' as type,
+            sum(order_amount) AS totalAmount
+        FROM
+            order_tb
+        WHERE
+            payment_type != 1
+            AND YEAR(create_date) = YEAR(#{criteriaDate})
+            AND(
+            (#{dateType} = 0 AND MONTH(create_date) = MONTH(#{criteriaDate}))
+            OR
+            (#{dateType} = 1 AND DATE(create_date) = DATE(#{criteriaDate}))
+            )
+            UNION ALL
+        SELECT
+            'refundTotalAmount' AS type,
+            sum(order_amount) AS totalAmount
+        FROM
+            order_tb
+        WHERE
+            order_state = 2
+            AND YEAR(create_date) = YEAR(#{criteriaDate})
+            AND(
+            (#{dateType} = 0 AND MONTH(create_date) = MONTH(#{criteriaDate}))
+            OR
+            (#{dateType} = 1 AND DATE(create_date) = DATE(#{criteriaDate}))
+            )
+    </select>
+
+    <select id="getMostMenus" resultType="com.starbucksorder.another_back.dto.admin.response.Sales.RespAdminSaleAndMenusDto$Menus">
+        SELECT
+            mt.menu_name AS menuName,
+            sum(odt.quantity) AS totalQuantity
+        FROM
+            order_tb ot
+            INNER JOIN order_detail_tb odt on (odt.order_id = ot.order_id)
+            INNER JOIN menu_tb mt on (mt.menu_id = odt.menu_id)
+        WHERE
+            YEAR(ot.create_date) = YEAR(#{criteriaDate})
+        AND(
+            (#{dateType} = 0 AND MONTH(ot.create_date) = MONTH(#{criteriaDate}))
+        OR
+            (#{dateType} = 1 AND DATE(ot.create_date) = DATE(#{criteriaDate}))
+            )
+        GROUP BY
+            mt.menu_id
+        ORDER BY totalQuantity DESC
+        LIMIT 5
+    </select>
 
 </mapper>
