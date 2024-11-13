@@ -104,8 +104,8 @@
             mt.update_date as updateDate,
             mt.img_url as imgUrl
         from
-            menu_tb as mt
-            left outer join menu_category_tb mct on (mt.menu_id = mct.menu_id)
+            menu_category_tb mct
+            left outer join menu_tb as mt on (mct.menu_id = mt.menu_id)
             left outer join category_tb ct on (mct.category_id = ct.category_id)
         where
             mct.category_id = #{categoryId}

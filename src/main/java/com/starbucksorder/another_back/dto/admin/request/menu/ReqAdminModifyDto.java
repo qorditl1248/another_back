@@ -12,7 +12,6 @@ public class ReqAdminModifyDto {
     private Long menuId;
     @NotBlank(message = "메뉴이름은 빈값일 수 없습니다")
     private String menuName;
-    @NotBlank(message = "가격은 빈값일 수 없습니다")
     @Min(value = 0,message = "0원 보다 낮을 수 없습니다")
     private Integer menuPrice;
     private String imgUrl;
